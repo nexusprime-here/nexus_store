@@ -1,0 +1,19 @@
+.row-overflow {
+	display: flex;
+	flex-direction: row;
+	width: 320px;
+	height: 110px;
+	border-top: solid .2px white;
+	border-bottom: solid .2px white;
+}
+
+.row-overflow::after {
+	content: attr(data-after);
+	position: relative;
+	left: 40px;
+	top: -10px;
+	font-size: smaller;
+	font-weight: 200;
+	background-color: black;
+	padding: 0 10px;
+}
