@@ -1,0 +1,37 @@
+.container {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	transition: .5s;
+}
+
+.ul {
+	background-color: rgb(var(--foreground-rgb));
+	list-style-type: none;
+	padding: 5px 0;
+	border-radius: 8px;
+	display: flex;
+	text-align: center;
+	justify-content: space-around;
+}
+
+.li {
+	transition: .2s;
+	height: 42px;
+	width: 42px;
+	color: rgb(var(--background-end-rgb))
+}
+
+.li p {
+	color: currentColor;
+	font-size: 10px;
+}
+
+.li:active {
+	transition: .2s;
+	background-color: rgb(213, 213, 213);
+	border-radius: 5px;
+}
