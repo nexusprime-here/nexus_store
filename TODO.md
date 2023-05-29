@@ -1,7 +1,0 @@
-- [x] Barra de Navegação
-- [ ] Home
-- [ ] Página de Produto
-  - [ ] api GET produto
-  - [ ] api POST produto
-  - [x] design
-- [ ] Checkout
