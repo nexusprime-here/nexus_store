@@ -1,20 +1,18 @@
-'use client';
-
-import React from "react";
+import type { Product } from "@prisma/client";
+import Item from "./item";
 import "./styles.css";
 
-const Section: React.FC<{ name: string }> = ({ name }) => {
-	const rowRef = React.useRef<HTMLDivElement>(null);
-
-	React.useEffect(() => {
-		rowRef.current?.setAttribute('data-after', name)
-	}, []);
+function Collection({ name, items }: { name: string, items: Product[] }) {
+	const mappedItems = items.map((i) => <Item key={i.id} data={i} />);
 
 	return (
-		<div ref={rowRef} className="row-overflow">
-
+		<div style={{ flexShrink: 0 }}>
+			<p className="title"><span>{name}</span></p>
+			<div className="row-overflow">
+				{mappedItems}
+			</div>
 		</div>
 	)
-}
+};
 
-export default Section;
+export default Collection;

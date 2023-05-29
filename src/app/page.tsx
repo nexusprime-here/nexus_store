@@ -1,10 +1,17 @@
 import styles from "./page.module.css";
-import { CiBitcoin } from 'react-icons/ci'
-import { BsX } from 'react-icons/bs'
+import { CiBitcoin } from "react-icons/ci";
+import { BsX } from "react-icons/bs";
 
-import Collection from '../components/Collection'
+import Collection from "../components/Collection";
+import prisma from "@root/utils/prisma";
 
 export default async function Home() {
+	const products = await prisma.product.findMany({
+		where: {
+			collection: "mais_vendidos",
+		},
+	});
+
 	return (
 		<>
 			<header className={styles.header}>
@@ -15,17 +22,27 @@ export default async function Home() {
 
 				<BsX size={35} />
 
-				<div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
 					<CiBitcoin size={85} />
 				</div>
 			</header>
 
 			<div className={styles.content}>
-				<p>Seja bem vindo! Entregamos vários tipos de produtos na escola Adventista de Cotia</p>
+				<p>Seja bem vindo!</p>
+				<p>
+					Entregamos vários tipos de produtos na escola Adventista de Cotia,
+					você pode comprar em qualquer horário e receber na semana das 6:45 à
+					13:20
+				</p>
 			</div>
 
-			<Collection name="Mais Vendidos" />
-			<Collection name="Mais Vendidos2" />
+			<Collection name="Mais Vendidos" items={products} />
 		</>
 	);
 }

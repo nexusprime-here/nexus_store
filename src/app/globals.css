@@ -87,6 +87,21 @@ a {
 	text-decoration: none;
 }
 
+button {
+	width: 70%;
+	height: 35px;
+	color: black;
+	background-color: white;
+	border: none;
+	border-radius: 5px;
+}
+
+button:active {
+	background-color: black;
+	border: solid 1px white;
+	color: white;
+}
+
 @media (prefers-color-scheme: white) {
 	html {
 		color-scheme: dark;

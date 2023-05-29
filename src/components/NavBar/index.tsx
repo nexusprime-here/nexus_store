@@ -22,9 +22,8 @@ const NavBar: React.FC = () => {
 		<div className={S.container}>
 			<ul className={S.ul}>
 				<NavItem name="Início" href="/" icon="IoHomeOutline" />
-				<NavItem name="Produtos" href="/produtos" icon="IoBagHandleOutline" />
-				<NavItem name="Sobre" href="/about" icon="IoInformationCircleOutline" />
-				<NavItem name="Perfil" href="/perfil" icon="IoPersonOutline" />
+				<NavItem name="Produtos" href="/products" icon="IoBagHandleOutline" />
+				<NavItem name="Lovemail" href="/lovemail" icon="IoHeartOutline" />
 			</ul>
 		</div>
 	);

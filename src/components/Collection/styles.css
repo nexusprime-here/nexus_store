@@ -1,19 +1,54 @@
 .row-overflow {
 	display: flex;
 	flex-direction: row;
+	overflow-x: auto;
 	width: 320px;
-	height: 110px;
-	border-top: solid .2px white;
-	border-bottom: solid .2px white;
+	height: 200px;
+	margin-bottom: 3rem;
+	padding: 10px 0;
+	-ms-overflow-style: none;
 }
 
-.row-overflow::after {
-	content: attr(data-after);
-	position: relative;
-	left: 40px;
-	top: -10px;
-	font-size: smaller;
+.row-overflow::-webkit-scrollbar {
+	display: none;
+	/* Chrome, Safari, and Opera */
+}
+
+.product-item {
+	flex-shrink: 0;
+	width: 120px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	margin-right: 1rem;
+}
+
+.product-item>img {
+	min-height: 120px;
+	width: 120px;
+	border-radius: 8px;
+}
+
+.product-item>p {
+	text-align: center;
+	margin-top: 5px;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid white;
+	line-height: 0.1em;
+	margin: 10px 0 20px;
+	font-size: small;
 	font-weight: 200;
-	background-color: black;
+}
+
+.title span {
+	background: black;
 	padding: 0 10px;
+}
+
+h2 {
+	margin: 2rem 0;
 }

@@ -23,7 +23,7 @@
 			"@root/*": ["./src/*"],
 			"@schemas/*": ["./src/schemas/*"],
 			"@components/*": ["./src/components/*"],
-			"@database": ["./src/database/index.ts"]
+			"@utils/*": ["./src/utils/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

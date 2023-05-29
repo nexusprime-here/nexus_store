@@ -1,19 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import s from './page.module.css'
+import prisma from "@root/utils/prisma";
+import s from "./page.module.css";
 
 export default async function Product({ params }: { params: { id: string } }) {
-	const request = await fetch(`http://localhost:3000/api/products?id=${params.id}`, {
-		method: "GET",
-	})
+	const product = await prisma.product.findUnique({
+		where: {
+			id: parseInt(params.id),
+		},
+	});
 
-	if (!request.ok) {
-		throw request.status;
+	if (!product) {
+		throw 'Product not found';
 	}
 
-	const product = await request.json()
 	const formatter = new Intl.NumberFormat("pt-BR", {
-		style: 'currency',
-		currency: 'BRL'
+		style: "currency",
+		currency: "BRL",
 	});
 
 	return (
@@ -29,5 +31,5 @@ export default async function Product({ params }: { params: { id: string } }) {
 			</div>
 			<button>Comprar</button>
 		</div>
-	)
-} 
+	);
+}

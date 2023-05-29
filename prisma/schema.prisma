@@ -15,5 +15,6 @@ model Product {
   name String
   description String
   price Float
-  iconURL String 
+  iconURL String
+  collection String?
 }

@@ -6,21 +6,6 @@
 	padding: 50px 0 0 0;
 }
 
-.safeArea>button {
-	width: 70%;
-	height: 35px;
-	color: black;
-	background-color: white;
-	border: none;
-	border-radius: 5px;
-}
-
-.safeArea>button:active {
-	background-color: black;
-	border: solid 1px white;
-	color: white;
-}
-
 .safeArea>h3 {
 	text-align: center;
 }
