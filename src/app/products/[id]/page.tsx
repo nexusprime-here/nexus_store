@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import prisma from "@utils/prisma";
-import Image from 'next/image';
 import "./styles.css";
 
 export default async function Product({ params }: { params: { id: string } }) {
@@ -23,7 +22,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 		<div className="safeArea">
 			<h3>{product.name}</h3>
 			<div className="productImg">
-				{/* <Image src={product.iconURL} alt="" width={500} height={500} /> */}
+				<img src={product.iconURL} alt="" />
 			</div>
 			<p>{product.description}</p>
 			<div className="priceArea" style={{ width: "100%" }}>

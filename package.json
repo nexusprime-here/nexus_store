@@ -9,7 +9,8 @@
 		"vercel-build": "prisma generate && prisma migrate deploy && next build"
 	},
 	"devDependencies": {
-		"prisma": "^4.14.1"
+		"prisma": "^4.14.1",
+		"vercel": "^30.0.0"
 	},
 	"dependencies": {
 		"@prisma/client": "4.14.1",
