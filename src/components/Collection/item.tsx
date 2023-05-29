@@ -3,17 +3,14 @@
 "use client";
 
 import type { Product } from "@prisma/client";
+import Link from 'next/link';
 
 const Item: React.FC<{ data: Product }> = ({ data }) => {
-	const handleClick = () => {
-		location.href = `/products/${data.id}`;
-	};
-
 	return (
-		<div className="product-item" onTouchEnd={handleClick}>
+		<Link href={`/products/${data.id}`} className="product-item">
 			<img src={data.iconURL} />
 			<p>{data.name}</p>
-		</div>
+		</Link>
 	);
 };
 

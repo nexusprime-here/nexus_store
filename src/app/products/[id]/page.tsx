@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import prisma from "@root/utils/prisma";
-import s from "./page.module.css";
+import prisma from "@utils/prisma";
+import "./styles.css";
 
 export default async function Product({ params }: { params: { id: string } }) {
 	const product = await prisma.product.findUnique({
@@ -19,13 +19,13 @@ export default async function Product({ params }: { params: { id: string } }) {
 	});
 
 	return (
-		<div className={s.safeArea}>
+		<div className="safeArea">
 			<h3>{product.name}</h3>
-			<div className={s.productImg}>
+			<div className="productImg">
 				<img src={product.iconURL} alt="" />
 			</div>
 			<p>{product.description}</p>
-			<div className={s.priceArea} style={{ width: "100%" }}>
+			<div className="priceArea" style={{ width: "100%" }}>
 				<h2>{formatter.format(product.price)}</h2>
 				<p>Somente pix</p>
 			</div>

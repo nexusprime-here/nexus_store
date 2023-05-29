@@ -9,7 +9,7 @@
 }
 
 .ul {
-	background-color: white;
+	background-color: rgb(var(--foreground-rgb));
 	list-style-type: none;
 	padding: 5px 0;
 	border-radius: 8px;
@@ -22,6 +22,12 @@
 	transition: .2s;
 	height: 42px;
 	width: 42px;
+	color: rgb(var(--background-end-rgb))
+}
+
+.li p {
+	color: currentColor;
+	font-size: 10px;
 }
 
 .li:active {

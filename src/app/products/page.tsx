@@ -18,7 +18,7 @@ export default async function Produtos() {
 
 	return (
 		<>
-			<h2>Produtos</h2>
+			<h2 style={{ margin: "2rem 0" }}>Produtos</h2>
 			<div style={{ paddingBottom: 30 }}>
 				<Collection name="Mais Vendidos" items={mostSelled} />
 				<Collection name="Novos" items={news} />

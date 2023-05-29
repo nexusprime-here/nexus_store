@@ -2,8 +2,8 @@ import styles from "./page.module.css";
 import { CiBitcoin } from "react-icons/ci";
 import { BsX } from "react-icons/bs";
 
-import Collection from "../components/Collection";
-import prisma from "@root/utils/prisma";
+import Collection from "@components/Collection";
+import prisma from "@utils/prisma";
 
 export default async function Home() {
 	const products = await prisma.product.findMany({
