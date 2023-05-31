@@ -5,12 +5,16 @@ import { BsX } from "react-icons/bs";
 import Collection from "@components/Collection";
 import prisma from "@utils/prisma";
 
-export default async function Home() {
-	const products = await prisma.product.findMany({
+function fetchProducts() {
+	return prisma.product.findMany({
 		where: {
 			collection: "mais_vendidos",
 		},
 	});
+}
+
+export default async function Home() {
+	const products = await fetchProducts();
 
 	return (
 		<>
