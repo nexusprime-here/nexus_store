@@ -1,24 +1,8 @@
-'use client';
-
 import type React from "react";
-import Link from 'next/link';
-import * as icons from 'react-icons/io5';
 import S from "./styles.module.css";
+import NavItem from "./NavItem";
 
-const NavItem: React.FC<{ icon: keyof typeof icons, href: string, name: string }> = ({ icon, href, name }) => {
-	const Icon = icons[icon];
-
-	return (
-		<li className={S.li}>
-			<Link href={href}>
-				<Icon size={25} />
-				<p>{name}</p>
-			</Link>
-		</li>
-	)
-}
-
-const NavBar: React.FC = () => {
+function NavBar() {
 	return (
 		<div className={S.container}>
 			<ul className={S.ul}>

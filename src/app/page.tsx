@@ -4,9 +4,10 @@ import { BsX } from "react-icons/bs";
 
 import Collection from "@components/Collection";
 import prisma from "@utils/prisma";
+import { headers } from "next/dist/client/components/headers";
 
-function fetchProducts() {
-	return prisma.product.findMany({
+async function fetchProducts() {
+	return await prisma.product.findMany({
 		where: {
 			collection: "mais_vendidos",
 		},
@@ -14,6 +15,8 @@ function fetchProducts() {
 }
 
 export default async function Home() {
+	headers();
+
 	const products = await fetchProducts();
 
 	return (

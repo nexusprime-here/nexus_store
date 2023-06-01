@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import prisma from "@utils/prisma";
 import "./styles.css";
+import { notFound } from "next/navigation";
 
 export default async function Product({ params }: { params: { id: string } }) {
 	const product = await prisma.product.findUnique({
@@ -10,7 +11,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 	});
 
 	if (!product) {
-		throw 'Product not found';
+		return notFound()
 	}
 
 	const formatter = new Intl.NumberFormat("pt-BR", {
