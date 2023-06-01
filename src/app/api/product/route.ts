@@ -1,14 +1,8 @@
 import Product from "@schemas/Product";
 import prisma from "@utils/prisma";
 import { NextResponse } from "next/server";
-import { revalidatePath } from 'next/cache';
 
 const hasAuthorization = (req: Request) => req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
-const revalidatePaths = () => {
-	revalidatePath('/');
-	revalidatePath('/products');
-}
-
 
 export async function GET(req: Request) {
 	if (!hasAuthorization(req)) {
@@ -55,8 +49,6 @@ export async function POST(req: Request) {
 			}
 		});
 
-		revalidatePaths();
-
 		return NextResponse.json({
 			id: product.id
 		});
@@ -83,8 +75,6 @@ export async function DELETE(req: Request) {
 		}
 	});
 
-	revalidatePaths();
-
 	return NextResponse.json(deletedProduct);
 }
 
@@ -108,8 +98,6 @@ export async function PATCH(req: Request) {
 		},
 		data: { ...body }
 	});
-
-	revalidatePaths();
 
 	return NextResponse.json(updatedProduct);
 }
