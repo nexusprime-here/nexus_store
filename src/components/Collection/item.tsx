@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Item: React.FC<{ data: Product }> = ({ data }) => {
 	return (
-		<Link prefetch={true} href={`/products/${data.id}`} className="product-item">
+		<Link prefetch={false} href={`/products/${data.id}`} className="product-item">
 			<img src={data.iconURL} alt={`img: ${data.name}`} />
 			<p>{data.name}</p>
 		</Link>

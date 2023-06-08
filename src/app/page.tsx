@@ -5,6 +5,7 @@ import { BsX } from "react-icons/bs";
 import Collection from "@components/Collection";
 import prisma from "@utils/prisma";
 import { headers } from "next/dist/client/components/headers";
+import gerencianet from "@utils/gerencianet";
 
 async function fetchProducts() {
 	return await prisma.product.findMany({

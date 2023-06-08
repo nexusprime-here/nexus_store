@@ -2,6 +2,7 @@
 import prisma from "@utils/prisma";
 import "./styles.css";
 import { notFound } from "next/navigation";
+import Actions from "./actions";
 
 export default async function Product({ params }: { params: { id: string } }) {
 	const product = await prisma.product.findUnique({
@@ -11,7 +12,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 	});
 
 	if (!product) {
-		return notFound()
+		return notFound();
 	}
 
 	const formatter = new Intl.NumberFormat("pt-BR", {
@@ -30,7 +31,8 @@ export default async function Product({ params }: { params: { id: string } }) {
 				<h2>{formatter.format(product.price)}</h2>
 				<p>Somente pix</p>
 			</div>
-			<button>Comprar</button>
+
+			<Actions productId={product.id} />
 		</div>
 	);
 }

@@ -18,5 +18,6 @@ export default z.object({
 			.string()
 			.length(1)
 	}),
-	productId: z.string()
+	productId: z.string(),
+	quantity: z.number().int()
 });
