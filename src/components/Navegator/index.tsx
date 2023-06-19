@@ -1,29 +1,19 @@
 import type React from "react";
 import Link from "next/link";
-
 import * as Icons from 'react-icons/io5';
 import Search from '@components/Search';
 
-type NavLinkObj = { name: string, href: string, icon: keyof typeof Icons, separatedOnMobile?: boolean }
+import navLinks from './links';
 
 function Navegator() {
-	const navLinks: NavLinkObj[] = [
-		{ name: 'Início', href: "/", icon: "IoHomeOutline" },
-		{ name: "Buscar", href: '#search', icon: "IoSearchOutline" },
-		{ name: "Produtos", href: '/products', icon: "IoBagHandleOutline" },
-		{ name: "Rastrear", href: '/track', icon: "IoMapOutline" },
-		{ name: "Fale Conosco", href: '/products', icon: "IoChatbubblesOutline", separatedOnMobile: true }
-	]
-
 	return (
-		<div className="fixed bottom-0 left-0 w-full md:relative text-black">
+		<div className="fixed bottom-0 left-0 w-full sm:relative text-black">
 			{/* For Desktops */}
 			<div className={`
-				hidden md:flex h-16
-				bg-[rgb(var(--foreground-rgb))] list-none
-				flex-row justify-around items-center
+				list-none h-16 bg-[rgb(var(--foreground-rgb))]
+				hidden sm:flex flex-row justify-around items-center
 			`}>
-				{navLinks.map(n => {
+				{navLinks.filter(n => !n.onlyMobile).map(n => {
 					return (
 						<Link
 							prefetch
@@ -39,12 +29,11 @@ function Navegator() {
 				<Search />
 			</div>
 
-			{/* Mobile Only */}
+			{/* For Mobile */}
 			<div className={`
-				md:hidden h-14
-				bg-[rgb(var(--foreground-rgb))] list-none
-				m-3.5 py-[5px] rounded-xl
-				flex flex-row justify-around
+				list-none bg-[rgb(var(--foreground-rgb))]
+				h-14 m-3.5 py-[5px] rounded-xl
+				sm:hidden flex flex-row justify-around
 			`}>
 				{navLinks.filter(n => !n.separatedOnMobile).map(n => {
 					const Icon = Icons[n.icon];

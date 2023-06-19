@@ -1,8 +1,6 @@
 function Search() {
 	return (
-		<div className={`
-			md:hidden md:focus:relative md:focus:h-full
-		`}>
+		<div className='hidden sm:block sm:focus:relative sm:focus:h-full'>
 			<input type="text" />
 		</div>
 	)
