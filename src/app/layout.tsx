@@ -1,7 +1,8 @@
 import "../globals.css";
-import { Inter } from "next/font/google";
 
-import NavBar from "@components/NavBar";
+import { Inter } from "next/font/google";
+import Navegator from "@components/Navegator";
+import MobileHeader from "@components/MobileHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +18,13 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pt-br">
-			<body className={inter.className} style={{ transition: '.5s' }} suppressHydrationWarning={true}>
-				<div style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center" }}>
+			<body className={inter.className} suppressHydrationWarning={true}>
+				<MobileHeader />
+				<Navegator />
+
+				<div className="h-screen flex-col items-center">
 					{children}
 				</div>
-				<NavBar />
 			</body>
 		</html>
 	);
