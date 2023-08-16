@@ -3,36 +3,42 @@ export default <NavLinkObj[]>[
 		name: 'Início',
 		href: "/",
 		icon: "IoHomeOutline",
-		onlyMobile: true
+		platform: 'mobile',
+		location: 'bottom'
 	},
 	{
 		name: "Buscar",
-		href: '#search',
+		href: '/',
 		icon: "IoSearchOutline",
-		onlyMobile: true
+		platform: 'mobile',
+		location: 'header'
 	},
 	{
 		name: "Produtos",
 		href: '/products',
-		icon: "IoBagHandleOutline"
-	},
-	{
-		name: "Rastrear",
-		href: '/track',
-		icon: "IoMapOutline"
+		icon: "IoBagHandleOutline",
+		location: 'bottom'
 	},
 	{
 		name: "Fale Conosco",
 		href: '/contact',
 		icon: "IoChatbubblesOutline",
-		separatedOnMobile: true
+		location: 'header'
 	}
 ]
 
-interface NavLinkObj {
-	name: string,
-	href: string,
-	icon: keyof typeof import('react-icons/io5'),
-	separatedOnMobile?: boolean,
-	onlyMobile?: boolean
-}
+type NavLinkObj =
+	| {
+		name: string,
+		href: string,
+		icon: keyof typeof import('react-icons/io5'),
+		platform?: 'desktop',
+		location: never
+	}
+	| {
+		name: string,
+		href: string,
+		icon: keyof typeof import('react-icons/io5'),
+		platform?: 'mobile' | 'all',
+		location: 'header' | 'bottom'
+	}

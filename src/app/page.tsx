@@ -5,24 +5,23 @@ import { BsX } from "react-icons/bs";
 import Collection from "@components/Collection";
 import prisma from "@utils/prisma";
 import { headers } from "next/dist/client/components/headers";
-import gerencianet from "@utils/gerencianet";
 
-// async function fetchProducts() {
-// 	return await prisma.product.findMany({
-// 		where: {
-// 			collection: "mais_vendidos",
-// 		},
-// 	});
-// }
+async function fetchProducts() {
+	return await prisma.product.findMany({
+		where: {
+			collection: "mais_vendidos",
+		},
+	});
+}
 
 export default async function Home() {
 	headers();
 
-	// const products = await fetchProducts();
+	const products = await fetchProducts();
 
 	return (
 		<>
-			{/* <header className={styles.header}>
+			<header className={styles.header}>
 				<div style={{ textAlign: "center" }}>
 					<h6>Lojinha do</h6>
 					<h1>Nexus</h1>
@@ -50,7 +49,7 @@ export default async function Home() {
 				</p>
 			</div>
 
-			<Collection name="Mais Vendidos" items={products} /> */}
+			<Collection name="Mais Vendidos" items={products} />
 		</>
 	);
 }
