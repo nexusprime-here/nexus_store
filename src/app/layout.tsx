@@ -1,8 +1,8 @@
-import * as nav from "@root/navegation";
 import "../globals.css";
 import { Inter } from "next/font/google";
 import SearchInput from "@components/Search";
-import { CartProvider } from "@root/context/CartContext";
+import { CartProvider } from "@context/CartContext";
+import * as nav from "@utils/navegation";
 
 const inter = Inter({ subsets: ["latin"] });
 

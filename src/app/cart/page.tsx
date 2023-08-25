@@ -1,37 +1,40 @@
 'use client';
 
-import useCart from "@context/CartContext"
-import { Product } from "@prisma/client";
-import prisma from "@root/utils/prisma";
-import Image from "next/image";
+import fetchProductsById from "./fetchProducts";
+import { useContext, useEffect, useState, JSX } from "react";
+import CartContext, { CartItem } from "@context/CartContext";
+import Product from "./product";
 
-export default async function Cart() {
-	const { cart } = useCart();
-	const products = await prisma.product.findMany({
-		where: { id: { in: cart.map(i => i.productId) } },
-	})
+export default function Cart() {
+	const [products, setProducts] = useState<JSX.Element[]>([]);
+	const { cart } = useContext(CartContext);
+
+	useEffect(() => {
+		const productsId = cart.map(i => i.productId);
+
+		fetchProductsById(productsId).then(products => {
+			setProducts(products.map(product => {
+				const quantity = (cart.find(i => i.productId == product.id) as CartItem).quantity;
+				
+				return <Product value={{...product, quantity }} key={product.id}/>
+			}));
+		});
+	}, [cart]);
 	
+
 	return <>
 		<div className="flex flex-col mx-12  items-center">
 			<h1 className="text-center">Seu carrinho</h1>
 			<button className="mt-5">Finalizar Compra</button>
 		</div>
 
-		<div>{ 
-			cart
-				.map(async i => {
-					const product = products.find(p => p.id == i.productId) as Product;
-					
-					return (
-						<div className="flex flex-row" key={product.id}>
-							<Image src={product.iconURL} alt={product.name}/>
-							<div>
-								<p>{product.description}</p>
-							</div>
-							<p>{product.price}</p>
-						</div>
-					)
-				})
-		}</div>
+		<ul className="mt-10 mx-4 space-y-3">
+			<p className="text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
+			{ 
+				products.length < 1 
+					? <p>Carregando...</p>
+					: products
+			}
+		</ul>
 	</>
 }

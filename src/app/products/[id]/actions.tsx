@@ -1,12 +1,12 @@
 'use client';
 
-import useCart from "@context/CartContext";
+import CartContext from "@context/CartContext";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 
 function Actions({ productId }: { productId: number }) {
 	const [quantity, setQuantity] = React.useState(1);
-	const { addItemToCart, deleteItemFromCart, cart } = useCart();
+	const { addItemToCart, deleteItemFromCart, cart } = useContext(CartContext);
 
 	const handleQuantityChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setQuantity(parseInt(e.target.value));
