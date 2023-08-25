@@ -32,13 +32,10 @@ export default async function Produtos() {
 	const { mostSelled, news, all } = await fetchProducts();
 
 	return (
-		<>
-			<h2 style={{ margin: "2rem 0" }}>Produtos</h2>
-			<div style={{ paddingBottom: 30 }}>
-				<Collection name="Mais Vendidos" items={mostSelled} />
-				<Collection name="Novos" items={news} />
-				<Collection name="Todos" items={all} />
-			</div>
-		</>
+		<div className="pb-4 space-y-8">
+			<Collection name="Mais Vendidos" items={mostSelled} />
+			<Collection name="Novos" items={news} />
+			<Collection name="Todos" items={all} />
+		</div>
 	)
 }
