@@ -95,9 +95,9 @@ a {
 
 button {
 	width: 70%;
-	height: 35px;
+	height: 2.5rem;
 	color: rgb(var(--background-end-rgb));
-	background-color: rgb(var(--foreground-rgb));
+	background-color: rgb(var(--font-rgb));
 	border: none;
 	border-radius: 5px;
 }
@@ -121,6 +121,10 @@ input:active {
 	background-color: rgb(var(--background-end-rgb));
 	border: solid 1px rgb(var(--foreground-rgb));
 	color: rgb(var(--foreground-rgb));
+}
+
+h1 {
+	@apply text-xl
 }
 
 .box {

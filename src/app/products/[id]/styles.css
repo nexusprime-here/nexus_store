@@ -1,5 +1,5 @@
 .safeArea {
-	width: 80%;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -12,6 +12,7 @@
 
 .safeArea>p {
 	font-size: small;
+	margin: 0 2rem;
 	text-align: center;
 	height: 100px;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import prisma from "@utils/prisma";
 import "./styles.css";
+import prisma from "@utils/prisma";
 import { notFound } from "next/navigation";
 import Actions from "./actions";
 
@@ -18,7 +18,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 	const formatter = new Intl.NumberFormat("pt-BR", {
 		style: "currency",
 		currency: "BRL",
-	});
+	})
 
 	return (
 		<div className="safeArea">

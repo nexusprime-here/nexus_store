@@ -23,7 +23,9 @@
 			"@root/*": ["./src/*"],
 			"@schemas/*": ["./src/schemas/*"],
 			"@components/*": ["./src/components/*"],
-			"@utils/*": ["./src/utils/*"]
+			"@utils/*": ["./src/utils/*"],
+			"@hooks/*": ["./src/hooks/*"],
+			"@context/*": ["./src/context/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

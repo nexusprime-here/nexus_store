@@ -24,6 +24,13 @@ const links = [
 		location: 'bottom'
 	},
 	{
+		name: "Carrinho",
+		href: "/cart",
+		icon: "IoCartOutline",
+		platform: "all",
+		location: "bottom"
+	},
+	{
 		name: "Fale Conosco",
 		href: '/contact',
 		icon: "IoChatbubblesOutline",

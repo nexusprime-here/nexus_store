@@ -1,16 +1,20 @@
 'use client';
 
+import useCart from "@context/CartContext";
+import { redirect } from "next/navigation";
 import React from "react";
 
 function Actions({ productId }: { productId: number }) {
-	const [quantity, setQuantity] = React.useState<string>('1');
-
-	const handleButtonClick = () => {
-		location.href = `/checkout?pid=${productId}&q=${quantity}`;
-	}
+	const [quantity, setQuantity] = React.useState(1);
+	const { addItemToCart, deleteItemFromCart, cart } = useCart();
 
 	const handleQuantityChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		setQuantity(e.target.value);
+		setQuantity(parseInt(e.target.value));
+	}
+
+	const handleBtnClick = () => {
+		addItemToCart({productId, quantity});
+		redirect('/cart')
 	}
 
 	return (
@@ -21,7 +25,7 @@ function Actions({ productId }: { productId: number }) {
 					<input type="number" min={1} value={quantity} onChange={handleQuantityChange} />
 				</div>
 			</div>
-			<button onClick={handleButtonClick}>Comprar</button>
+			<button onClick={handleBtnClick}>Adicionar ao Carrinho</button>
 		</>
 	)
 }

@@ -2,6 +2,7 @@ import * as nav from "@root/navegation";
 import "../globals.css";
 import { Inter } from "next/font/google";
 import SearchInput from "@components/Search";
+import { CartProvider } from "@root/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +15,18 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<html lang="pt-br">
 			<body className={inter.className} suppressHydrationWarning={true}>
-				<MobileHeader />
+				<CartProvider>
+					<MobileHeader />
 
-				<div className="fixed bottom-0 left-0 w-full sm:relative">
-					<DesktopNavbar />
-					<MobileBottomBar />
-				</div>
+					<div className="fixed bottom-0 left-0 w-full sm:relative">
+						<DesktopNavbar />
+						<MobileBottomBar />
+					</div>
 
-				<div className="h-screen flex-col items-center">
-					{children}
-				</div>
+					<div className="h-screen flex-col items-center">
+						{children}
+					</div>
+				</CartProvider>
 			</body>
 		</html >
 	);
