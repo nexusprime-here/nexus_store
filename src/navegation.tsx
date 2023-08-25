@@ -53,7 +53,7 @@ export const mobile = {
 
 			return (
 				<Link prefetch href={n.href} key={n.href}
-					className='flex flex-col items-center justify-center rounded h-[45px] w-[45px]'
+					className='flex flex-col items-center justify-center rounded h-[45px] w-[45px] text-[--font-rgb]'
 				>
 					<Icon size={25} />
 					<p className="text-current text-[10px] font-extralight">{n.name}</p>
