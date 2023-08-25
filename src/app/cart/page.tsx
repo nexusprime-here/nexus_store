@@ -7,7 +7,7 @@ import Product from "./product";
 
 export default function Cart() {
 	const [products, setProducts] = useState<JSX.Element[]>([]);
-	const { cart } = useContext(CartContext);
+	const { cart, deleteItemFromCart } = useContext(CartContext);
 
 	useEffect(() => {
 		const productsId = cart.map(i => i.productId);
@@ -15,12 +15,21 @@ export default function Cart() {
 		fetchProductsById(productsId).then(products => {
 			setProducts(products.map(product => {
 				const quantity = (cart.find(i => i.productId == product.id) as CartItem).quantity;
-				
-				return <Product value={{...product, quantity }} key={product.id}/>
+
+				return <Product
+					value={{ ...product, quantity }}
+					key={product.id}
+					onDelete={(ref) => {
+						// const newCartItems = cart.filter((cartItem) => cartItem.productId !== product.id);
+						// localStorage.setItem("cart", JSON.stringify(newCartItems));
+
+						deleteItemFromCart(product.id);
+					}}
+				/>
 			}));
 		});
 	}, [cart]);
-	
+
 
 	return <>
 		<div className="flex flex-col mx-12  items-center">
@@ -30,8 +39,8 @@ export default function Cart() {
 
 		<ul className="mt-10 mx-4 space-y-3">
 			<p className="text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
-			{ 
-				products.length < 1 
+			{
+				products.length < 1
 					? <p>Carregando...</p>
 					: products
 			}

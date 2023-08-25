@@ -1,10 +1,11 @@
 'use client';
 
 import CartContext from "@context/CartContext";
-import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import React, { useContext } from "react";
 
 function Actions({ productId }: { productId: number }) {
+	const router = useRouter();
 	const [quantity, setQuantity] = React.useState(1);
 	const { addItemToCart, deleteItemFromCart, cart } = useContext(CartContext);
 
@@ -14,7 +15,7 @@ function Actions({ productId }: { productId: number }) {
 
 	const handleBtnClick = () => {
 		addItemToCart({productId, quantity});
-		redirect('/cart')
+		router.push('/cart')
 	}
 
 	return (

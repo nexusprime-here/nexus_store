@@ -9,6 +9,8 @@
 		"vercel-build": "prisma generate && next build"
 	},
 	"devDependencies": {
+		"@types/react-beautiful-dnd": "^13.1.4",
+		"@types/react-swipeable-views": "^0.13.2",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.24",
 		"prisma": "^4.14.1",
@@ -27,7 +29,9 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-icons": "^4.8.0",
+		"react-swipeable-views": "^0.14.0",
 		"sqlite3": "^5.1.6",
+		"tailwind-merge": "^1.14.0",
 		"typescript": "5.0.4",
 		"vercel": "^30.1.0",
 		"zod": "^3.21.4"
