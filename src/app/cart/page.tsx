@@ -4,9 +4,11 @@ import fetchProductsById from "./fetchProducts";
 import { useContext, useEffect, useState, JSX } from "react";
 import CartContext, { CartItem } from "@context/CartContext";
 import Product from "./product";
+import { AiOutlineLoading as Loading } from "react-icons/ai";
 
 export default function Cart() {
 	const [products, setProducts] = useState<JSX.Element[]>([]);
+	const [loading, setLoading] = useState(true);
 	const { cart, deleteItemFromCart } = useContext(CartContext);
 
 	useEffect(() => {
@@ -19,14 +21,12 @@ export default function Cart() {
 				return <Product
 					value={{ ...product, quantity }}
 					key={product.id}
-					onDelete={(ref) => {
-						// const newCartItems = cart.filter((cartItem) => cartItem.productId !== product.id);
-						// localStorage.setItem("cart", JSON.stringify(newCartItems));
-
+					onDelete={() => {
 						deleteItemFromCart(product.id);
 					}}
 				/>
 			}));
+			setLoading(false);
 		});
 	}, [cart]);
 
@@ -37,12 +37,16 @@ export default function Cart() {
 			<button className="mt-5">Finalizar Compra</button>
 		</div>
 
-		<ul className="mt-10 mx-4 space-y-3">
-			<p className="text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
-			{
-				products.length < 1
-					? <p>Carregando...</p>
-					: products
+		<p className="mt-10 text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
+
+		<ul className="mt-10 mx-4 space-y-2	min-h-[30%] flex flex-col">
+			{loading
+				? <div className="flex-grow flex items-center justify-center">
+					<Loading className="animate-spin" size={30} />
+				</div>
+				: products.length > 1
+					? products
+					: <p className="text-center px-5">Você ainda não adicionou nenhum produto ao seu carrinho</p>
 			}
 		</ul>
 	</>

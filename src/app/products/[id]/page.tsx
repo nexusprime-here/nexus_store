@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import "./styles.css";
 import prisma from "@utils/prisma";
 import { notFound } from "next/navigation";
 import Actions from "./actions";
@@ -21,18 +20,16 @@ export default async function Product({ params }: { params: { id: string } }) {
 	})
 
 	return (
-		<div className="safeArea">
-			<h3>{product.name}</h3>
-			<div className="productImg">
-				<img src={product.iconURL} alt="" />
-			</div>
-			<p>{product.description}</p>
-			<div className="priceArea" style={{ width: "100%" }}>
+		<>
+			<img className="h-60 w-full object-contain bg-white rounded" src={product.iconURL} />
+
+			<div className="mx-8 mt-5 flex items-center justify-center">
+				<h1 className="font-semibold">{product.name}</h1>
 				<h2>{formatter.format(product.price)}</h2>
-				<p>Somente pix</p>
 			</div>
+			<p className="mx-7 mt-5 h-32 font-light">{product.description}</p>
 
 			<Actions productId={product.id} />
-		</div>
+		</>
 	);
 }

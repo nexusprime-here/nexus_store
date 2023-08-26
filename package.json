@@ -9,7 +9,6 @@
 		"vercel-build": "prisma generate && next build"
 	},
 	"devDependencies": {
-		"@types/react-beautiful-dnd": "^13.1.4",
 		"@types/react-swipeable-views": "^0.13.2",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.24",
