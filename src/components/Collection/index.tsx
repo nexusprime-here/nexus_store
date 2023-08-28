@@ -5,7 +5,6 @@ import Item from "./item";
 import { AiOutlineLoading } from "react-icons/ai";
 import fetchProducts from "./fetch";
 import "./styles.css";
-import { Product } from "@prisma/client";
 import { cachedProducts, toSnakeCase } from "./CachedProducts";
 
 function Loading() {

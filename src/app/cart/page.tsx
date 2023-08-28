@@ -24,12 +24,17 @@ export default function Cart() {
 			<button className="mt-5">Finalizar Compra</button>
 		</div>
 
-		<p className="mt-10 text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
 
 		<ul className="mt-10 mx-4 space-y-2	min-h-[30%] flex flex-col">
 			{
 				products.length > 0
-					? products
+					? <>
+						<p className=" text-center text-xs text-[rgba(var(--font-rgb),0.4)]">
+							Arraste o produto para a esquerda para excluir
+						</p>
+
+						{products}
+					</>
 					: <p className="text-center px-5">Você ainda não adicionou nenhum produto ao seu carrinho</p>
 			}
 		</ul>

@@ -2,7 +2,7 @@ import { Product } from "@prisma/client";
 
 export const cachedProducts = {
 	get(name: string): Product[] {
-		const collection = globalThis.localStorage.getItem(`collection:${toSnakeCase(name)}`);
+		const collection = globalThis?.localStorage?.getItem(`collection:${toSnakeCase(name)}`);
 
 		return collection ? JSON.parse(collection) : [];
 	},
