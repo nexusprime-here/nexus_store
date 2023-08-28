@@ -38,7 +38,7 @@ function Collection({ name, all }: { name: string, all?: boolean }) {
 	React.useEffect(() => {
 		fetchProducts(all ? undefined : toSnakeCase(name)).then(products => {
 			cachedProducts.set(name, products);
-			setItems(products.map(p => <Item data={p} />));
+			setItems(products.map(p => <Item data={p} key={p.id} />));
 			setLoading(false);
 		})
 	}, []);
