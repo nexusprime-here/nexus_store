@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 				description: productData.description,
 				iconURL: productData.iconURL,
 				price: productData.price,
-				collection: productData.collection
+				collections: productData.collections
 			}
 		});
 

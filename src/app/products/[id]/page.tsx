@@ -23,13 +23,13 @@ export default async function Product({ params }: { params: { id: string } }) {
 		<>
 			<img className="h-60 w-full object-contain bg-white rounded" src={product.iconURL} />
 
-			<div className="mx-8 mt-5 flex items-center justify-center">
+			<div className="mx-8 mt-5 flex items-center justify-between">
 				<h1 className="font-semibold">{product.name}</h1>
 				<h2>{formatter.format(product.price)}</h2>
 			</div>
 			<p className="mx-7 mt-5 h-32 font-light">{product.description}</p>
 
-			<Actions productId={product.id} />
+			<Actions product={product} />
 		</>
 	);
 }

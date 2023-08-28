@@ -5,5 +5,5 @@ export default z.object({
 	description: z.string(),
 	price: z.number(),
 	iconURL: z.string().url(),
-	collection: z.string().optional(),
+	collections: z.array(z.string()),
 });

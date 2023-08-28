@@ -1,10 +1,11 @@
 "use client";
 
+import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { createContext, useState, useEffect, ReactNode } from "react";
 
 export interface CartItem {
-	productId: number;
+	product: Omit<Product, 'collection'>;
 	quantity: number;
 }
 
@@ -14,7 +15,7 @@ interface CartContextType {
 	deleteItemFromCart: (productId: number) => void;
 }
 
-const CartContext = createContext<CartContextType | CartContextType>({  // Defina um valor padrão aqui
+const CartContext = createContext<CartContextType>({  // Defina um valor padrão aqui
 	cart: [],
 	addItemToCart: () => { },
 	deleteItemFromCart: () => { },
@@ -47,7 +48,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 	const addItemToCart = (item: CartItem) => {
 		const existingItemIndex = cart.findIndex(
-			(cartItem) => cartItem.productId === item.productId
+			(cartItem) => cartItem.product.id === item.product.id
 		);
 
 		let newCartItems: CartItem[];
@@ -64,7 +65,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	};
 
 	const deleteItemFromCart = (productId: number) => {
-		const newCartItems = cart.filter((cartItem) => cartItem.productId !== productId);
+		const newCartItems = cart.filter((cartItem) => cartItem.product.id !== productId);
 
 		localStorage.setItem("cart", JSON.stringify(newCartItems));
 		setCartToState();

@@ -1,10 +1,11 @@
 'use client';
 
 import CartContext from "@context/CartContext";
+import { Product } from "@prisma/client";
 import { useRouter } from 'next/navigation';
 import React, { useContext } from "react";
 
-function Actions({ productId }: { productId: number }) {
+function Actions({ product }: { product: Product }) {
 	const router = useRouter();
 
 	const [quantity, setQuantity] = React.useState(1);
@@ -12,7 +13,11 @@ function Actions({ productId }: { productId: number }) {
 
 
 	const handleBtnClick = () => {
-		addItemToCart({ productId, quantity });
+		addItemToCart({
+			product: {
+				...product
+			}, quantity
+		});
 		router.push('/cart')
 	}
 
