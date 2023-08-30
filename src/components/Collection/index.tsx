@@ -35,7 +35,7 @@ function Collection({ name, all }: { name: string, all?: boolean }) {
 	const [items, setItems] = React.useState<React.JSX.Element[]>(cached);
 
 	React.useEffect(() => {
-		if (cached) {
+		if (cached.length > 0) {
 			return;
 		}
 
