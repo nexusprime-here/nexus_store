@@ -1,6 +1,6 @@
 'use server';
 
-import prisma from "@root/utils/prisma";
+import prisma from "@utils/prisma";
 
 function fetchProducts(collection?: string) {
 	return prisma.product.findMany(collection
@@ -9,9 +9,9 @@ function fetchProducts(collection?: string) {
 				collections: {
 					has: collection
 				}
-			}
+			},
 		}
-		: undefined
+		: undefined,
 	)
 }
 

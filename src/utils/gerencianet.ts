@@ -8,4 +8,21 @@ const gerencianet = new Gerencianet({
 	certificate: path.resolve(process.cwd() + '/cert/producao.p12'),
 });
 
+export async function createPix(devedor: { cpf: string, nome: string }, valor: string) {
+	const response = await gerencianet.pixCreateImmediateCharge([],
+		{
+			calendario: {
+				expiracao: 3600,
+			},
+			chave: process.env.EFI_KEY,
+			devedor: devedor,
+			valor: {
+				original: valor
+			}
+		}
+	)
+
+	return gerencianet.pixGenerateQRCode({ id: response.loc.id });
+}
+
 export default gerencianet;

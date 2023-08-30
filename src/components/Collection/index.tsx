@@ -1,10 +1,10 @@
 'use client'
 
+import "./styles.css";
 import React from "react";
 import Item from "./item";
 import { AiOutlineLoading } from "react-icons/ai";
 import fetchProducts from "./fetch";
-import "./styles.css";
 import { cachedProducts, toSnakeCase } from "./CachedProducts";
 
 function Loading() {
@@ -35,6 +35,10 @@ function Collection({ name, all }: { name: string, all?: boolean }) {
 	const [items, setItems] = React.useState<React.JSX.Element[]>(cached);
 
 	React.useEffect(() => {
+		if (cached) {
+			return;
+		}
+
 		fetchProducts(all ? undefined : toSnakeCase(name)).then(products => {
 			cachedProducts.set(name, products);
 			setItems(products.map(p => <Item data={p} key={p.id} />));

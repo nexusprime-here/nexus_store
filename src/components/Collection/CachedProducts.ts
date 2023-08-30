@@ -2,12 +2,12 @@ import { Product } from "@prisma/client";
 
 export const cachedProducts = {
 	get(name: string): Product[] {
-		const collection = globalThis?.localStorage?.getItem(`collection:${toSnakeCase(name)}`);
+		const collection = globalThis?.sessionStorage?.getItem(`collection:${toSnakeCase(name)}`);
 
 		return collection ? JSON.parse(collection) : [];
 	},
 	set(name: string, products: Product[]) {
-		localStorage.setItem(`collection:${toSnakeCase(name)}`, JSON.stringify(products));
+		sessionStorage.setItem(`collection:${toSnakeCase(name)}`, JSON.stringify(products));
 	}
 }
 

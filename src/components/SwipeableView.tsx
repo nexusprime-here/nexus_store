@@ -44,7 +44,7 @@ const SwipeableView: React.FC<Props> = ({ className, onDelete, onEdit, children 
 			<div
 				className="h-full flex justify-center items-center bg-red-500 text-lg"
 			>
-				Deletar
+				Excluir
 			</div>
 			<div>{children}</div>
 			{/* <div
