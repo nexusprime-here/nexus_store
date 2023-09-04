@@ -4,9 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoIosClose as CloseIcon } from 'react-icons/io'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import Err from '@utils/Err';
-import { createPix } from '@root/utils/gerencianet';
-import Input from '@root/components/Input';
+import { createPix } from '@utils/gerencianet';
+import Input from '@components/Input';
 
 interface IProps {
 	open: boolean,
@@ -16,12 +15,12 @@ interface IProps {
 
 const schema = z.object({
 	name: z.string()
-		.min(2, 'Seu nome é muito pequeno, é seu mesmo?')
+		.min(2, 'Nome muito pequeno ou inexistente')
 		.regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/, 'Que isso? apenas letras por favor!')
 		.regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?: [a-zA-ZÀ-ÖØ-öø-ÿ]+)+$/, 'Quase lá! Só faltou seu sobrenome.'),
 
 	cpf: z.string()
-		.regex(/^\d{11}$/, 'CPF inválido')
+		.regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido')
 })
 
 type FormInput = z.infer<typeof schema>;
@@ -40,6 +39,10 @@ function Checkout({ open, onChangeOpen, price }: IProps) {
 
 	const formatToCPF = (value: string) => {
 		value = value.replace(/\D/g, '');
+
+		if (value.length > 11) {
+			value = value.substring(0, 11);
+		}
 
 		value = value.replace(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/, function (match, g1, g2, g3, g4) {
 			var result = (g1 || '') + (g2 ? '.' + g2 : '') + (g3 ? '.' + g3 : '') + (g4 ? '-' + g4 : '');
@@ -85,10 +88,15 @@ function Checkout({ open, onChangeOpen, price }: IProps) {
 						{...register('cpf')}
 					/>
 
-					{/* <Input
-						label='Ano'
-						format={formatYear}
-					/> */}
+					<div className='flex space-x-3'>
+						<Input
+							label='Ano'
+							format={formatYear}
+						/>
+						<Input
+							label='Sala'
+						/>
+					</div>
 				</div>
 
 				<button className='w-full'>Gerar Chave Pix</button>

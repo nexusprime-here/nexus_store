@@ -27,9 +27,11 @@ const Input = React.forwardRef<Ref, Props>(({ format, onChange, value, ...props 
 				ref={ref}
 				value={content}
 				onChange={e => handleChange(e)}
+				data-error={!!props.error}
+				className='border-[1px] data-[error=true]:border-red-500 data-[error=true]:border-solid'
 				{...props}
 			/>
-			{!!props.error && <p>{props.error.message}</p>}
+			{!!props.error && <p className='text-red-500 text-xs'>{props.error.message}</p>}
 		</div>
 	)
 })
