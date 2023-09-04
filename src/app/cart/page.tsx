@@ -24,8 +24,10 @@ export default function Cart() {
 		setCheckoutOpen(true);
 	}
 
+	const totalPrice = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+
 	return <>
-		<Checkout open={checkoutOpen} onChangeOpen={() => setCheckoutOpen(v => !v)} />
+		<Checkout open={checkoutOpen} onChangeOpen={() => setCheckoutOpen(v => !v)} price={totalPrice} />
 
 		<div className="flex flex-col mx-12 items-center">
 			<h1 className="text-center">Seu carrinho</h1>
@@ -36,9 +38,7 @@ export default function Cart() {
 			>
 				Finalizar Compra
 			</button>
-			{products.length > 0 && <h3 className="text-center mt-4">Total: {formatToBRL(
-				cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0)
-			)}</h3>}
+			{products.length > 0 && <h3 className="text-center mt-4">Total: {formatToBRL(totalPrice)}</h3>}
 		</div>
 
 

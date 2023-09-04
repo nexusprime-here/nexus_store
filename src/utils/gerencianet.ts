@@ -1,12 +1,17 @@
+'use server'
+
 import path from 'path';
 import Gerencianet from 'gn-api-sdk-typescript';
+import { existsSync } from 'fs';
 
 const gerencianet = new Gerencianet({
-	sandbox: false,
+	sandbox: true,
 	client_id: process.env.EFI_CLIENT_ID as string,
 	client_secret: process.env.EFI_SECRET as string,
 	certificate: path.resolve(process.cwd() + '/cert/producao.p12'),
 });
+
+console.log(existsSync(process.cwd() + '/cert/producao.p12'))
 
 export async function createPix(devedor: { cpf: string, nome: string }, valor: string) {
 	const response = await gerencianet.pixCreateImmediateCharge([],
@@ -24,5 +29,3 @@ export async function createPix(devedor: { cpf: string, nome: string }, valor: s
 
 	return gerencianet.pixGenerateQRCode({ id: response.loc.id });
 }
-
-export default gerencianet;

@@ -117,12 +117,9 @@ button:active {
 }
 
 input {
-	width: 70%;
-	height: 35px;
-	color: rgb(var(--background-end-rgb));
+	color: rgb(var(--font-rgb));
 	background-color: rgb(var(--foreground-rgb));
-	border: none;
-	border-radius: 5px;
+	@apply w-full h-[35px] border-none rounded pl-4;
 }
 
 input:active {
