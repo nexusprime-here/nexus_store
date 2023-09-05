@@ -36,4 +36,6 @@ const Input = React.forwardRef<Ref, Props>(({ format, onChange, value, ...props 
 	)
 })
 
+Input.displayName = 'Input'
+
 export default Input;
