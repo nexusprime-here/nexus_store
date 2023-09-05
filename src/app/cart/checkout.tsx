@@ -20,7 +20,13 @@ const schema = z.object({
 		.regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?: [a-zA-ZÀ-ÖØ-öø-ÿ]+)+$/, 'Quase lá! Só faltou seu sobrenome.'),
 
 	cpf: z.string()
-		.regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido')
+		.regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
+
+	ano: z.string()
+		.min(1, 'Digite o ano'),
+
+	sala: z.string()
+		.min(1, 'Digite a letra da sala')
 })
 
 type FormInput = z.infer<typeof schema>;
@@ -52,11 +58,12 @@ function Checkout({ open, onChangeOpen, price }: IProps) {
 		return value;
 	}
 
-	const formatYear = (value: string) => {
-		console.log({ value })
-		value = value.replace(/\D/g, '');
+	const formatToAno = (value: string) => {
+		return value[0]?.replace(/[a-zA-ZÀ-ÿ.,;!?'"()\[\]\{\}]/g, '');
+	}
 
-		return value?.[0];
+	const formatToSala = (value: string) => {
+		return value[0]?.toUpperCase().replace(/[À-ÿ0-9.,;!?'"()\[\]\{\}]/g, '');
 	}
 
 	return (
@@ -85,16 +92,24 @@ function Checkout({ open, onChangeOpen, price }: IProps) {
 						label='CPF'
 						error={errors.cpf}
 						format={formatToCPF}
+						placeholder='000.000.000-00'
 						{...register('cpf')}
 					/>
 
 					<div className='flex space-x-3'>
 						<Input
 							label='Ano'
-							format={formatYear}
+							error={errors.ano}
+							placeholder='2'
+							format={formatToAno}
+							{...register('ano')}
 						/>
 						<Input
 							label='Sala'
+							error={errors.sala}
+							placeholder='A'
+							format={formatToSala}
+							{...register('sala')}
 						/>
 					</div>
 				</div>
