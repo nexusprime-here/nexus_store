@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource postgresql {
+    provider = "sqlite"
+    url      = env("PRISMA_URL") // uses connection pooling
+}
+
+model Product {
+    id          Int          @id @default(autoincrement())
+    name        String
+    description String
+    price       Float
+    icon        String
+    collections Collection[]
+}
+
+model Collection {
+    name     String    @id
+    products Product[]
+}

@@ -1,0 +1,43 @@
+{
+	"name": "nexus_store",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"vercel-build": "prisma generate && next build",
+		"migrate:dev": "dotenv -e .env.development -- prisma migrate dev",
+		"studio:dev": "dotenv -e .env.development -- prisma studio"
+	},
+	"devDependencies": {
+		"@types/react-swipeable-views": "^0.13.2",
+		"autoprefixer": "^10.4.14",
+		"dotenv-cli": "^7.3.0",
+		"postcss": "^8.4.24",
+		"prisma": "^5.2.0",
+		"tailwindcss": "^3.3.2"
+	},
+	"dependencies": {
+		"@hookform/resolvers": "^3.3.1",
+		"@prisma/client": "4.14.1",
+		"@types/node": "20.2.3",
+		"@types/react": "18.2.6",
+		"@types/react-dom": "18.2.4",
+		"eslint": "8.41.0",
+		"eslint-config-next": "13.4.3",
+		"gn-api-sdk-typescript": "^2.0.1",
+		"next": "13.4.3",
+		"prettier-plugin-tailwindcss": "^0.3.0",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-hook-form": "^7.45.4",
+		"react-icons": "^4.8.0",
+		"react-swipeable-views": "^0.14.0",
+		"sqlite3": "^5.1.6",
+		"tailwind-merge": "^1.14.0",
+		"typescript": "5.0.4",
+		"vercel": "^30.1.0",
+		"zod": "^3.21.4"
+	}
+}
