@@ -35,3 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 yarn.lock
+package-lock.json
+.env.production
+
+prisma/prod.db

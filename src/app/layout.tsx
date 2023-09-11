@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<MobileBottomBar />
 					</div>
 
-					<div className="h-screen flex-col items-center mt-16"> {/* Adicione mt-16 para ajustar o conteúdo abaixo do cabeçalho */}
+					<div className="h-screen flex-col items-center mt-16">
 						{children}
 					</div>
 				</CartProvider>
@@ -31,31 +31,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 function MobileHeader() {
 	return (
-		<div className="fixed top-0 w-full h-16 bg-black z-10">
+		<header className="fixed top-0 w-full h-16 bg-black z-10">
 			<div className="sm:hidden static h-16 flex flex-row items-center justify-evenly">
 				<p className="text-xl">Nexus Store</p>
 				{nav.mobile.header}
 			</div>
-		</div>
+		</header>
 	);
 }
 
 function DesktopNavbar() {
 	return (
-		<div className='box h-20 border-b-[1px] hidden sm:flex flex-row justify-around items-center'>
-			<div className='w-1/3 flex justify-evenly'>
+		<header className='box h-20 border-b-[1px] hidden sm:flex flex-row justify-around items-center'>
+			<nav className='w-1/3 flex justify-evenly'>
 				{nav.desktop}
-			</div>
+			</nav>
 
 			<SearchInput />
-		</div>
+		</header>
 	);
 }
 
 function MobileBottomBar() {
 	return (
-		<div className='box h-14 border-[1px] m-3.5 py-[5px] rounded-xl sm:hidden flex flex-row justify-around'>
+		<nav className='box h-14 border-[1px] m-3.5 py-[5px] rounded-xl sm:hidden flex flex-row justify-around'>
 			{nav.mobile.bottom}
-		</div>
+		</nav>
 	);
 }

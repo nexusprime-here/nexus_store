@@ -1,7 +1,22 @@
-import React from "react";
-import type { Product } from "@prisma/client";
-import Item from "./item";
+'use client'
+
 import "./styles.css";
+import React from "react";
+import Item from "./item";
+import { AiOutlineLoading } from "react-icons/ai";
+import fetchProducts from "./fetch";
+import { cachedProducts } from "./CachedProducts";
+
+function Loading() {
+	return (
+		<div className="w-full flex items-center justify-center">
+			<AiOutlineLoading
+				className="animate-spin"
+				size={35}
+			/>
+		</div>
+	)
+}
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
 	return (
@@ -13,19 +28,36 @@ const Separator: React.FC<{ name: string }> = ({ name }) => {
 	)
 }
 
-function Collection({ name, items }: { name: string, items: Product[] }) {
-	const mappedItems = items.map((i) => <Item key={i.id} data={i} />);
+function Collection({ name, all }: { name: string, all?: boolean }) {
+	const cached = cachedProducts.get(name).map(p => <Item data={p} key={p.id} />)
 
-	return mappedItems.length > 0
-		? (
-			<div style={{ flexShrink: 0 }}>
+	const [loading, setLoading] = React.useState(cached.length < 1);
+	const [items, setItems] = React.useState<React.JSX.Element[]>(cached);
+
+	React.useEffect(() => {
+		if (cached.length > 0) {
+			return;
+		}
+
+		fetchProducts(all ? undefined : name).then(products => {
+			cachedProducts.set(name, products);
+			setItems(products.map(p => <Item data={p} key={p.id} />));
+			setLoading(false);
+		})
+	}, [all, cached.length, name]);
+
+	return !loading && items.length < 1
+		? <></>
+		: (
+			<div className="flex-shrink-0 h-52">
 				<Separator name={name} />
+
 				<div className="row-overflow">
-					{mappedItems}
+					{loading && <Loading />}
+					{items}
 				</div>
 			</div>
-		)
-		: <></>;
+		);
 };
 
 export default Collection;

@@ -47,30 +47,27 @@
 	--background-end-rgb: 9, 9, 9;
 
 	--primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-	--secondary-glow: linear-gradient(
-		to bottom right,
-		rgba(1, 65, 255, 0),
-		rgba(1, 65, 255, 0),
-		rgba(1, 65, 255, 0.3)
-	);
+	--secondary-glow: linear-gradient(to bottom right,
+			rgba(1, 65, 255, 0),
+			rgba(1, 65, 255, 0),
+			rgba(1, 65, 255, 0.3));
 
 	--tile-start-rgb: 2, 13, 46;
 	--tile-end-rgb: 2, 5, 19;
-	--tile-border: conic-gradient(
-		#ffffff80,
-		#ffffff40,
-		#ffffff30,
-		#ffffff20,
-		#ffffff10,
-		#ffffff10,
-		#ffffff80
-	);
+	--tile-border: conic-gradient(#ffffff80,
+			#ffffff40,
+			#ffffff30,
+			#ffffff20,
+			#ffffff10,
+			#ffffff10,
+			#ffffff80);
 
 	--callout-rgb: 20, 20, 20;
 	--callout-border-rgb: 108, 108, 108;
 	--card-rgb: 100, 100, 100;
 	--card-border-rgb: 200, 200, 200;
 }
+
 /* } */
 
 * {
@@ -89,12 +86,9 @@ body {
 
 body {
 	color: rgb(var(--font-rgb));
-	background: linear-gradient(
-			to bottom,
+	background: linear-gradient(to bottom,
 			transparent,
-			rgb(var(--background-end-rgb))
-		)
-		rgb(var(--background-start-rgb));
+			rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {
@@ -111,6 +105,11 @@ button {
 	@apply text-sm;
 }
 
+button:disabled {
+	background-color: rgba(var(--font-rgb), .4);
+	pointer-events: none;
+}
+
 button:active {
 	background-color: rgb(var(--background-end-rgb));
 	border: solid 1px rgb(var(--foreground-rgb));
@@ -118,12 +117,9 @@ button:active {
 }
 
 input {
-	width: 70%;
-	height: 35px;
-	color: rgb(var(--background-end-rgb));
+	color: rgb(var(--font-rgb));
 	background-color: rgb(var(--foreground-rgb));
-	border: none;
-	border-radius: 5px;
+	@apply w-full h-[35px] border-none rounded pl-4;
 }
 
 input:active {

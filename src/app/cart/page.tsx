@@ -1,53 +1,69 @@
 'use client';
 
-import fetchProductsById from "./fetchProducts";
-import { useContext, useEffect, useState, JSX } from "react";
-import CartContext, { CartItem } from "@context/CartContext";
+import { useContext, useState } from "react";
+import CartContext from "@context/CartContext";
 import Product from "./product";
-import { AiOutlineLoading as Loading } from "react-icons/ai";
+import Checkout from "./checkout";
+import formatter from "@root/utils/formatter";
 
 export default function Cart() {
-	const [products, setProducts] = useState<JSX.Element[]>([]);
-	const [loading, setLoading] = useState(true);
 	const { cart, deleteItemFromCart } = useContext(CartContext);
+	const [checkoutOpen, setCheckoutOpen] = useState(false);
 
-	useEffect(() => {
-		const productsId = cart.map(i => i.productId);
+	const products = cart.map(
+		item => <Product
+			value={{ ...item.product, quantity: item.quantity }}
+			key={item.product.id}
+			onDelete={() => {
+				deleteItemFromCart(item.product.id);
+			}}
+		/>
+	);
 
-		fetchProductsById(productsId).then(products => {
-			setProducts(products.map(product => {
-				const quantity = (cart.find(i => i.productId == product.id) as CartItem).quantity;
+	const handleClick = () => {
+		setCheckoutOpen(true);
+	}
 
-				return <Product
-					value={{ ...product, quantity }}
-					key={product.id}
-					onDelete={() => {
-						deleteItemFromCart(product.id);
-					}}
-				/>
-			}));
-			setLoading(false);
-		});
-	}, [cart]);
-
+	const totalPrice = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
 
 	return <>
-		<div className="flex flex-col mx-12  items-center">
-			<h1 className="text-center">Seu carrinho</h1>
-			<button className="mt-5">Finalizar Compra</button>
-		</div>
+		<Checkout
+			open={checkoutOpen}
+			onChangeOpen={() => setCheckoutOpen(v => !v)}
+			price={totalPrice}
+		/>
 
-		<p className="mt-10 text-center text-xs text-[rgba(var(--font-rgb),0.4)]">Arraste o produto para a esquerda para excluir</p>
+		{products.length > 0 &&
+			<div className="mt-20 mb-8">
+				<h1 className="text-center font-semibold text-2xl">
+					Seu carrinho
+				</h1>
 
-		<ul className="mt-10 mx-4 space-y-2	min-h-[30%] flex flex-col">
-			{loading
-				? <div className="flex-grow flex items-center justify-center">
-					<Loading className="animate-spin" size={30} />
+				<div className="flex mx-5 my-5 items-center justify-around">
+					<button className="w-[50%]" onClick={handleClick}>
+						Finalizar Compra
+					</button>
+					<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
 				</div>
-				: products.length > 1
-					? products
-					: <p className="text-center px-5">Você ainda não adicionou nenhum produto ao seu carrinho</p>
-			}
-		</ul>
+
+				<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
+					<>
+						<span className=" text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
+							Arraste o produto para a direita para excluir
+						</span>
+
+						{products}
+					</>
+				</ul>
+			</div>
+		}
+
+		{false &&
+			<div className="mt-5">
+				<h1 className="text-center font-semibold text-2xl">
+					Processados
+				</h1>
+			</div>
+		}
 	</>
 }
