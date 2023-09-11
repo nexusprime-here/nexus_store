@@ -2,30 +2,40 @@
 
 import path from 'path';
 import Gerencianet from 'gn-api-sdk-typescript';
-import { existsSync } from 'fs';
 
-const gerencianet = new Gerencianet({
+const certPath = process.env.NODE_ENV == 'development'
+	? '/cert/development.p12'
+	: '/cert/producao.p12'
+
+const gn = new Gerencianet({
 	sandbox: true,
 	client_id: process.env.EFI_CLIENT_ID as string,
 	client_secret: process.env.EFI_SECRET as string,
-	certificate: path.resolve(process.cwd() + '/cert/producao.p12'),
+	certificate: path.resolve(process.cwd() + certPath),
 });
 
-console.log(existsSync(process.cwd() + '/cert/producao.p12'))
-
-export async function createPix(devedor: { cpf: string, nome: string }, valor: string) {
-	const response = await gerencianet.pixCreateImmediateCharge([],
+export async function createPix(obj: { cpf: string, nome: string, valor: number }) {
+	const response = await gn.pixCreateImmediateCharge([],
 		{
 			calendario: {
 				expiracao: 3600,
 			},
-			chave: process.env.EFI_KEY,
-			devedor: devedor,
+			devedor: {
+				nome: obj.nome,
+				cpf: obj.cpf
+			},
 			valor: {
-				original: valor
-			}
+				original: parseFloat(obj.valor as any).toFixed(2)
+			},
+			chave: process.env.EFI_KEY,
 		}
 	)
 
-	return gerencianet.pixGenerateQRCode({ id: response.loc.id });
+	return <PixObj>gn.pixGenerateQRCode({ id: response.loc.id });
+}
+
+export type PixObj = {
+	imagemQrcode: string,
+	linkVisualizacao: string,
+	qrcode: string
 }

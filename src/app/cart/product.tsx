@@ -4,8 +4,8 @@ import type { Product } from "@prisma/client";
 import SwipeableView from "@components/SwipeableView";
 import Link from "next/link";
 import SwipeableViews from "react-swipeable-views";
-import formatToBRL from "@utils/formatToBRL";
 import Image from 'next/image';
+import formatter from "@root/utils/formatter";
 
 interface Props {
 	value: Omit<Product, 'collection'> & { quantity: number }
@@ -24,7 +24,7 @@ function Product({ value, onDelete }: Props) {
 				href={`/products/${value.id}`}
 			>
 				<Image
-					src={Buffer.from(value.icon).toString('base64')}
+					src={`data:image/jpeg;base64,${value.icon}`}
 					alt={value.name}
 					height={70}
 					width={70}
@@ -32,11 +32,11 @@ function Product({ value, onDelete }: Props) {
 				/>
 				<div className="flex-1">
 					<h2 className="text-sm">{value.name}</h2>
-					{value.quantity > 1 && <p className="text-xs font-light">{value.quantity} unidades de {formatToBRL(value.price)}</p>}
+					{value.quantity > 1 && <p className="text-xs font-light">{value.quantity} unidades de {formatter.brl(value.price)}</p>}
 				</div>
 				<div className="w-[20%]">
 					<h3>
-						{formatToBRL(value.price * value.quantity)}
+						{formatter.brl(value.price * value.quantity)}
 					</h3>
 				</div>
 			</Link>

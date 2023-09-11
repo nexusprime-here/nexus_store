@@ -39,11 +39,14 @@ export async function POST(req: Request) {
 	try {
 		const productData = Product.parse(await req.json());
 
+		const iconResponse = await fetch(productData.iconURL);
+		const icon = Buffer.from(await iconResponse.arrayBuffer()).toString('base64');
+
 		const product = await prisma.product.create({
 			data: {
 				name: productData.name,
 				description: productData.description,
-				icon: Buffer.from(productData.iconURL, 'binary').toString(),
+				icon,
 				price: productData.price,
 				collections: {
 					connectOrCreate: productData.collections.map(c => ({
