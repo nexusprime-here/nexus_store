@@ -19,20 +19,20 @@ export default async function Home() {
 
 	return (
 		<>
-			<div className="mx-10 mb-10 mt-5">
+			<div className="mx-10 mb-10 mt-5 font-light">
 				<p>Bem vindo ao Nexus Store!</p>
 				<p>Entregamos doces, salgados e materiais escolares no colégio em horário de aula ou de intervalo.</p>
 				<br />
 				<p>Você pode entrar em contato conosco clicando no ícone de chat no canto superior direito!</p>
 			</div>
-			
+
 			<Collection name="Mais Vendidos" items={products} />
 
-			<Link 
-				className="mx-10 mt-8 flex items-center justify-center" 
+			<Link
+				className="mx-10 mt-8 flex items-center justify-center"
 				href={'https://www.instagram.com/nexusprime_here/'}
 			>
-				<InstagramIcon size={30}/>
+				<InstagramIcon size={30} />
 				<p className="text-lg ml-1 font-light underline">nexusprime_here</p>
 			</Link>
 		</>
