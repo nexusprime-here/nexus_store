@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type { Product } from "@prisma/client";
@@ -22,7 +21,7 @@ const Item: React.FC<{ data: Product }> = ({ data }) => {
 				height={120}
 				alt={`img: ${data.name}`}
 			/>
-			<p className="text-center mt-1">{data.name}</p>
+			<span className="text-center mt-1">{data.name}</span>
 		</Link>
 	);
 };

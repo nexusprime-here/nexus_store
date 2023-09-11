@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import CartContext from "@context/CartContext";
 import Product from "./product";
 import Checkout from "./checkout";
-import formatter from "@root/utils/formatter";
+import formatter from "@utils/formatter";
+import Button from "@components/Button";
 
 export default function Cart() {
 	const { cart, deleteItemFromCart } = useContext(CartContext);
@@ -40,9 +41,12 @@ export default function Cart() {
 				</h1>
 
 				<div className="flex mx-5 my-5 items-center justify-around">
-					<button className="w-[50%]" onClick={handleClick}>
-						Finalizar Compra
-					</button>
+					<Button
+						onClick={handleClick}
+						placeholder="Finalizar Compra"
+						className="w-[50%]"
+					/>
+
 					<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
 				</div>
 

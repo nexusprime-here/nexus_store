@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { PixObj, createPix } from '@utils/gerencianet';
 import Input from '@components/Input';
+import Button from '@components/Button';
 import CheckoutSchema from '@schemas/Checkout'
 import formatter from '@root/utils/formatter';
 import { useState } from 'react';
@@ -20,7 +21,7 @@ interface IProps {
 type FormInput = z.infer<typeof CheckoutSchema>;
 
 function Form({ form: { formState, register } }: { form: UseFormReturn<FormInput, any, undefined> }) {
-	const { errors } = formState;
+	const { errors, isSubmitting } = formState;
 
 	return <>
 		<div className='flex flex-col space-y-5'>
@@ -63,12 +64,15 @@ function Form({ form: { formState, register } }: { form: UseFormReturn<FormInput
 			</div>
 		</div>
 
-		<button className='w-full'>Gerar Chave Pix</button>
+		<Button
+			className='w-full'
+			placeholder='Gerar chave pix'
+			loading={isSubmitting}
+		/>
 	</>
 }
 function QrCode({ pix }: { pix: PixObj }) {
 	return <>
-
 		<Image
 			src={pix.imagemQrcode}
 			alt='qrcode'
