@@ -1,73 +1,13 @@
-'use client';
+'use server';
 
-import { useContext, useState } from "react";
-import CartContext from "@context/CartContext";
-import Product from "./product";
-import Checkout from "./checkout";
-import formatter from "@utils/formatter";
-import Button from "@components/Button";
+import CartProducts from "./CartProduct";
+import StatusProducts from "./StatusProduct";
 
-export default function Cart() {
-	const { cart, deleteItemFromCart } = useContext(CartContext);
-	const [checkoutOpen, setCheckoutOpen] = useState(false);
-
-	const products = cart.map(
-		item => <Product
-			value={{ ...item.product, quantity: item.quantity }}
-			key={item.product.id}
-			onDelete={() => {
-				deleteItemFromCart(item.product.id);
-			}}
-		/>
-	);
-
-	const handleClick = () => {
-		setCheckoutOpen(true);
-	}
-
-	const totalPrice = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-
+export default async function Cart() {
 	return <>
-		<Checkout
-			open={checkoutOpen}
-			onChangeOpen={() => setCheckoutOpen(v => !v)}
-			price={totalPrice}
-		/>
-
-		{products.length > 0 &&
-			<div className="mt-20 mb-8">
-				<h1 className="text-center font-semibold text-2xl">
-					Seu carrinho
-				</h1>
-
-				<div className="flex mx-5 my-5 items-center justify-around">
-					<Button
-						onClick={handleClick}
-						placeholder="Finalizar Compra"
-						className="w-[50%]"
-					/>
-
-					<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
-				</div>
-
-				<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
-					<>
-						<span className=" text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
-							Arraste o produto para a direita para excluir
-						</span>
-
-						{products}
-					</>
-				</ul>
-			</div>
-		}
-
-		{false &&
-			<div className="mt-5">
-				<h1 className="text-center font-semibold text-2xl">
-					Processados
-				</h1>
-			</div>
-		}
+		<div className="w-full h-10 bg-red-500">
+			<button className="flex-1">A</button>
+			<button className="flex-1">B</button>
+		</div>
 	</>
 }

@@ -16,6 +16,13 @@ const links = [
 		platform: 'mobile',
 		location: 'header'
 	},
+	// {
+	// 	name: "Notificações",
+	// 	href: "/",
+	// 	icon: "IoNotificationsOutline",
+	// 	platform: 'mobile',
+	// 	location: 'header'
+	// },
 	{
 		name: "Produtos",
 		href: '/products',
@@ -44,7 +51,7 @@ export const mobile = {
 		.filter(l => l.platform != 'desktop' && l.location == 'header')
 		.map(n => {
 			const Icon = Icons[n.icon as keyof typeof Icons];
-		
+
 			return (
 				<Link prefetch href={n.href} key={n.href}
 					className='flex flex-col items-center justify-center rounded h-[50px] w-[50px]'

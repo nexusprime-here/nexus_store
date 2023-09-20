@@ -1,6 +1,6 @@
 import "../globals.css";
 import SearchInput from "@components/Search";
-import { CartProvider } from "@context/CartContext";
+import { CartProvider } from "@root/app/cart/hook";
 import * as nav from "@utils/navegation";
 
 export const metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					</div>
 				</CartProvider>
 			</body>
-		</html >
+		</html>
 	);
 }
 

@@ -53,8 +53,7 @@ function Collection({ name, all }: { name: string, all?: boolean }) {
 				<Separator name={name} />
 
 				<div className="row-overflow">
-					{loading && <Loading />}
-					{items}
+					{loading ? <Loading /> : items}
 				</div>
 			</div>
 		);

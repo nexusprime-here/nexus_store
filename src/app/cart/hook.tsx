@@ -2,7 +2,7 @@
 
 import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { createContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 
 export interface CartItem {
 	product: Omit<Product, 'collection'>;
@@ -13,12 +13,14 @@ interface CartContextType {
 	cart: CartItem[];
 	addItemToCart: (item: CartItem) => void;
 	deleteItemFromCart: (productId: number) => void;
+	clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType>({  // Defina um valor padrão aqui
 	cart: [],
 	addItemToCart: () => { },
 	deleteItemFromCart: () => { },
+	clearCart: () => { }
 });
 
 interface CartProviderProps {
@@ -71,12 +73,18 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 		setCartToState();
 	};
 
+	const clearCart = () => {
+		localStorage.setItem("cart", JSON.stringify([]));
+		setCartToState();
+	}
+
 	return (
 		<CartContext.Provider
 			value={{
 				cart,
 				addItemToCart,
 				deleteItemFromCart,
+				clearCart
 			}}
 		>
 			{children}
@@ -84,4 +92,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	);
 };
 
-export default CartContext;
+function useCart() {
+	return useContext(CartContext);
+}
+
+export default useCart;

@@ -17,7 +17,7 @@ const Input = React.forwardRef<Ref, Props>(({ format, onChange, value, ...props 
 			: e.target.value
 		);
 
-		// onChange?.(e);
+		onChange?.(e);
 	}
 
 	return (

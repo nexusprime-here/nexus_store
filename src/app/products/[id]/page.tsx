@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import prisma from "@utils/prisma";
+
+import prisma from "@lib/prisma";
 import { notFound } from "next/navigation";
 import Actions from "./actions";
 import Image from "next/image";

@@ -5,7 +5,7 @@ import { AiOutlineInstagram as InstagramIcon } from 'react-icons/ai'
 export default async function Home() {
 	return (
 		<>
-			<main className="mx-10 mb-10 mt-5 font-light">
+			<main className="mx-10 mb-10 mt-20 font-light">
 				<p>Bem vindo ao Nexus Store!</p>
 				<p>Entregamos doces, salgados e materiais escolares no colégio em horário de aula ou de intervalo.</p>
 				<br />

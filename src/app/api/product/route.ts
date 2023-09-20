@@ -1,5 +1,5 @@
-import Product from "@schemas/Product";
-import prisma from "@utils/prisma";
+import Product from "@app/products/schema";
+import prisma from "@lib/prisma";
 import { NextResponse } from "next/server";
 
 const hasAuthorization = (req: Request) => req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];

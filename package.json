@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "yarn generate:dev && next dev",
+		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"vercel-build": "prisma generate && next build",
@@ -37,6 +37,7 @@
 		"react-swipeable-views": "^0.14.0",
 		"sqlite3": "^5.1.6",
 		"tailwind-merge": "^1.14.0",
+		"tailwind-variants": "^0.1.14",
 		"typescript": "5.0.4",
 		"vercel": "^30.1.0",
 		"zod": "^3.21.4"

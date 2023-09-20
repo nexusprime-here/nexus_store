@@ -34,11 +34,15 @@ export async function createPix(obj: {
 		chave: process.env.EFI_KEY,
 	});
 
-	return <PixObj>gn.pixGenerateQRCode({ id: response.loc.id });
+	return {
+		txid: response.txid,
+		...await gn.pixGenerateQRCode({ id: response.loc.id })
+	} as PixObj;
 }
 
 export type PixObj = {
 	imagemQrcode: string;
 	linkVisualizacao: string;
 	qrcode: string;
+	txid: string
 };

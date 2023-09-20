@@ -1,15 +1,16 @@
 'use client';
 
-import CartContext from "@context/CartContext";
 import { Product } from "@prisma/client";
 import { useRouter } from 'next/navigation';
-import React, { useContext } from "react";
+import React from "react";
+import useCart from "@root/app/cart/hook";
+import Button from "@root/components/Button";
 
 function Actions({ product }: { product: Product }) {
 	const router = useRouter();
 
 	const [quantity, setQuantity] = React.useState(1);
-	const { addItemToCart } = useContext(CartContext);
+	const { addItemToCart } = useCart();
 
 
 	const handleBtnClick = () => {
@@ -26,27 +27,24 @@ function Actions({ product }: { product: Product }) {
 		<>
 			<div className="w-full flex justify-around">
 				<div className="flex flex-row items-center">
-					<button
+					<Button
 						className="w-7 h-7 border-solid border-white border-[1px] bg-transparent text-white"
 						onClick={() => setQuantity(n => n == 1 ? n : n - 1)}
-					>
-						-
-					</button>
+						placeholder="-"
+					/>
 					<p className="mx-3 text-lg">{quantity}</p>
-					<button
+					<Button
 						className="w-7 h-7"
 						onClick={() => setQuantity(n => n == 15 ? n : n + 1)}
-					>
-						+
-					</button>
+						placeholder="+"
+					/>
 				</div>
 
-				<button
+				<Button
 					onClick={handleBtnClick}
 					className="w-40"
-				>
-					Adicionar ao Carrinho
-				</button>
+					placeholder="Adicionar ao Carrinho"
+				/>
 			</div>
 		</>
 	)
