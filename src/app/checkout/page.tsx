@@ -34,7 +34,7 @@ function Checkout() {
 			user: {
 				name: data.name,
 				ano: parseInt(data.ano),
-				CPF: parseInt(data.cpf.replaceAll('.', '').replace('-', '')),
+				CPF: BigInt(data.cpf.replaceAll('.', '').replace('-', '')),
 				fund: parseInt(data.fund),
 				sala: data.sala
 			},
