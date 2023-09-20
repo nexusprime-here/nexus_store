@@ -33,7 +33,7 @@ function CartProducts() {
 	return cartProducts.length > 0
 		? (
 
-			<div className="mt-20 mb-8">
+			<div className="mt-5 mb-8">
 				<h1 className="text-center font-semibold text-2xl">
 					Seu carrinho
 				</h1>

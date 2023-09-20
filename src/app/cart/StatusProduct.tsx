@@ -24,19 +24,24 @@ function StatusProducts() {
 		})
 	}, []);
 
-	return processedProducts.length > 0
-		? (
-			<div className="mt-5 flex flex-col">
-				<h1 className="text-center font-semibold text-2xl">
-					Processados
-				</h1>
+	return (
+		<div className="mt-5 flex flex-col">
+			<h1 className="text-center font-semibold text-2xl">
+				Processados
+			</h1>
 
-				<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
-					{processedProducts}
-				</ul>
-			</div>
-		)
-		: <></>
+			{processedProducts.length > 0
+				? (
+					<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
+						{processedProducts}
+					</ul>
+				)
+				: (
+					<p>Você ainda não comprou nada.</p>
+				)
+			}
+		</div>
+	)
 }
 
 interface Props {
