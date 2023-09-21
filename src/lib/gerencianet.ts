@@ -4,15 +4,21 @@ import path from "path";
 import Gerencianet from "gn-api-sdk-typescript";
 
 const certPath =
-	process.env.NODE_ENV == "development"
-		? "/cert/development.p12"
-		: "/cert/production.p12";
+	process.env.VERCEL_ENV == "production"
+		? "/cert/production.p12"
+		: "/cert/development.p12";
+
+console.log({
+	VERCEL_ENV: process.env.VERCEL_ENV,
+	sandbox: process.env.VERCEL_ENV == "development" ? true : false,
+	certPath: path.join(process.cwd() + certPath),
+});
 
 const gn = new Gerencianet({
-	sandbox: process.env.NODE_ENV == "development" ? true : false,
+	sandbox: process.env.VERCEL_ENV == "development" ? true : false,
 	client_id: process.env.EFI_CLIENT_ID as string,
 	client_secret: process.env.EFI_SECRET as string,
-	certificate: path.resolve(process.cwd() + certPath),
+	certificate: path.join(process.cwd() + certPath),
 });
 
 export async function createPix(obj: {
