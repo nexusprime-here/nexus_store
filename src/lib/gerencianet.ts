@@ -6,7 +6,7 @@ import Gerencianet from "gn-api-sdk-typescript";
 const certPath =
 	process.env.NODE_ENV == "development"
 		? "/cert/development.p12"
-		: "/cert/producao.p12";
+		: "/cert/production.p12";
 
 const gn = new Gerencianet({
 	sandbox: process.env.NODE_ENV == "development" ? true : false,
@@ -36,7 +36,7 @@ export async function createPix(obj: {
 
 	return {
 		txid: response.txid,
-		...await gn.pixGenerateQRCode({ id: response.loc.id })
+		...(await gn.pixGenerateQRCode({ id: response.loc.id })),
 	} as PixObj;
 }
 
@@ -44,5 +44,5 @@ export type PixObj = {
 	imagemQrcode: string;
 	linkVisualizacao: string;
 	qrcode: string;
-	txid: string
+	txid: string;
 };
