@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { tv } from "tailwind-variants";
 
 const buttonClass = tv({
-	base: "w-full p-[4px] pb-[8px] text-gray-500",
+	base: "transition w-full p-[4px] pb-[8px] text-gray-500",
 	variants: {
 		active: { true: 'text-white border-white border-b-[1px]' }
 	}

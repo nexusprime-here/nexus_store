@@ -30,36 +30,44 @@ function CartProducts() {
 		router.push('/checkout');
 	}
 
-	return cartProducts.length > 0
-		? (
+	return (
+		<div className="mt-5 mb-8">
+			<h1 className="text-center font-semibold text-2xl">
+				Seu carrinho
+			</h1>
 
-			<div className="mt-5 mb-8">
-				<h1 className="text-center font-semibold text-2xl">
-					Seu carrinho
-				</h1>
+			{cartProducts.length > 0
+				? <>
+					<div className="flex mx-5 my-5 items-center justify-around">
+						<Button
+							onClick={handleClick}
+							placeholder="Finalizar Compra"
+							className="w-[50%]"
+						/>
 
-				<div className="flex mx-5 my-5 items-center justify-around">
-					<Button
-						onClick={handleClick}
-						placeholder="Finalizar Compra"
-						className="w-[50%]"
-					/>
+						<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
+					</div>
 
-					<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
-				</div>
+					<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
+						<>
+							<span className="text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
+								Arraste o produto para a direita para excluir
+							</span>
 
-				<ul className="mt-5 mx-4 space-y-2	min-h-[30%] flex flex-col">
-					<>
-						<span className="text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
-							Arraste o produto para a direita para excluir
-						</span>
+							{cartProducts}
+						</>
+					</ul>
+				</>
+				: (
+					<div className="mt-5 mx-10 flex flex-col justify-center text-center">
+						<p className="text-sm">Você ainda não adicionou nada ao carrinho</p>
 
-						{cartProducts}
-					</>
-				</ul>
-			</div>
-		)
-		: <></>
+						<Button className="w-[40%] h-8 mt-4 " link="/" placeholder="Voltar a Loja" />
+					</div>
+				)
+			}
+		</div>
+	)
 }
 
 interface Props {

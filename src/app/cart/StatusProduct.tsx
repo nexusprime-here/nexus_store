@@ -37,7 +37,9 @@ function StatusProducts() {
 					</ul>
 				)
 				: (
-					<p>Você ainda não comprou nada.</p>
+					<div className="mt-5 mx-10 flex flex-col justify-center text-center">
+						<p>Você ainda não comprou nada.</p>
+					</div>
 				)
 			}
 		</div>

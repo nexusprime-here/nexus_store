@@ -33,14 +33,9 @@ const Button = React.forwardRef<Ref, Props>(({ placeholder, loading, link, class
 		</div>
 	}
 
-	const Element = (args: any) => {
-		return link
-			? <Link {...args} />
-			: <button {...args} />
-	}
 
-	return (
-		<Element
+	const btn = (
+		<button
 			{...props}
 			ref={ref}
 			disabled={loading || props.disabled}
@@ -53,8 +48,12 @@ const Button = React.forwardRef<Ref, Props>(({ placeholder, loading, link, class
 				? <Loading />
 				: placeholder
 			}
-		</Element>
-	)
+		</button>
+	);
+
+	return link
+		? <Link href={link}>{btn}</Link>
+		: btn
 });
 
 Button.displayName = 'Button';
