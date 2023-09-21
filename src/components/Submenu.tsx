@@ -15,7 +15,6 @@ const Submenu = React.forwardRef<Ref, Props>(({ data }, ref) => {
 
 	return (
 		<div ref={ref} className="h-screen">
-			{/* Botões do submenu */}
 			<div className="flex flex-row w-full">
 				{data.map((item, index) => (
 					<button
@@ -29,7 +28,6 @@ const Submenu = React.forwardRef<Ref, Props>(({ data }, ref) => {
 				))}
 			</div>
 
-			{/* Conteúdo abaixo do submenu */}
 			<div className="flex-1">
 				{data[activeButtonIndex].component}
 			</div>
