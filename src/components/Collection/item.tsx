@@ -14,16 +14,14 @@ const Item: React.FC<{ data: Product }> = ({ data }) => {
 			href={`/products/${data.id}`}
 			className="shrink-0 flex flex-col mr-4 overflow-hidden"
 		>
-			<a>
-				<Image
-					className="rounded-lg"
-					src={`data:image/jpeg;base64,${data.icon}`}
-					width={120}
-					height={120}
-					alt={`img: ${data.name}`}
-				/>
-				<span className="text-center mt-1">{data.name}</span>
-			</a>
+			<Image
+				className="rounded-lg"
+				src={`data:image/jpeg;base64,${data.icon}`}
+				width={120}
+				height={120}
+				alt={`img: ${data.name}`}
+			/>
+			<span className="text-center mt-1">{data.name}</span>
 		</Link>
 	);
 };
