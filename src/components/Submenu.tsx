@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+import { tv } from "tailwind-variants";
+
+const buttonClass = tv({
+	base: "w-full p-[4px] pb-[8px] text-gray-500",
+	variants: {
+		active: { true: 'text-white border-white border-b-[1px]' }
+	}
+})
 
 interface Props {
 	data: { name: string; component: React.JSX.Element }[];
@@ -19,8 +27,7 @@ const Submenu = React.forwardRef<Ref, Props>(({ data }, ref) => {
 				{data.map((item, index) => (
 					<button
 						key={index}
-						className="w-full p-[2px] rounded data-[active=true]:bg-white data-[active=true]:text-black"
-						data-active={activeButtonIndex === index}
+						className={buttonClass({ active: activeButtonIndex === index })}
 						onClick={() => handleClick(index)}
 					>
 						{item.name}
