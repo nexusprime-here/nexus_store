@@ -1,24 +1,30 @@
 "use server";
 
+import url from "url";
 import path from "path";
 import Gerencianet from "gn-api-sdk-typescript";
+import { existsSync } from "fs";
 
-const certPath =
-	process.env.VERCEL_ENV == "production"
-		? "/cert/production.p12"
-		: "/cert/development.p12";
+const certPath = url.pathToFileURL(
+	path.join(
+		process.cwd(),
+		process.env.VERCEL_ENV == "production"
+			? "/cert/production.p12"
+			: "/cert/development.p12"
+	)
+);
 
 console.log({
 	VERCEL_ENV: process.env.VERCEL_ENV,
-	sandbox: process.env.VERCEL_ENV == "development" ? true : false,
-	certPath: path.join(process.cwd() + certPath),
+	certPath: certPath,
+	exist: existsSync(certPath),
 });
 
 const gn = new Gerencianet({
 	sandbox: process.env.VERCEL_ENV == "development" ? true : false,
 	client_id: process.env.EFI_CLIENT_ID as string,
 	client_secret: process.env.EFI_SECRET as string,
-	certificate: path.join(process.cwd() + certPath),
+	certificate: certPath,
 });
 
 export async function createPix(obj: {
