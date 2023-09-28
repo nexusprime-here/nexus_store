@@ -3,7 +3,6 @@
 import url from "url";
 import path from "path";
 import Gerencianet from "gn-api-sdk-typescript";
-import { existsSync } from "fs";
 
 const certPath = url.pathToFileURL(
 	path.join(
@@ -13,12 +12,6 @@ const certPath = url.pathToFileURL(
 			: "/cert/development.p12"
 	)
 );
-
-console.log({
-	VERCEL_ENV: process.env.VERCEL_ENV,
-	certPath: certPath,
-	exist: existsSync(certPath),
-});
 
 const gn = new Gerencianet({
 	sandbox: process.env.VERCEL_ENV == "development" ? true : false,
