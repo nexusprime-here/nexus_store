@@ -1,4 +1,4 @@
-import Collection from "../../components/Collection";
+import Collection from "@components/Collection";
 
 export default async function Produtos() {
 	return (

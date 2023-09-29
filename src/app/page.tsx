@@ -3,8 +3,8 @@ import Link from "next/link";
 import { AiOutlineInstagram as InstagramIcon } from "react-icons/ai";
 
 export default async function Home() {
-	// const fetchedCollection = await products.findByCollection("Mais Vendidos");
-	// products.findMany({ cache: "reload" });
+	const params = new URLSearchParams();
+	params.set("collection", "Mais Vendidos");
 
 	return (
 		<>

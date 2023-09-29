@@ -27,7 +27,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<Header />
 
-			<div className="mt-16 h-screen flex-col items-center">{children}</div>
+			<div className="mt-16 h-[110vh] flex-col items-center">{children}</div>
 
 			<MobileNav />
 		</>

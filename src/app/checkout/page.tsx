@@ -49,11 +49,8 @@ export default function Checkout() {
 	};
 
 	return (
-		<form
-			onSubmit={form.handleSubmit(onSubmit)}
-			className="fixed left-0 top-0 mt-20 data-[open=false]:hidden"
-		>
-			<main className="mx-14 flex flex-col space-y-8">
+		<form onSubmit={form.handleSubmit(onSubmit)} className="left-0 top-0 mt-20">
+			<main className="mx-[8vh] flex flex-col space-y-8">
 				<div className="text-center">
 					<h2 className="mb-4 font-semibold">Este é um ambiente seguro</h2>
 					<p>
