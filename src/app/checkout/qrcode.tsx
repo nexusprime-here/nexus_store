@@ -1,4 +1,4 @@
-import Button from "../../components/ui/Button";
+import Button from "@components/ui/Button";
 import Pix from "@lib/gn-sdk/pix";
 import Image from "next/image";
 

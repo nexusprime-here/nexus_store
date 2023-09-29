@@ -1,5 +1,5 @@
-import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
+import Button from "@components/ui/Button";
+import Input from "@components/ui/Input";
 import { UseFormReturn } from "react-hook-form";
 import formatter from "@lib/formatters";
 import type { FormInput } from "./page";
