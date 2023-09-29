@@ -1,8 +1,8 @@
 "use server";
 
 import { User } from "@prisma/client";
-import { OrderStatus } from "@lib/utils";
-import prisma from "@lib/database/prisma";
+import { OrderStatus } from "@lib/constants";
+import prisma from "@lib/database";
 
 export async function create(order: {
 	user: User;

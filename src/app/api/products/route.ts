@@ -1,16 +1,16 @@
 import Product from "@app/products/schema";
-import prisma from "@lib/prisma";
+import prisma from "@lib/database";
+import { toSnakeCase } from "@lib/utils";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
-const hasAuthorization = (req: Request) => req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
+const hasAuthorization = (req: Request) =>
+	req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
 
 export async function GET(req: Request) {
-	if (!hasAuthorization(req)) {
-		return NextResponse.json(null, { status: 401 });
-	}
-
 	const { searchParams } = new URL(req.url);
 	const productId = searchParams.get("id");
+	const include = searchParams.get("include")?.split(",");
 
 	if (!productId) {
 		const allProducts = await prisma.product.findMany();
@@ -20,12 +20,19 @@ export async function GET(req: Request) {
 
 	const product = await prisma.product.findUnique({
 		where: {
-			id: parseInt(productId)
-		}
+			id: parseInt(productId),
+		},
+		include: {
+			collections: include?.includes("collections"),
+			orders: include?.includes("orders"),
+		},
 	});
 
 	if (!product) {
-		return NextResponse.json({}, { status: 404, statusText: "Product not found" })
+		return NextResponse.json(
+			{},
+			{ status: 404, statusText: "Product not found" }
+		);
 	} else {
 		return NextResponse.json(product);
 	}
@@ -40,7 +47,9 @@ export async function POST(req: Request) {
 		const productData = Product.parse(await req.json());
 
 		const iconResponse = await fetch(productData.iconURL);
-		const icon = Buffer.from(await iconResponse.arrayBuffer()).toString('base64');
+		const icon = Buffer.from(await iconResponse.arrayBuffer()).toString(
+			"base64"
+		);
 
 		const product = await prisma.product.create({
 			data: {
@@ -49,20 +58,23 @@ export async function POST(req: Request) {
 				icon,
 				price: productData.price,
 				collections: {
-					connectOrCreate: productData.collections.map(c => ({
+					connectOrCreate: productData.collections.map((c) => ({
 						where: {
-							name: c
+							id: toSnakeCase(c),
 						},
 						create: {
-							name: c
-						}
-					}))
-				}
-			}
+							id: toSnakeCase(c),
+							name: c,
+						},
+					})),
+				},
+			},
 		});
 
+		revalidateTag("collection");
+
 		return NextResponse.json({
-			id: product.id
+			id: product.id,
 		});
 	} catch (e: any) {
 		return NextResponse.json(JSON.parse(e), { status: 400 });
@@ -83,9 +95,11 @@ export async function DELETE(req: Request) {
 
 	const deletedProduct = await prisma.product.delete({
 		where: {
-			id: parseInt(productId)
-		}
+			id: parseInt(productId),
+		},
 	});
+
+	revalidateTag("collection");
 
 	return NextResponse.json(deletedProduct);
 }
@@ -106,10 +120,12 @@ export async function PATCH(req: Request) {
 
 	const updatedProduct = await prisma.product.update({
 		where: {
-			id: parseInt(productId)
+			id: parseInt(productId),
 		},
-		data: { ...body }
+		data: { ...body },
 	});
+
+	revalidateTag("collection");
 
 	return NextResponse.json(updatedProduct);
 }

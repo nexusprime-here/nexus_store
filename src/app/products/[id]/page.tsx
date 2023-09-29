@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
-import prisma from "@lib/prisma";
 import { notFound } from "next/navigation";
 import Actions from "./actions";
 import Image from "next/image";
+import { Product } from "@prisma/client";
 
 export default async function Product({ params }: { params: { id: string } }) {
-	const product = await prisma.product.findUnique({
-		where: {
-			id: parseInt(params.id),
-		},
-	});
+	const res = await fetch(`/api/products?id=${params.id}`, { cache: 'force-cache' });
+	const product: Product | null = await res.json();
 
 	if (!product) {
 		return notFound();

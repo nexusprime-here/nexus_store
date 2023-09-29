@@ -22,7 +22,8 @@ model Product {
 }
 
 model Collection {
-    name     String    @id
+    name     String
+    id       String    @id
     products Product[]
 }
 

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-function SearchInput({ mobile }: { mobile?: boolean }) {
+function Search({ mobile }: { mobile?: boolean }) {
 	const [focus, setFocus] = React.useState(false);
 	const inputRef = React.useRef<HTMLInputElement>(null);
 
 	const handleFocus = () => {
-		setFocus(true)
-	}
+		setFocus(true);
+	};
 	const handleBlur = () => {
-		setFocus(false)
-	}
+		setFocus(false);
+	};
 
 	React.useEffect(() => {
 		if (focus) {
@@ -21,30 +21,29 @@ function SearchInput({ mobile }: { mobile?: boolean }) {
 
 	const input = (
 		<input
-			id='search'
+			id="search"
 			className={`
-				${focus
-					? 'w-full '
-					: 'w-1/3 h-7'
-				}
-				bg-[rgba(var(--font-rgb),0.4)] placeholder:text-black rounded-full text-xs pl-7
+				${focus ? "w-full " : "h-7 w-1/3"}
+				rounded-full bg-[rgba(var(--font-rgb),0.4)] pl-7 text-xs placeholder:text-black
 			`}
 			placeholder="Buscar Página / Produto"
 			onFocus={handleFocus}
 			onBlur={handleBlur}
 			ref={inputRef}
 		/>
-	)
+	);
 
-	return focus
-		? <div className='absolute top-0 left-0 h-screen w-screen bg-black/30 backdrop-blur-sm flex items-center justify-center'>
-			<div className='bg-black h-[50vh] w-[40vw] flex flex-col items-center p-10'>
+	return focus ? (
+		<div className="absolute left-0 top-0 flex h-screen w-screen items-center justify-center bg-black/30 backdrop-blur-sm">
+			<div className="flex h-[50vh] w-[40vw] flex-col items-center bg-black p-10">
 				{input}
 			</div>
 		</div>
-		: mobile
-			? <></>
-			: input
+	) : mobile ? (
+		<></>
+	) : (
+		input
+	);
 }
 
-export default SearchInput;
+export default Search;

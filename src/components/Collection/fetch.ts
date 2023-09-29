@@ -1,18 +1,19 @@
-'use server';
+"use server";
 
-import prisma from "@lib/prisma";
+import prisma from "@root/lib/database/prisma";
 
 function fetchProducts(collection?: string) {
-	return prisma.product.findMany(collection
-		? {
-			where: {
-				collections: {
-					some: { name: collection }
-				}
-			},
-		}
-		: undefined,
-	)
+	return prisma.product.findMany(
+		collection
+			? {
+					where: {
+						collections: {
+							some: { name: collection },
+						},
+					},
+			  }
+			: undefined
+	);
 }
 
-export default fetchProducts
+export default fetchProducts;
