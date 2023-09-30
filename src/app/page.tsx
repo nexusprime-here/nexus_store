@@ -3,9 +3,6 @@ import Link from "next/link";
 import { AiOutlineInstagram as InstagramIcon } from "react-icons/ai";
 
 export default async function Home() {
-	const params = new URLSearchParams();
-	params.set("collection", "Mais Vendidos");
-
 	return (
 		<>
 			<main className="mx-10 mb-10 mt-20 font-light">

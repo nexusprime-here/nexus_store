@@ -40,19 +40,24 @@ function Collection({
 	const [items, setItems] = React.useState<React.JSX.Element[]>([]);
 
 	React.useEffect(() => {
-		fetch("/api/products?include=collections", {
-			cache: "force-cache",
-			signal,
-			next: { tags: ["collection"] },
-		})
-			.then((res) => res.json())
-			.then(filterByCollection(name))
-			.then((products: Array<Product>) => {
-				console.log({ products });
+		(async () => {
+			try {
+				const products = await fetch("/api/products?include=collections", {
+					cache: "force-cache",
+					signal,
+					next: { tags: ["collection"] },
+				})
+					.then((res) => res.json())
+					.then(filterByCollection(name));
+
 				cachedProducts.set(name, products);
+
 				setItems(products.map((p) => <Item data={p} key={p.id} />));
 				setLoading(false);
-			});
+			} catch {
+				setLoading(false);
+			}
+		})();
 	}, [all, name]);
 
 	return !loading && items.length < 1 ? (
