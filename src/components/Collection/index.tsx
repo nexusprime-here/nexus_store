@@ -3,7 +3,6 @@
 import "./styles.css";
 import React from "react";
 import Item from "./item";
-import { cachedProducts } from "./CachedProducts";
 import { Product } from "@prisma/client";
 import { filterByCollection } from "@lib/utils";
 import Loading from "@components/Loading";
@@ -28,11 +27,13 @@ function Collection({
 }) {
 	const { signal } = new AbortController();
 
-	const [loading, setLoading] = React.useState(true);
+	const [loading, setLoading] = React.useState(false);
 	const [items, setItems] = React.useState<React.JSX.Element[]>([]);
 
 	React.useEffect(() => {
 		(async () => {
+			const showLoading = setTimeout(() => setLoading(true), 1000);
+
 			try {
 				const products = await fetch("/api/products?include=collections", {
 					cache: "force-cache",
@@ -42,11 +43,12 @@ function Collection({
 					.then((res) => res.json())
 					.then(filterByCollection(name));
 
-				cachedProducts.set(name, products);
-
 				setItems(products.map((p) => <Item data={p} key={p.id} />));
+
+				clearTimeout(showLoading);
 				setLoading(false);
 			} catch {
+				clearTimeout(showLoading);
 				setLoading(false);
 			}
 		})();
