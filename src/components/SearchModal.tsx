@@ -24,7 +24,13 @@ async function searchApiWithLocalCache(searchParams: string) {
 	return cache[searchParams] ?? (await register());
 }
 
-function Search({ active, onChange }: { active: boolean, onChange: () => void }) {
+function Search({
+	active,
+	onChange,
+}: {
+	active: boolean;
+	onChange: () => void;
+}) {
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<Product[]>([]);
@@ -50,7 +56,7 @@ function Search({ active, onChange }: { active: boolean, onChange: () => void })
 		if (searchTimeout) {
 			clearTimeout(searchTimeout);
 		}
-		searchTimeout = setTimeout(makeSearch, 750);
+		searchTimeout = setTimeout(makeSearch, 700);
 
 		return () => {
 			if (searchTimeout) {
@@ -91,7 +97,7 @@ function Search({ active, onChange }: { active: boolean, onChange: () => void })
 							result.map((i) => (
 								<Link
 									href={`/products/${i.id}`}
-									className="flex h-24 w-full rounded-lg border-white p-2"
+									className="flex h-24 w-full items-center rounded-lg border-white p-2"
 									key={i.id}
 								>
 									<div className="relative h-16 w-16">
