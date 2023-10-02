@@ -3,18 +3,10 @@
 import "./styles.css";
 import React from "react";
 import Item from "./item";
-import { AiOutlineLoading } from "react-icons/ai";
 import { cachedProducts } from "./CachedProducts";
 import { Product } from "@prisma/client";
 import { filterByCollection } from "@lib/utils";
-
-function Loading() {
-	return (
-		<div className="flex w-full items-center justify-center">
-			<AiOutlineLoading className="animate-spin" size={35} />
-		</div>
-	);
-}
+import Loading from "@components/Loading";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
 	return (

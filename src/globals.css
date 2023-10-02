@@ -41,6 +41,8 @@
 	margin: 0;
 	list-style-type: none;
 	overscroll-behavior: none;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 html,
@@ -59,31 +61,29 @@ body {
 		rgb(var(--background-start-rgb));
 }
 
-a {
-	-webkit-tap-highlight-color: transparent;
-}
-
 input {
 	color: rgb(var(--font-rgb));
 	background-color: rgb(var(--foreground-rgb));
 	@apply h-[35px] w-full rounded border-none pl-4;
 }
 
-input:active {
-	background-color: rgb(var(--background-end-rgb));
-	border: solid 1px rgb(var(--foreground-rgb));
-	color: rgb(var(--foreground-rgb));
-}
-
 h1 {
-	@apply text-xl;
+	@apply text-3xl;
 }
 
 h2 {
-	@apply text-lg;
+	@apply text-2xl;
 }
 
 h3 {
+	@apply text-xl;
+}
+
+h4 {
+	@apply text-lg;
+}
+
+h5 {
 	@apply text-base;
 }
 

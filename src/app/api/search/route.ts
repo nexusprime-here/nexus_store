@@ -1,4 +1,5 @@
 import prisma from "@lib/database";
+import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
@@ -6,7 +7,7 @@ export async function GET(req: Request) {
 
 	if (!query) {
 		const allProducts = await prisma.product.findMany();
-		return allProducts;
+		return NextResponse.json(allProducts);
 	} else {
 		const filteredProducts = await prisma.product.findMany({
 			where: {
@@ -16,6 +17,6 @@ export async function GET(req: Request) {
 				},
 			},
 		});
-		return filteredProducts;
+		return NextResponse.json(filteredProducts);
 	}
 }
