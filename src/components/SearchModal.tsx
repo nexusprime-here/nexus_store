@@ -24,7 +24,7 @@ async function searchApiWithLocalCache(searchParams: string) {
 	return cache[searchParams] ?? (await register());
 }
 
-function Search({ active = false, onChange = () => {} }) {
+function Search({ active, onChange }: { active: boolean, onChange: () => void }) {
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<Product[]>([]);
