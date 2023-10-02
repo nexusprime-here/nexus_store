@@ -2,7 +2,7 @@
 
 import { Product } from "@prisma/client";
 import React, { useEffect, useState } from "react";
-import { IoSearchOutline } from "react-icons/io5";
+import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 import Loading from "./Loading";
 import Image from "next/image";
 import Link from "next/link";
@@ -69,12 +69,17 @@ function Search({
 	return (
 		<div
 			data-open={active}
-			className="fixed inset-0 left-0 top-0 z-20 hidden h-screen w-screen flex-col items-center bg-[rgba(0,0,0,.3)] backdrop-blur-md data-[open=true]:flex"
+			className="fixed inset-0 left-0 top-0 z-20 hidden h-screen w-screen flex-col items-center bg-[rgba(0,0,0,0.5)] backdrop-blur-md data-[open=true]:flex"
 			onClick={onChange}
 		>
-			<div onClick={(e) => e.stopPropagation()} className="h-full w-full">
+			<div className="h-full w-full">
+				<IoCloseOutline size={25} className="absolute right-2 top-2" />
+
 				<main className="h-full w-full">
-					<div className="relative mx-14 mb-10 mt-10">
+					<div
+						className="relative mx-14 mb-10 mt-14"
+						onClick={(e) => e.stopPropagation()}
+					>
 						<IoSearchOutline
 							size={24}
 							className="absolute left-3 top-1/2 -translate-y-1/2"
@@ -99,6 +104,7 @@ function Search({
 									href={`/products/${i.id}`}
 									className="flex h-24 w-full items-center rounded-lg border-white p-2"
 									key={i.id}
+									onClick={(e) => e.stopPropagation()}
 								>
 									<div className="relative h-16 w-16">
 										<Image
