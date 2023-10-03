@@ -6,7 +6,9 @@ import Image from "next/image";
 import { Product } from "@prisma/client";
 
 export default async function Product({ params }: { params: { id: string } }) {
-	const res = await fetch(`/api/products?id=${params.id}`, { cache: 'force-cache' });
+	const res = await fetch(`/api/products?id=${params.id}`, {
+		cache: "force-cache",
+	});
 	const product: Product | null = await res.json();
 
 	if (!product) {
@@ -16,12 +18,12 @@ export default async function Product({ params }: { params: { id: string } }) {
 	const formatter = new Intl.NumberFormat("pt-BR", {
 		style: "currency",
 		currency: "BRL",
-	})
+	});
 
 	return (
 		<>
 			<Image
-				className="h-60 w-full object-contain bg-white rounded"
+				className="h-60 w-full rounded bg-white object-contain"
 				width={200}
 				height={200}
 				alt={product.name}

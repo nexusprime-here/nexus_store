@@ -41,7 +41,9 @@ function Collection({
 					next: { tags: ["collection"] },
 				})
 					.then((res) => res.json())
-					.then(filterByCollection(name));
+					.then(all ? null : filterByCollection(name));
+
+				console.log({ products });
 
 				setItems(products.map((p) => <Item data={p} key={p.id} />));
 

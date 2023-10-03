@@ -12,8 +12,15 @@ export async function GET(req: Request) {
 	const productId = searchParams.get("id");
 	const include = searchParams.get("include")?.split(",");
 
+	const queryInclude = {
+		include: {
+			collections: include?.includes("collections"),
+			orders: include?.includes("orders"),
+		},
+	};
+
 	if (!productId) {
-		const allProducts = await prisma.product.findMany();
+		const allProducts = await prisma.product.findMany(queryInclude);
 
 		return NextResponse.json(allProducts);
 	}
@@ -22,10 +29,7 @@ export async function GET(req: Request) {
 		where: {
 			id: parseInt(productId),
 		},
-		include: {
-			collections: include?.includes("collections"),
-			orders: include?.includes("orders"),
-		},
+		...queryInclude,
 	});
 
 	if (!product) {

@@ -19,7 +19,9 @@ function Header() {
 	return (
 		<header className="fixed top-0 z-10 h-16 w-full bg-black">
 			<div className="static flex h-16 flex-row items-center justify-evenly sm:hidden">
-				<p className="text-xl">Nexus Store</p>
+				<h2 className="font-['Poiret_One',cursive] text-[1.5rem] font-bold">
+					Nexus Store
+				</h2>
 
 				<Search />
 				<Contact />
