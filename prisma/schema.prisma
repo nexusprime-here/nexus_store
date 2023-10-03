@@ -37,10 +37,17 @@ model Order {
 }
 
 model User {
-    name  String
-    CPF   BigInt  @unique
-    ano   Int
-    fund  Int
-    sala  String
-    order Order[]
+    name     String
+    CPF      BigInt   @unique
+    location Location @relation(fields: [CPF], references: [userCPF])
+    order    Order[]
+}
+
+// TODO: migrate this update
+model Location {
+    userCPF BigInt @unique
+    sala    String
+    fund    Int
+    ano     Int
+    User    User[]
 }

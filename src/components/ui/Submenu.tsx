@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { tv } from "tailwind-variants";
 
 const buttonClass = tv({
-	base: "transition w-full p-[4px] pb-[8px] text-gray-500",
+	base: "transition w-full p-[4px] pb-[8px] text-gray-500 py-2",
 	variants: {
-		active: { true: 'text-white border-white border-b-[1px]' }
-	}
-})
+		active: { true: "text-white border-white border-b-2" },
+	},
+});
 
 interface Props {
 	data: { name: string; component: React.JSX.Element }[];
@@ -23,7 +23,7 @@ const Submenu = React.forwardRef<Ref, Props>(({ data }, ref) => {
 
 	return (
 		<div ref={ref} className="h-screen">
-			<div className="flex flex-row w-full">
+			<div className="flex w-full flex-row">
 				{data.map((item, index) => (
 					<button
 						key={index}
@@ -35,13 +35,11 @@ const Submenu = React.forwardRef<Ref, Props>(({ data }, ref) => {
 				))}
 			</div>
 
-			<div className="flex-1">
-				{data[activeButtonIndex].component}
-			</div>
+			<div className="flex-1">{data[activeButtonIndex].component}</div>
 		</div>
 	);
 });
 
-Submenu.displayName = 'Submenu';
+Submenu.displayName = "Submenu";
 
 export default Submenu;

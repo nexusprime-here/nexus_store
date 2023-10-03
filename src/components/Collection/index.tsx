@@ -32,7 +32,7 @@ function Collection({
 
 	React.useEffect(() => {
 		(async () => {
-			const showLoading = setTimeout(() => setLoading(true), 1000);
+			const showLoading = setTimeout(() => setLoading(true), 500);
 
 			try {
 				const products = await fetch("/api/products?include=collections", {

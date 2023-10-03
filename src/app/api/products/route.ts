@@ -14,8 +14,8 @@ export async function GET(req: Request) {
 
 	const queryInclude = {
 		include: {
-			collections: include?.includes("collections"),
-			orders: include?.includes("orders"),
+			collections: include?.includes("collections") ?? false,
+			orders: include?.includes("orders") ?? false,
 		},
 	};
 
@@ -120,13 +120,20 @@ export async function PATCH(req: Request) {
 		return NextResponse.json({}, { status: 404 });
 	}
 
-	const body = await req.json();
+	const { iconURL, ...body } = await req.json();
+
+	let icon: string | undefined;
+
+	if (iconURL) {
+		const iconResponse = await fetch(iconURL);
+		icon = Buffer.from(await iconResponse.arrayBuffer()).toString("base64");
+	}
 
 	const updatedProduct = await prisma.product.update({
 		where: {
 			id: parseInt(productId),
 		},
-		data: { ...body },
+		data: { icon, ...body },
 	});
 
 	revalidateTag("collection");
