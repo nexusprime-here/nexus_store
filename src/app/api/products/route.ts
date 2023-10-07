@@ -1,11 +1,8 @@
 import Product from "@app/products/schema";
 import prisma from "@lib/database";
-import { toSnakeCase } from "@lib/utils";
+import { hasAuthorization, toSnakeCase } from "@lib/utils";
 import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
-
-const hasAuthorization = (req: Request) =>
-	req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
 
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);

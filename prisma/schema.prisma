@@ -16,6 +16,7 @@ model Product {
     name        String
     description String
     price       Float
+    stock       Int?
     icon        String
     collections Collection[]
     orders      Order[]

@@ -11,3 +11,6 @@ export function filterByCollection(collectionId: string) {
 		);
 	};
 }
+
+export const hasAuthorization = (req: Request) =>
+	req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
