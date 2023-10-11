@@ -17,7 +17,8 @@
 		"dotenv-cli": "^7.3.0",
 		"postcss": "^8.4.24",
 		"prisma": "^5.2.0",
-		"tailwindcss": "^3.3.2"
+		"tailwindcss": "^3.3.2",
+		"vercel": "^32.4.1"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.1",
@@ -25,10 +26,11 @@
 		"@types/node": "20.2.3",
 		"@types/react": "18.2.6",
 		"@types/react-dom": "18.2.4",
+		"copy-webpack-plugin": "^11.0.0",
 		"eslint": "8.41.0",
 		"eslint-config-next": "13.4.3",
 		"gn-api-sdk-typescript": "^2.0.1",
-		"next": "^13.5.2",
+		"next": "^13.5.4",
 		"prettier-plugin-tailwindcss": "^0.3.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
@@ -39,7 +41,6 @@
 		"tailwind-merge": "^1.14.0",
 		"tailwind-variants": "^0.1.14",
 		"typescript": "5.0.4",
-		"vercel": "^30.1.0",
 		"zod": "^3.21.4"
 	}
 }

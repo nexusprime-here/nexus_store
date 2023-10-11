@@ -1,5 +1,5 @@
 import Button from "@components/ui/Button";
-import Pix from "@lib/gn-sdk/pix";
+import * as Pix from "@lib/gn-sdk";
 import Image from "next/image";
 
 // BONUS: adicionar timer de contagem de tempo restante para pagamento, e adicionar um recall

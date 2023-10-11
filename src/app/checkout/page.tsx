@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Pix from "@lib/gn-sdk/pix";
+import * as Pix from "@lib/gn-sdk";
 import CheckoutSchema from "@app/checkout/schema";
 import { useState } from "react";
 import * as order from "@lib/database/order";

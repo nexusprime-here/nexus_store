@@ -27,6 +27,7 @@ const SwipeableView: React.FC<Props> = ({ className, onDelete, onEdit, children 
 	}
 
 	return (
+		// @ts-ignore
 		<SwipeableViews
 			ref={viewRef}
 			index={index}
