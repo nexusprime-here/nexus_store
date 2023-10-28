@@ -4,9 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "prisma generate && next build",
 		"start": "next start",
-		"vercel-build": "prisma generate && next build",
 		"migrate:dev": "dotenv -e .env.local -- prisma migrate dev",
 		"generate:dev": "dotenv -e .env.local -- prisma generate",
 		"studio:dev": "dotenv -e .env.local -- prisma studio"
@@ -26,7 +25,7 @@
 		"@types/node": "20.2.3",
 		"@types/react": "18.2.6",
 		"@types/react-dom": "18.2.4",
-		"copy-webpack-plugin": "^11.0.0",
+		"axios": "^1.5.1",
 		"eslint": "8.41.0",
 		"eslint-config-next": "13.4.3",
 		"gn-api-sdk-typescript": "^2.0.1",
