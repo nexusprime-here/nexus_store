@@ -1,14 +1,27 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type { Product } from "@prisma/client";
-import Link from 'next/link';
+import Link from "next/link";
+import Image from "next/image";
+
+// TODO: Corrigir o erro abaixo. O erro provavelmente origina, por que o Link não deve conter childs
+// Warning: Expected server HTML to contain a matching <a> in <div>.
 
 const Item: React.FC<{ data: Product }> = ({ data }) => {
 	return (
-		<Link prefetch={false} href={`/products/${data.id}`} className="product-item">
-			<img src={data.iconURL} alt={`img: ${data.name}`} />
-			<p>{data.name}</p>
+		<Link
+			prefetch={false}
+			href={`/products/${data.id}`}
+			className="mr-4 flex shrink-0 flex-col overflow-hidden"
+		>
+			<Image
+				className="rounded-lg"
+				src={`data:image/jpeg;base64,${data.icon}`}
+				width={120}
+				height={120}
+				alt={`img: ${data.name}`}
+			/>
+			<span className="mt-1 text-center">{data.name}</span>
 		</Link>
 	);
 };

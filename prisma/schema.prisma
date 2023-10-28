@@ -2,21 +2,46 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  name String
-  description String
-  price Float
-  iconURL String
-  collection String?
+    id          Int          @id @default(autoincrement())
+    name        String
+    description String
+    price       Float
+    stock       Int?
+    icon        String
+    collections Collection[]
+    orders      Order[]
+}
+
+model Collection {
+    name     String
+    id       String    @id
+    products Product[]
+}
+
+model Order {
+    status        Int
+    id            Int       @id @default(autoincrement())
+    transation_id String    @unique
+    user          User      @relation(fields: [userCPF], references: [CPF])
+    userCPF       BigInt
+    products      Product[]
+}
+
+model User {
+    name  String
+    CPF   BigInt  @unique
+    sala  String
+    fund  Int
+    ano   Int
+    order Order[]
 }

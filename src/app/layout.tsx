@@ -1,9 +1,6 @@
 import "../globals.css";
-import { Inter } from "next/font/google";
-
-import NavBar from "@components/NavBar";
-
-const inter = Inter({ subsets: ["latin"] });
+import { CartProvider } from "@app/cart/hook";
+import Layout from "@components/layout";
 
 export const metadata = {
 	title: "Nexus Shop",
@@ -17,11 +14,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pt-br">
-			<body className={inter.className} style={{ transition: '.5s' }} suppressHydrationWarning={true}>
-				<div style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center" }}>
-					{children}
-				</div>
-				<NavBar />
+			<body suppressHydrationWarning={true}>
+				<CartProvider>
+					<Layout>{children}</Layout>
+				</CartProvider>
 			</body>
 		</html>
 	);
