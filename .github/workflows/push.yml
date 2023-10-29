@@ -15,4 +15,3 @@ jobs:
           restart: true
           token: '${{ secrets.SQUARE_TOKEN }}'
           application_id: '${{ secrets.SQUARE_APPLICATIONID }}'
-          excludes: '.vscode .github src .gitignore .prettierrc '

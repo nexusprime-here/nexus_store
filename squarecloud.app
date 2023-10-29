@@ -1,6 +1,6 @@
 DISPLAY_NAME=NexusStore
 MEMORY=512
-MAIN=.next/standalone/server.js
+MAIN=tailwind.config.js
 VERSION=recommended
 SUBDOMAIN=nexusstore
-START=npm run build && npm run start
+START=npm run deploy

@@ -35,6 +35,7 @@ export async function findByUser(
 	return await prisma.order.findMany({
 		where: {
 			status: {
+				// @ts-ignore
 				in: options.status ?? OrderStatus.CREATED,
 			},
 			AND: {
