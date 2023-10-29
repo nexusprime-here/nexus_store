@@ -16,7 +16,7 @@ function StatusProducts() {
 			const status = [OrderStatus.CREATED, OrderStatus.PAID];
 			const orders = await order.findByUser(parseInt(cpf), { status });
 			const products = orders.flatMap((o) =>
-			// @ts-ignore
+				// @ts-ignore
 				o.products.map((p) => ({ status: o.status, ...p }))
 			);
 
