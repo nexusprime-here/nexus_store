@@ -53,5 +53,9 @@ export type CreateReturnType = {
 };
 
 export async function configWebhook(url: string) {
-	return await gn.pixConfigWebhook({ chave: EFI_KEY }, { webhookUrl: url })
+	return await gn.pixConfigWebhook({ chave: EFI_KEY }, { webhookUrl: url });
+}
+
+export async function detailWebhook() {
+	return await gn.pixDetailWebhook({ chave: EFI_KEY });
 }
