@@ -1,7 +1,10 @@
 import { Collection, Product } from "@prisma/client";
 
-export function toSnakeCase(inputString: string) {
-	return inputString.replace(/([A-Z])/g, "_$1").toLowerCase();
+export function toSnakeCase(input: string) {
+	return input
+		.replace(/([a-z])([A-Z])/g, '$1_$2')
+		.replace(/\s+/g, '_')
+		.toLowerCase();
 }
 
 export function filterByCollection(collectionId: string) {

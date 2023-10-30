@@ -4,7 +4,7 @@ import "./styles.css";
 import React from "react";
 import Item from "./item";
 import { Product } from "@prisma/client";
-import { filterByCollection } from "@lib/utils";
+import { filterByCollection, toSnakeCase } from "@lib/utils";
 import Loading from "@components/Loading";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
@@ -36,14 +36,12 @@ function Collection({
 
 			try {
 				const products = await fetch("/api/products?include=collections", {
-					cache: "force-cache",
+					cache: "no-cache",
 					signal,
 					next: { tags: ["collection"] },
 				})
 					.then((res) => res.json())
-					.then(all ? null : filterByCollection(name));
-
-				console.log({ products });
+					.then(all ? null : filterByCollection(toSnakeCase(name)));
 
 				setItems(products.map((p) => <Item data={p} key={p.id} />));
 

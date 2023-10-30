@@ -35,6 +35,7 @@ model Order {
     user          User      @relation(fields: [userCPF], references: [CPF])
     userCPF       BigInt
     products      Product[]
+    p_quantity    String
 }
 
 model User {

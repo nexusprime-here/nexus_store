@@ -1,23 +1,20 @@
 'use server';
 
-import url from "url";
 import path from "path";
 import Gerencianet from "gn-api-sdk-typescript";
 
-const { VERCEL_ENV, EFI_CLIENT_ID, EFI_SECRET } = process.env;
+const { NODE_ENV, EFI_CLIENT_ID, EFI_SECRET, EFI_KEY } = process.env;
 
-const certPath = url.pathToFileURL(
-	path.join(
-		process.cwd(),
-		"/.next/static/cert",
-		VERCEL_ENV == "production"
-			? "/production.p12"
-			: "/development.p12"
-	)
+const certPath = path.join(
+	process.cwd(),
+	"src/static/certificates",
+	NODE_ENV == "production"
+		? "production.p12"
+		: "development.p12"
 );
 
 const gn = new Gerencianet({
-	sandbox: VERCEL_ENV == "development",
+	sandbox: NODE_ENV == "development",
 	client_id: EFI_CLIENT_ID!,
 	client_secret: EFI_SECRET!,
 	certificate: certPath
@@ -39,7 +36,7 @@ export async function create(obj: {
 		valor: {
 			original: parseFloat(obj.valor as any).toFixed(2),
 		},
-		chave: process.env.EFI_KEY,
+		chave: EFI_KEY,
 	});
 
 	return {
@@ -54,3 +51,7 @@ export type CreateReturnType = {
 	qrcode: string;
 	txid: string;
 };
+
+export async function configWebhook(url: string) {
+	return await gn.pixConfigWebhook({ chave: EFI_KEY }, { webhookUrl: url })
+}

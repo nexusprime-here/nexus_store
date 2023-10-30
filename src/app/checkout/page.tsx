@@ -41,7 +41,7 @@ export default function Checkout() {
 				fund: parseInt(data.fund),
 				sala: data.sala,
 			},
-			productsId: cart.map(({ product }) => product.id),
+			productsId: cart.map(p => ({ id: p.product.id, q: p.quantity })),
 			transationId: pix.txid,
 		});
 

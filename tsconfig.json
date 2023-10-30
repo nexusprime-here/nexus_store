@@ -30,7 +30,6 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"prisma/fix.js"
 	],
 	"exclude": ["node_modules"]
 }

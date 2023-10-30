@@ -6,4 +6,5 @@ next-env.d.ts
 node_modules/
 .vscode/
 .env.local
-prisma/dev.db
+prisma/*.db
+squarecloud.ignore
