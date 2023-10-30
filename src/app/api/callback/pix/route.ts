@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 	const body = await req.json();
 
 	if(!('txid' in body)) {
-		return NextResponse.json(null, { status: 200 });
+		return NextResponse.json(null, { status: 400 });
 	}
 
 	const order = await prisma.order.update({
