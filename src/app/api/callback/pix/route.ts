@@ -7,6 +7,7 @@ const WEBHOOK_URL = "https://discord.com/api/webhooks/1154280449544310924/nCaPFI
 
 export async function POST(req: Request) {
 	const body = await req.json();
+	console.log('Request [CALLBACK/PIX]: ', body)
 
 	if(!('txid' in body)) {
 		return NextResponse.json(null, { status: 400 });
