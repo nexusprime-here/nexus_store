@@ -1,7 +1,10 @@
 import { configWebhook, detailWebhook } from "@lib/gn-sdk";
+import { hasAuthorization } from '@lib/utils';
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+	if(!hasAuthorization(req)) return;
+	
 	const { url } = await req.json();
 	
 	if(!url) {
@@ -9,9 +12,7 @@ export async function POST(req: Request) {
 	}
 
 	try {
-		console.log(200)
 		const result = await configWebhook(url);
-		console.log(200)
 
 		return NextResponse.json(result, { status: 200 });
 	} catch(e: any) {

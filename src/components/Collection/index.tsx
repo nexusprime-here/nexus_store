@@ -36,7 +36,6 @@ function Collection({
 
 			try {
 				const products = await fetch("/api/products?include=collections", {
-					cache: "no-cache",
 					signal,
 					next: { tags: ["collection"] },
 				})

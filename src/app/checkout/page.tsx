@@ -31,8 +31,6 @@ export default function Checkout() {
 			),
 		});
 
-		setPix(pix);
-
 		order.create({
 			user: {
 				name: data.name,
@@ -44,6 +42,8 @@ export default function Checkout() {
 			productsId: cart.map(p => ({ id: p.product.id, q: p.quantity })),
 			transationId: pix.txid,
 		});
+		
+		setPix(pix);
 
 		clearCart();
 	};

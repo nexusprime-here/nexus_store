@@ -7,43 +7,40 @@ const WEBHOOK_URL = "https://discord.com/api/webhooks/1154280449544310924/nCaPFI
 
 export async function POST(req: Request) {
 	const body = await req.json();
-	console.log('Request [CALLBACK/PIX]: ', body)
 
-	if(!('txid' in body)) {
-		return NextResponse.json(null, { status: 400 });
-	}
-
-	const order = await prisma.order.update({
-		where: {
-			transation_id: body.txid,
-		},
-		data: {
-			status: OrderStatus.PAID,
-		},
-		include: {
-			user: true,
-			products: true
+	for(const p of body.pix) {
+		const order = await prisma.order.update({
+			where: {
+				transation_id: p.txid,
+			},
+			data: {
+				status: OrderStatus.PAID,
+			},
+			include: {
+				user: true,
+				products: true
+			}
+		});
+	
+		const { 
+			user: {name, ano, sala, fund},
+			products,
+			p_quantity
+		} = order
+	
+		const embed = {
+			title: "Compra Realizada",
+			author: { name },
+			footer: { text: `${ano}º ano ${sala}, fund ${fund}` },
+			fields: products.map(p => ({
+				name: p.name,
+				value: `${JSON.parse(p_quantity)[p.id]} unidades` 
+			})),
+			color: 0x00FF00
 		}
-	});
-
-	const { 
-		user: {name, ano, sala, fund},
-		products,
-		p_quantity
-	} = order
-
-	const embed = {
-		title: "Compra Realizada",
-		author: { name },
-		footer: { text: `${ano}º ano ${sala}, fund ${fund}` },
-		fields: products.map(p => ({
-			name: p.name,
-			value: `${JSON.parse(p_quantity)[p.id]} unidades` 
-		})),
-		color: 0x00FF00
+	
+		axios.post(WEBHOOK_URL, { embeds: [embed] });
 	}
-
-	axios.post(WEBHOOK_URL, { embeds: [embed] });
 
 	return NextResponse.json(null, {
 		status: 200,

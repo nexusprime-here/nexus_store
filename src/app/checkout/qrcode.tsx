@@ -4,7 +4,9 @@ import Image from "next/image";
 
 // BONUS: adicionar timer de contagem de tempo restante para pagamento, e adicionar um recall
 
-function QrCode({ pix }: { pix: Pix.CreateReturnType }) {
+function QrCode(options: { pix: Pix.CreateReturnType }) {
+	const pix = { ...options.pix }
+
 	const handleOnClick = () => {
 		navigator.clipboard.writeText(pix.qrcode);
 	};
