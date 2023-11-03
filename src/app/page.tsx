@@ -1,4 +1,4 @@
-import Collection from "../components/Collection";
+import Collection from "@components/Collection";
 import Link from "next/link";
 import { AiOutlineInstagram as InstagramIcon } from "react-icons/ai";
 
