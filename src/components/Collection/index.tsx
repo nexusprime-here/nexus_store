@@ -57,7 +57,6 @@ function Collection({
 }: {
 	name: string;
 	all?: boolean;
-	prefetch?: Product[];
 }) {
 	const { signal } = new AbortController();
 	

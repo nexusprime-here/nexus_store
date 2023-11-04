@@ -79,7 +79,7 @@ export async function POST(req: Request) {
 			id: product.id,
 		});
 	} catch (e: any) {
-		return NextResponse.json(JSON.parse(e), { status: 400 });
+		return NextResponse.json(typeof e == 'object' ? JSON.parse(e) : e, { status: 400 });
 	}
 }
 
