@@ -15,7 +15,7 @@ const Item: React.FC<{ data: Product }> = ({ data }) => {
 			className="mr-4 flex shrink-0 flex-col overflow-hidden"
 		>
 			<Image
-				className="rounded-lg"
+				className="rounded-lg bg-white"
 				src={`data:image/jpeg;base64,${data.icon}`}
 				width={120}
 				height={120}
