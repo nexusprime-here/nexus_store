@@ -72,7 +72,7 @@ function Collection({
 	}
 
 	const lazyload = (data) => {
-		setItems(data);
+		setItems(filterByCollection(toSnakeCase(name))(data));
 	}
 	
 	React.useEffect(() => {
