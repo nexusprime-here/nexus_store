@@ -31,7 +31,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 				<h1 className="font-semibold">{product.name}</h1>
 				<h2>{formatter.format(product.price)}</h2>
 			</div>
-			<p className="mx-7 mt-5 h-32 font-light">{product.description}</p>
+			<p className="mx-7 my-5 min-h-[5rem] max-h-40 font-light break-words overflow-hidden">{product.description}</p>
 
 			<Actions product={product} />
 		</>
