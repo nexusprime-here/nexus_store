@@ -3,3 +3,7 @@ export enum OrderStatus {
 	PAID,
 	DELIVERED,
 }
+
+export enum RevalidationTags {
+	ProductsWithCollection = 'PwC'
+}

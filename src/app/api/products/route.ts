@@ -1,4 +1,5 @@
 import Product from "@app/products/schema";
+import { RevalidationTags } from "@lib/constants";
 import prisma from "@lib/database";
 import { hasAuthorization, toSnakeCase } from "@lib/utils";
 import { revalidateTag } from "next/cache";
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
 			},
 		});
 
-		revalidateTag("collection");
+		revalidateTag(RevalidationTags.ProductsWithCollection);
 
 		return NextResponse.json({
 			id: product.id,
@@ -100,7 +101,7 @@ export async function DELETE(req: Request) {
 		},
 	});
 
-	revalidateTag("collection");
+	revalidateTag(RevalidationTags.ProductsWithCollection);
 
 	return NextResponse.json(deletedProduct);
 }
@@ -133,7 +134,7 @@ export async function PATCH(req: Request) {
 		data: { icon, ...body },
 	});
 
-	revalidateTag("collection");
+	revalidateTag(RevalidationTags.ProductsWithCollection);
 
 	return NextResponse.json(updatedProduct);
 }

@@ -1,7 +1,7 @@
 import { IconBaseProps } from 'react-icons';
 import * as Icons from 'react-icons/io5';
 
-type CleanIconsType = Exclude<keyof typeof Icons extends `Io${infer Rest}` ? Rest : keyof typeof Icons, `${string}${'Outline'|'Sharp'|'Circle'}`>;
+export type CleanIconsType = Exclude<keyof typeof Icons extends `Io${infer Rest}` ? Rest : keyof typeof Icons, `${string}${'Outline'|'Sharp'|'Circle'}`>;
 
 interface OptionsType extends IconBaseProps {
 	type: CleanIconsType, 

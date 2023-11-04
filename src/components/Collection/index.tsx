@@ -3,9 +3,10 @@
 import "./styles.css";
 import React from "react";
 import Item from "./item";
-import { Product } from "@prisma/client";
+import { Collection, Product } from "@prisma/client";
 import { filterByCollection, toSnakeCase } from "@lib/utils";
 import Loading from "@components/Loading";
+import { RevalidationTags } from "@lib/constants";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
 	return (
@@ -17,6 +18,39 @@ const Separator: React.FC<{ name: string }> = ({ name }) => {
 	);
 };
 
+async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal, lazyload }) {
+	let result: (Product & { collections: Collection[] })[] | null = null;
+
+	const fetchProduct = async () => {
+		const request = await fetch("/api/products?include=collections", {
+			signal,
+			next: { tags: [RevalidationTags.ProductsWithCollection] },
+		});
+
+		const result = await request.json();
+
+		sessionStorage.setItem('products', JSON.stringify(result));
+
+		return result;
+	}
+
+	if('sessionStorage' in globalThis) {
+		const productInStr = sessionStorage.getItem('products');
+
+		if(productInStr) {
+			result = JSON.parse(productInStr);
+		}
+
+		fetchProduct().then(lazyload);
+	}
+
+	if(!result) {
+		result = await fetchProduct();
+	}
+
+	return result;
+}
+
 function Collection({
 	name,
 	all,
@@ -26,28 +60,34 @@ function Collection({
 	prefetch?: Product[];
 }) {
 	const { signal } = new AbortController();
-
+	
 	const [loading, setLoading] = React.useState(false);
-	const [items, setItems] = React.useState<React.JSX.Element[]>([]);
+	const [items, _setItems] = React.useState<React.JSX.Element[]>([]);
 
+	const setItems = (products) => {
+		_setItems(
+			products.map((p) => (
+				<Item data={p} key={p.id} />
+			))
+		)
+	}
+
+	const lazyload = (data) => {
+		setItems(data);
+	}
+	
 	React.useEffect(() => {
 		(async () => {
-			const showLoading = setTimeout(() => setLoading(true), 500);
+			setLoading(true);
 
 			try {
-				const products = await fetch("/api/products?include=collections", {
-					signal,
-					next: { tags: ["collection"] },
-				})
-					.then((res) => res.json())
+				const products = await sessionCachedFetch({ signal, lazyload })
 					.then(all ? null : filterByCollection(toSnakeCase(name)));
 
-				setItems(products.map((p) => <Item data={p} key={p.id} />));
+				setItems(products);
 
-				clearTimeout(showLoading);
 				setLoading(false);
-			} catch {
-				clearTimeout(showLoading);
+			} catch(e) {
 				setLoading(false);
 			}
 		})();
