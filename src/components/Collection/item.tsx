@@ -12,16 +12,17 @@ const Item: React.FC<{ data: Product }> = ({ data }) => {
 		<Link
 			prefetch={false}
 			href={`/products/${data.id}`}
-			className="mr-4 flex shrink-0 flex-col overflow-hidden"
+			className="w-28 mr-4 relative flex shrink-0 flex-col overflow-hidden"
 		>
-			<Image
-				className="rounded-lg bg-white"
-				src={`data:image/jpeg;base64,${data.icon}`}
-				width={120}
-				height={120}
-				alt={`img: ${data.name}`}
-			/>
-			<span className="mt-1 text-center">{data.name}</span>
+			<div className="w-full flex-grow relative">
+				<Image
+					className="rounded-lg bg-white"
+					src={`data:image/jpeg;base64,${data.icon}`}
+					fill
+					alt={`img: ${data.name}`}
+				/>
+			</div>
+			<span className="mt-1 text-center w-full h-14 break-words">{data.name}</span>
 		</Link>
 	);
 };

@@ -96,7 +96,7 @@ function ProductLi({ value, onDelete }: Props) {
 					alt={value.name}
 					height={70}
 					width={70}
-					className="rounded-lg"
+					className="rounded-lg bg-white"
 				/>
 				<div className="flex-1">
 					<h2 className="text-sm">{value.name}</h2>
