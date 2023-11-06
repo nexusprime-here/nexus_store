@@ -1,7 +1,7 @@
 import Loading from '@components/Loading';
 import Link from 'next/link';
 import React from 'react';
-import { AiOutlineLoading } from 'react-icons/ai';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { twMerge } from 'tailwind-merge';
 import { tv } from 'tailwind-variants';
 
@@ -13,6 +13,9 @@ const button = tv({
 		},
 		active: {
 			true: 'bg-[rgb(var(--background-end-rgb))] border-solid border-[1px] border-[rgb(var(--background-end-rgb))] text-[rgb(var(--foreground-rgb))]'
+		},
+		success: {
+			true: "bg-green-500"
 		}
 	}
 })
@@ -24,20 +27,24 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 }
 type Ref = HTMLButtonElement;
 
-const Button = React.forwardRef<Ref, Props>(({ placeholder, loading, link, className, ...props }, ref) => {
+const Button = React.forwardRef<Ref, Props>(({ placeholder, link, className, ...props }, ref) => {
 	const btn = (
 		<button
 			{...props}
 			ref={ref}
-			disabled={loading || props.disabled}
+			disabled={props.success || props.loading || props.disabled}
 			className={twMerge(
-				button({ disabled: props.disabled }),
+				button({ disabled: props.disabled, success: props.success }),
 				className
 			)}
 		>
-			{loading
+			{props.loading
 				? <Loading size={28} />
-				: placeholder
+				: props.success
+					? <div className='w-full flex items-center justify-center'>
+						<AiOutlineCheckCircle size={28} color='white'/>
+					</div>
+					: placeholder
 			}
 		</button>
 	);
