@@ -73,7 +73,7 @@ export async function POST(req: Request) {
 			},
 		});
 
-		revalidateTag(RevalidationTags.ProductsWithCollection);
+		revalidateTag(RevalidationTags.TO_COLLECTIONS);
 
 		return NextResponse.json({
 			id: product.id,
@@ -101,7 +101,7 @@ export async function DELETE(req: Request) {
 		},
 	});
 
-	revalidateTag(RevalidationTags.ProductsWithCollection);
+	revalidateTag(RevalidationTags.TO_COLLECTIONS);
 
 	return NextResponse.json(deletedProduct);
 }
@@ -134,7 +134,7 @@ export async function PATCH(req: Request) {
 		data: { icon, ...body },
 	});
 
-	revalidateTag(RevalidationTags.ProductsWithCollection);
+	revalidateTag(RevalidationTags.TO_COLLECTIONS);
 
 	return NextResponse.json(updatedProduct);
 }

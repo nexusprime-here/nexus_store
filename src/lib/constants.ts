@@ -5,5 +5,5 @@ export enum OrderStatus {
 }
 
 export enum RevalidationTags {
-	ProductsWithCollection = 'PwC'
+	TO_COLLECTIONS = 'tc'
 }

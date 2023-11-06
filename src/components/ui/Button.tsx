@@ -1,3 +1,4 @@
+import Loading from '@components/Loading';
 import Link from 'next/link';
 import React from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
@@ -24,16 +25,6 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 type Ref = HTMLButtonElement;
 
 const Button = React.forwardRef<Ref, Props>(({ placeholder, loading, link, className, ...props }, ref) => {
-	const Loading = () => {
-		return <div className='flex items-center justify-center'>
-			<AiOutlineLoading
-				className="animate-spin"
-				size={20}
-			/>
-		</div>
-	}
-
-
 	const btn = (
 		<button
 			{...props}
@@ -45,7 +36,7 @@ const Button = React.forwardRef<Ref, Props>(({ placeholder, loading, link, class
 			)}
 		>
 			{loading
-				? <Loading />
+				? <Loading size={28} />
 				: placeholder
 			}
 		</button>

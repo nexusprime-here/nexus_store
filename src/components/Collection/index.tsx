@@ -24,7 +24,7 @@ async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal, l
 	const fetchProduct = async () => {
 		const request = await fetch("/api/products?include=collections", {
 			signal,
-			next: { tags: [RevalidationTags.ProductsWithCollection] },
+			next: { tags: [RevalidationTags.TO_COLLECTIONS] },
 		});
 
 		const result = await request.json();
@@ -72,7 +72,7 @@ function Collection({
 	}
 
 	const lazyload = (data) => {
-		setItems(filterByCollection(toSnakeCase(name))(data));
+		setItems(all ? data : filterByCollection(toSnakeCase(name))(data));
 	}
 	
 	React.useEffect(() => {
