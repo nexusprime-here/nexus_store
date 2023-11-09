@@ -36,8 +36,7 @@ export default function Checkout() {
 				name: data.name,
 				ano: parseInt(data.ano),
 				CPF: BigInt(data.cpf.replaceAll(".", "").replace("-", "")),
-				fund: parseInt(data.fund),
-				sala: data.sala,
+				sala: data.sala
 			},
 			productsId: cart.map(p => ({ id: p.product.id, q: p.quantity })),
 			transationId: pix.txid,

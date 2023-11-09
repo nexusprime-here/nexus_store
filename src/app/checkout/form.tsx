@@ -45,13 +45,6 @@ function Form({
 						format={formatter.sala}
 						{...register("sala")}
 					/>
-					<Input
-						label="Fund."
-						error={errors.fund}
-						placeholder="3"
-						format={formatter.fund}
-						{...register("fund")}
-					/>
 				</div>
 			</div>
 

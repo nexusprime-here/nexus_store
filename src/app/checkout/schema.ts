@@ -12,9 +12,6 @@ export default z.object({
 	ano: z.string()
 		.min(1, 'Digite o ano'),
 
-	fund: z.string()
-		.min(1, 'Digite 1/2 para Ens. Fundamental e 3 para Ens. Médio'),
-
 	sala: z.string()
 		.min(1, 'Digite a letra da sala')
 });
