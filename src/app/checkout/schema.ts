@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export default z.object({
 	name: z.string()
+		.trim()
 		.min(2, 'Nome muito pequeno ou inexistente')
 		.regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/, 'Que isso? apenas letras por favor!')
 		.regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?: [a-zA-ZÀ-ÖØ-öø-ÿ]+)+$/, 'Quase lá! Só faltou seu sobrenome.'),
