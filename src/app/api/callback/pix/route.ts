@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 		});
 	
 		const { 
-			user: {name, ano, sala, fund},
+			user: {name, ano, sala},
 			products,
 			p_quantity
 		} = order
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 		const embed = {
 			title: "Compra Realizada",
 			author: { name },
-			footer: { text: `${ano}º ano ${sala}, fund ${fund}` },
+			footer: { text: `${ano}º ano ${sala}` },
 			fields: products.map(p => ({
 				name: p.name,
 				value: `${JSON.parse(p_quantity)[p.id]} unidades` 
