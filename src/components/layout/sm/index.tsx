@@ -1,6 +1,6 @@
 import Search from "./search";
 import Link from "next/link";
-import { IoChatbubblesOutline } from "react-icons/io5";
+import { IoLogoWhatsapp } from "react-icons/io5";
 import Nav from "./nav";
 
 function Header() {
@@ -11,7 +11,7 @@ function Header() {
 				href="/contact"
 				className="flex h-[45px] w-[45px] flex-col items-center justify-center rounded text-[--font-rgb]"
 			>
-				<IoChatbubblesOutline size={28} />
+				<IoLogoWhatsapp size={28} />
 			</Link>
 		);
 	};
