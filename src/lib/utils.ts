@@ -1,3 +1,5 @@
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 import { Collection, Product } from "@prisma/client";
 
 export function toSnakeCase(input: string) {
@@ -17,3 +19,7 @@ export function filterByCollection(collectionId: string) {
 
 export const hasAuthorization = (req: Request) =>
 	req.headers.get("Authorization") === process.env["ADMIN_TOKEN"];
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs))
+}
