@@ -27,6 +27,10 @@ function Form({
 					error={errors.cpf}
 					format={formatter.cpf}
 					placeholder="000.000.000-00"
+					info={{
+						title: 'Por que o meu CPF?',
+						description: 'Precisamos do seu CPF para a autorização de transação do banco, não iremos fazer uso dessas informações.'
+					}}
 					{...register("cpf")}
 				/>
 

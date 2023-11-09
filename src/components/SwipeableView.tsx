@@ -1,6 +1,6 @@
+import { cn } from "@lib/utils";
 import React, { useRef, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
-import { twMerge } from "tailwind-merge";
 
 interface Props extends React.HTMLProps<SwipeableViews> {
 	onDelete: (ref: React.MutableRefObject<SwipeableViews>) => void;
@@ -33,7 +33,7 @@ const SwipeableView: React.FC<Props> = ({ className, onDelete, onEdit, children 
 			index={index}
 			onChangeIndex={handleChangeIndex}
 			className={
-				twMerge(
+				cn(
 					className,
 					deleted ? 'hidden' : 'block'
 				)

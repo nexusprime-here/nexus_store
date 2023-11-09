@@ -1,8 +1,8 @@
 import Loading from '@components/Loading';
+import { cn } from '@lib/utils';
 import Link from 'next/link';
 import React from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { twMerge } from 'tailwind-merge';
 import { tv } from 'tailwind-variants';
 
 const button = tv({
@@ -33,7 +33,7 @@ const Button = React.forwardRef<Ref, Props>(({ placeholder, link, className, ...
 			{...props}
 			ref={ref}
 			disabled={props.success || props.loading || props.disabled}
-			className={twMerge(
+			className={cn(
 				button({ disabled: props.disabled, success: props.success }),
 				className
 			)}
