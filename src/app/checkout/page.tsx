@@ -49,12 +49,12 @@ export default function Checkout() {
 
 	return (
 		<form onSubmit={form.handleSubmit(onSubmit)} className="left-0 top-0 mt-20">
-			<main className="mx-[8vh] flex flex-col space-y-8">
-				<div className="text-center">
-					<h2 className="mb-4 font-semibold">Este é um ambiente seguro</h2>
+			<main className="flex flex-col space-y-8">
+				<div className="text-center mx-[8vh]">
+					<h3 className="mb-4 font-semibold">Este é um ambiente seguro</h3>
 					<p>
-						As suas informações não serão utilizadas após a compra. Você poderá
-						acompanhar status de entrega do seu produto.
+						As suas informações não serão utilizadas após a compra. 
+						Você poderá acompanhar status de entrega do seu produto clicando no ícone do WhatsApp.
 					</p>
 				</div>
 
