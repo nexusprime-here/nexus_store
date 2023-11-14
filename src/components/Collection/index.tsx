@@ -1,6 +1,5 @@
 "use client";
 
-import "./styles.css";
 import React from "react";
 import Item from "./item";
 import { Collection, Product } from "@prisma/client";
@@ -10,13 +9,13 @@ import { RevalidationTags } from "@lib/constants";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
 	return (
-		<div className="separator">
-			<div className="horizontal-line" />
-			<p>{name}</p>
-			<div className="horizontal-line" />
-		</div>
+	  <div className="flex flex-row items-center text-[rgba(var(--font-rgb),0.5)] justify-center px-8">
+		<div className="border border-[rgba(var(--font-rgb),0.5)] h-0 flex-grow" />
+		<p className="whitespace-nowrap px-1 text-[.6rem] text-gray-500">{name}</p>
+		<div className="border border-[rgba(var(--font-rgb),0.5)] h-0 flex-grow" />
+	  </div>
 	);
-};
+  };
 
 async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal, lazyload }) {
 	let result: (Product & { collections: Collection[] })[] | null = null;
@@ -98,7 +97,9 @@ function Collection({
 		<div className="h-52 flex-shrink-0">
 			<Separator name={name} />
 
-			<div className="row-overflow">{loading ? <Loading /> : items}</div>
+			<div 
+				className="flex flex-row overflow-x-auto h-[200px] mx-8 py-[10px] [&::-webkit-scrollbar]:hidden"
+			>{loading ? <Loading /> : items}</div>
 		</div>
 	);
 }

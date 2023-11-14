@@ -11,7 +11,7 @@ function Search() {
 		<>
 			<SearchModal
 				active={isSearchModalActive}
-				onChange={() => setIsSearchModalActive(false)}
+				onChange={(open) => setIsSearchModalActive(open)}
 			/>
 			<button
 				className="flex h-[45px] w-[45px] flex-col items-center justify-center rounded text-[--font-rgb]"

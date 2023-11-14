@@ -2,10 +2,9 @@
 
 import { Product } from "@prisma/client";
 import React, { useEffect, useState } from "react";
-import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
-import Loading from "./Loading";
 import Image from "next/image";
 import Link from "next/link";
+import { CommandDialog, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/Command";
 
 const cache: { [k: string]: Product[] } = {};
 let searchTimeout: NodeJS.Timeout | null = null;
@@ -29,7 +28,7 @@ function Search({
 	onChange,
 }: {
 	active: boolean;
-	onChange: () => void;
+	onChange: (open: boolean) => void;
 }) {
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -65,66 +64,36 @@ function Search({
 			}
 		};
 	}, [query]);
+	console.log({result})
 
 	return (
-		<div
-			data-open={active}
-			className="fixed inset-0 left-0 top-0 z-20 hidden h-screen w-screen flex-col items-center bg-[rgba(0,0,0,0.5)] backdrop-blur-md data-[open=true]:flex"
-			onClick={onChange}
-		>
-			<div className="h-full w-full">
-				<IoCloseOutline size={25} className="absolute right-2 top-2" />
-
-				<main className="h-full w-full">
-					<div
-						className="relative mx-14 mb-10 mt-14"
-						onClick={(e) => e.stopPropagation()}
-					>
-						<IoSearchOutline
-							size={24}
-							className="absolute left-3 top-1/2 -translate-y-1/2"
-						/>
-						<input
-							type="text"
-							className="h-12 rounded-md border-b-2 border-solid border-white bg-transparent pl-12 text-lg placeholder:font-light"
-							value={query}
-							placeholder="Digite um produto"
-							onChange={(e) => setQuery(e.target.value)}
-						/>
-					</div>
-
-					<div className="mx-6 flex h-full flex-col">
-						{loading ? (
-							<div className="h-1/2">
-								<Loading size={45} />
-							</div>
-						) : (
-							result.map((i) => (
-								<Link
-									href={`/products/${i.id}`}
-									className="flex h-24 w-full items-center rounded-lg border-white p-2"
-									key={i.id}
-									onClick={(e) => e.stopPropagation()}
-								>
+		<CommandDialog open={active} onOpenChange={onChange}>
+			<CommandInput placeholder="Digite um produto" onValueChange={(q) => setQuery(q)} value={query}/>
+			<CommandList>
+				{ loading
+					? 'Carregando'
+					: <>
+						<CommandGroup heading="Produtos">
+							{result.map((p, i) => (
+								<CommandItem key={i}>
 									<div className="relative h-16 w-16">
 										<Image
-											src={`data:image/jpeg;base64,${i.icon}`}
-											alt={i.name}
+											src={`data:image/jpeg;base64,${p.icon}`}
+											alt={p.name}
 											fill
 											className="absolute left-0 top-0 h-auto w-full rounded object-cover"
 										/>
+										<div className="overflow-hiddenoverflow-hidden ml-5 flex flex-col">
+											<h3 className="font-semibold">{p.name}</h3>
+										</div>
 									</div>
-
-									<div className="overflow-hiddenoverflow-hidden ml-5 flex flex-col">
-										<h3 className="font-semibold">{i.name}</h3>
-									</div>
-								</Link>
-							))
-						)}
-					</div>
-				</main>
-			</div>
-		</div>
+								</CommandItem>
+							))}
+						</CommandGroup>
+					</>
+				}				
+			</CommandList>
+		</CommandDialog>
 	);
 }
 
