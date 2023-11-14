@@ -1,6 +1,6 @@
 import "../globals.css";
 import { CartProvider } from "@app/cart/hook";
-import Layout from "@components/layout";
+import Layout from "../layout";
 
 export const metadata = {
 	title: "Nexus Shop",

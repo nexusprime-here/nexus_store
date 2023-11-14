@@ -48,7 +48,7 @@ export default function Checkout() {
 	};
 
 	return (
-		<form onSubmit={form.handleSubmit(onSubmit)} className="left-0 top-0 mt-20">
+		<form onSubmit={form.handleSubmit(onSubmit)} className="left-0 top-0">
 			<main className="flex flex-col space-y-8">
 				<div className="text-center mx-[8vh]">
 					<h3 className="mb-4 font-semibold">Este é um ambiente seguro</h3>
