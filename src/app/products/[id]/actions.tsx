@@ -10,9 +10,12 @@ function Actions({ product }: { product: Product }) {
 	const router = useRouter();
 
 	const [quantity, setQuantity] = React.useState(1);
+	const [btnLoading, setBtnLoading] = React.useState(false);
 	const { addItemToCart } = useCart();
 
 	const handleBtnClick = () => {
+		setBtnLoading(true);
+		
 		addItemToCart({
 			product: {
 				...product,
@@ -40,6 +43,7 @@ function Actions({ product }: { product: Product }) {
 			</div>
 
 			<Button
+				loading={btnLoading}
 				onClick={handleBtnClick}
 				className="w-40"
 				placeholder="Adicionar ao Carrinho"
