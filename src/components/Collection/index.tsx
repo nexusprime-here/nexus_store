@@ -3,7 +3,7 @@
 import "./styles.css";
 import React from "react";
 import Item from "./item";
-import { Collection, Product } from "@prisma/client";
+import type { Collection, Product } from "@prisma/client";
 import { filterByCollection, toSnakeCase } from "@lib/utils";
 import Loading from "@components/Loading";
 import { RevalidationTags } from "@lib/constants";
