@@ -10,6 +10,8 @@ import { z } from "zod";
 import QrCode from "./qrcode";
 import Form from "./form";
 import useCart from "@app/cart/hook";
+import { Webhook } from "@lib/utils";
+import { PaymentMethods } from "@lib/constants";
 
 export type FormInput = z.infer<typeof CheckoutSchema>;
 
@@ -22,28 +24,36 @@ export default function Checkout() {
 	});
 
 	const onSubmit: SubmitHandler<FormInput> = async (data) => {
-		const pix = await Pix.create({
-			cpf: data.cpf.replaceAll(".", "").replace("-", ""),
-			nome: data.name,
-			valor: cart.reduce(
-				(sum, item) => sum + item.product.price * item.quantity,
-				0
-			),
-		});
+		if(data.method == PaymentMethods.PIX) {
+			const pix = await Pix.create({
+				cpf: data.cpf.replaceAll(".", "").replace("-", ""),
+				nome: data.name,
+				valor: cart.reduce(
+					(sum, item) => sum + item.product.price * item.quantity,
+					0
+				),
+			});
+	
+			order.create({
+				user: {
+					name: data.name,
+					ano: parseInt(data.ano),
+					CPF: BigInt(data.cpf.replaceAll(".", "").replace("-", "")),
+					sala: data.sala
+				},
+				productsId: cart.map(p => ({ id: p.product.id, q: p.quantity })),
+				transationId: pix.txid,
+			});
 
-		order.create({
-			user: {
-				name: data.name,
-				ano: parseInt(data.ano),
-				CPF: BigInt(data.cpf.replaceAll(".", "").replace("-", "")),
-				sala: data.sala
-			},
-			productsId: cart.map(p => ({ id: p.product.id, q: p.quantity })),
-			transationId: pix.txid,
-		});
+			setPix(pix);
+		} else {
+			const { name, ano, sala } = data;
+			
+			Webhook.sendOrder(PaymentMethods.MONEY, {
+				name, ano, sala, products: cart
+			})
+		}
 		
-		setPix(pix);
-
 		clearCart();
 	};
 

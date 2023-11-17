@@ -29,13 +29,13 @@ model Collection {
 }
 
 model Order {
-    status        Int
-    id            Int       @id @default(autoincrement())
-    transation_id String    @unique
-    user          User      @relation(fields: [userCPF], references: [CPF])
-    userCPF       BigInt
-    products      Product[]
-    p_quantity    String
+    status     Int
+    id         Int       @id @default(autoincrement())
+    txid       String    @unique
+    user       User      @relation(fields: [userCPF], references: [CPF])
+    userCPF    BigInt
+    products   Product[]
+    p_quantity String
 }
 
 model User {

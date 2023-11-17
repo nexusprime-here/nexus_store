@@ -7,3 +7,8 @@ export enum OrderStatus {
 export enum RevalidationTags {
 	TO_COLLECTIONS = 'tc'
 }
+
+export enum PaymentMethods {
+	MONEY = 'm',
+	PIX = 'p'
+}

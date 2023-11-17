@@ -9,6 +9,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@c
 import { RadioGroup, RadioGroupItem } from "@components/ui/Radio";
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
+import { PaymentMethods } from "@lib/constants";
+
 
 // TODO: Implementar uma condição, caso o usuário já exista no db, não mostrar o form
 
@@ -23,6 +25,7 @@ function Form({
 		setActiveAccordions(activeAccordions);
 	}
 
+	console.log(form.formState.errors)
 	const { ano, cpf, name, sala } = form.formState.errors;
 	
 	useEffect(() => {
@@ -106,15 +109,21 @@ function AccordionDelivery({ form: { formState, register }, onComplete }: {
 	)
 }
 
-function AccordionPayment({ form: { formState, register } }: { form: UseFormReturn<FormInput, any, undefined> }) {
+function AccordionPayment({ form: { formState, register, setValue } }: { form: UseFormReturn<FormInput, any, undefined> }) {
 	const { errors } = formState;
-	const [pixData, setPixData] = useState(true);
+	const [pixMode, setPixMode] = useState(true);
 
+	useEffect(() => {
+		setValue('method', PaymentMethods.PIX);
+	}, []);
+	
 	const paymentRadioChanged = (v: string) => {
-		if(v == 'pix') {
-			setPixData(true);
+		if(v == PaymentMethods.PIX) {
+			setValue('method', PaymentMethods.PIX);
+			setPixMode(true);
 		} else {
-			setPixData(false);
+			setValue('method', PaymentMethods.MONEY);
+			setPixMode(false);
 		}
 	}
 
@@ -122,37 +131,38 @@ function AccordionPayment({ form: { formState, register } }: { form: UseFormRetu
 		<AccordionItem value="payment">
 			<AccordionTrigger>Pagamento</AccordionTrigger>
 			<AccordionContent className="mx-4">
-				<RadioGroup defaultValue="pix" onValueChange={paymentRadioChanged}>
-					<RadioGroupItem label="Pagar com Pix" value="pix" />
-					<RadioGroupItem label="Pagar com dinheiro/pessoalmente" value="dinheiro" />
+				<RadioGroup defaultValue={PaymentMethods.PIX} onValueChange={paymentRadioChanged}>
+					<RadioGroupItem label="Pagar com Pix" value={PaymentMethods.PIX} />
+					<RadioGroupItem label="Pagar com dinheiro/pessoalmente" value={PaymentMethods.MONEY} />
 				</RadioGroup>
 				
-				<motion.div
-					variants={{
-						open: { opacity: 1, height: '10rem' },
-						close: { opacity: 0, height: 0, padding: 0 },
-					}}
-					animate={pixData ? 'open' : 'close'}
-					className="pt-8 space-y-3 transition"
-				>
+				<div className="pt-8 space-y-3 transition">
 					<Input
 						label="Nome Completo"
 						error={errors.name}
 						{...register("name")}
 					/>
 
-					<Input
-						label="CPF"
-						error={errors.cpf}
-						format={formatter.cpf}
-						placeholder="000.000.000-00"
-						info={{
-							title: 'Por que o meu CPF?',
-							description: 'Precisamos do seu CPF para a autorização de transação do banco, não iremos fazer uso dessas informações.'
+					<motion.div
+						variants={{
+							open: { opacity: 1 },
+							close: { opacity: 0, height: 0, padding: 0 },
 						}}
-						{...register("cpf")}
-					/>
-				</motion.div>
+						animate={pixMode ? 'open' : 'close'}
+					>
+						<Input
+							label="CPF"
+							error={errors.cpf}
+							format={formatter.cpf}
+							placeholder="000.000.000-00"
+							info={{
+								title: 'Por que o meu CPF?',
+								description: 'Precisamos do seu CPF para a autorização de transação do banco, não iremos fazer uso dessas informações.'
+							}}
+							{...register('cpf')}
+						/>
+					</motion.div>
+				</div>
 			</AccordionContent>
 		</AccordionItem>
 	)
