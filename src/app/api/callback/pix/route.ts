@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 	for(const p of body.pix) {
 		const order = await prisma.order.update({
 			where: {
-				transation_id: p.txid,
+				txid: p.txid,
 			},
 			data: {
 				status: OrderStatus.PAID,
