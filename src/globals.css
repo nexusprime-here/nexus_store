@@ -10,7 +10,7 @@
 	--font-rgb: 255, 255, 255;
 	--background-start-rgb: 9, 9, 9;
 	--background-end-rgb: 9, 9, 9;
-
+	
 	--primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
 	--secondary-glow: linear-gradient(
 		to bottom right,
