@@ -2,10 +2,9 @@
 
 import "./styles.css";
 import React from "react";
-import Item from "./item";
+import { Item, SkeletonItem } from "./item";
 import type { Collection, Product } from "@prisma/client";
 import { filterByCollection, toSnakeCase } from "@lib/utils";
-import Loading from "@components/Loading";
 import { RevalidationTags } from "@lib/constants";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
@@ -60,7 +59,7 @@ function Collection({
 }) {
 	const { signal } = new AbortController();
 	
-	const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = React.useState(true);
 	const [items, _setItems] = React.useState<React.JSX.Element[]>([]);
 
 	const setItems = (products) => {
@@ -77,7 +76,6 @@ function Collection({
 	
 	React.useEffect(() => {
 		(async () => {
-			setLoading(true);
 
 			try {
 				const products = await sessionCachedFetch({ signal, lazyload })
@@ -92,15 +90,26 @@ function Collection({
 		})();
 	}, [all, name]);
 
-	return !loading && items.length < 1 ? (
-		<></>
-	) : (
-		<div className="h-52 flex-shrink-0">
-			<Separator name={name} />
+	return !loading && items.length < 1
+		? <></>
+		: (
+			<div className="h-52 flex-shrink-0">
+				<Separator name={name} />
+				<div className="row-overflow">{ loading 
+					? <>
+						<SkeletonItem />
+						<SkeletonItem />
+						<SkeletonItem />
+					</>
+					: items
+				}</div>
+			</div>
+		)
+}
 
-			<div className="row-overflow">{loading ? <Loading /> : items}</div>
-		</div>
-	);
+function Loading() {
+	return <>
+	</>
 }
 
 export default Collection;
