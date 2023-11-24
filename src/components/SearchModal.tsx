@@ -13,7 +13,7 @@ let searchTimeout: NodeJS.Timeout | null = null;
 async function searchApiWithLocalCache(searchParams: string) {
 	const register = async () => {
 		const result = await fetch(`/api/search?${searchParams}`).then(
-			(r) => r.json() as Promise<Product[]>
+			(r) => r.json() as Promise<Product[]>,
 		);
 
 		Object.assign(cache, { [searchParams]: result });
@@ -104,7 +104,7 @@ function Search({
 									href={`/products/${i.id}`}
 									className="flex h-24 w-full items-center rounded-lg border-white p-2"
 									key={i.id}
-									onClick={(e) => e.stopPropagation()}
+									onClick={(e) => (e.stopPropagation(), onChange())}
 								>
 									<div className="relative h-16 w-16">
 										<Image

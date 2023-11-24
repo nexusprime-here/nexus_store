@@ -9,8 +9,10 @@ import formatter from "@lib/formatters";
 import Button from "@components/ui/Button";
 import useCart from "@app/cart/hook";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function CartProducts() {
+	const [loading, setLoading] = useState(false);
 	const { cart, deleteItemFromCart } = useCart();
 	const router = useRouter();
 
@@ -26,11 +28,12 @@ function CartProducts() {
 
 	const totalPrice = cart.reduce(
 		(sum, item) => sum + item.product.price * item.quantity,
-		0
+		0,
 	);
 
 	const handleClick = () => {
 		router.push("/checkout");
+		setLoading(true);
 	};
 
 	return (
@@ -44,6 +47,7 @@ function CartProducts() {
 							onClick={handleClick}
 							placeholder="Finalizar Compra"
 							className="w-[50%]"
+							loading={loading}
 						/>
 
 						<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
