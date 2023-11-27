@@ -42,12 +42,14 @@ function Search({
 
 			setLoading(true);
 			const params = new URLSearchParams();
-			params.set("q", query?.toLowerCase().replace(/\s+/g, " ").trim());
+			params.set("q", query?.toLowerCase().trim());
 
 			try {
 				const result = await searchApiWithLocalCache(params.toString());
 
 				setLoading(false);
+				console.log({result})
+
 				setResult(result);
 			} catch {}
 		};
@@ -64,7 +66,6 @@ function Search({
 			}
 		};
 	}, [query]);
-	console.log({result})
 
 	return (
 		<CommandDialog open={active} onOpenChange={onChange}>
@@ -72,25 +73,19 @@ function Search({
 			<CommandList>
 				{ loading
 					? 'Carregando'
-					: <>
-						<CommandGroup heading="Produtos">
-							{result.map((p, i) => (
-								<CommandItem key={i}>
-									<div className="relative h-16 w-16">
-										<Image
-											src={`data:image/jpeg;base64,${p.icon}`}
-											alt={p.name}
-											fill
-											className="absolute left-0 top-0 h-auto w-full rounded object-cover"
-										/>
-										<div className="overflow-hiddenoverflow-hidden ml-5 flex flex-col">
-											<h3 className="font-semibold">{p.name}</h3>
-										</div>
-									</div>
-								</CommandItem>
-							))}
-						</CommandGroup>
-					</>
+					: result.map((p, i) => (
+						<CommandItem key={i} className="flex">
+							<div className="relative h-16 w-16 m-2 mr-5">
+								<Image
+									src={`data:image/jpeg;base64,${p.icon}`}
+									alt={p.name}
+									fill
+									className="absolute left-0 top-0 h-auto w-full rounded object-cover"
+								/>
+							</div>
+							<h3 className="font-semibold">{p.name}</h3>
+						</CommandItem>
+					))
 				}				
 			</CommandList>
 		</CommandDialog>
