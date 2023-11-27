@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "./nav";
 import { IoBagOutline, IoSearchOutline } from "react-icons/io5";
+import Search from "./search";
 
 function Header() {
 	return (
@@ -12,7 +13,8 @@ function Header() {
 			<Nav />
 
 			<div className="flex items-center space-x-10 [&>*]:stroke-[rgba(255,255,255,.8)]">
-				<IoSearchOutline size={22} />
+				<Search />
+				{/* <IoSearchOutline size={22} /> */}
 				<IoBagOutline size={22} />
 			</div>
 		</header>
