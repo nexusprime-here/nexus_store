@@ -20,7 +20,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<Header />
 
-			<div className="pt-[4.5rem] pb-24 min-h-screen flex-col items-center">
+			<div className="min-h-screen flex-col items-center pb-24 pt-[4.5rem] lg:pb-0 lg:pt-4">
 				{children}
 			</div>
 

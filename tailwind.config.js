@@ -25,13 +25,16 @@ module.exports = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 			colors: {
-				muted: "rgba(255,255,255,0.2)"
-			}
+				muted: "rgba(255,255,255,0.2)",
+			},
+			fontFamily: {
+				"poiret-one": "'Poiret One',cursive;",
+			},
 		},
 		textColor: {
 			primary: "white",
-			secoundary: "rgba(255,255,255,0.7)"
-		}
+			secoundary: "rgba(255,255,255,0.7)",
+		},
 	},
 	plugins: [],
-}
+};

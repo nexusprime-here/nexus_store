@@ -53,7 +53,7 @@ function CartProducts() {
 						<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
 					</div>
 
-					<ul className="mx-4 mt-5 flex	min-h-[30%] flex-col space-y-2">
+					<ul className="mx-4 mt-5 flex min-h-[30%] flex-col space-y-2">
 						<>
 							<span className="text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
 								Arraste o produto para a direita para excluir
