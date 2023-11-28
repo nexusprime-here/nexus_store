@@ -16,7 +16,7 @@ export async function GET(req: Request) {
 
 		if(txid) {
 			result = await prisma.order.findUnique({ 
-				where: { transation_id: txid },
+				where: { txid },
 				include: { products: true, user: true } 
 			});
 		}

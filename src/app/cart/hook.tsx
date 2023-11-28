@@ -2,10 +2,16 @@
 
 import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import {
+	createContext,
+	useState,
+	useEffect,
+	ReactNode,
+	useContext,
+} from "react";
 
 export interface CartItem {
-	product: Omit<Product, 'collection'>;
+	product: Omit<Product, "collection">;
 	quantity: number;
 }
 
@@ -16,11 +22,12 @@ interface CartContextType {
 	clearCart: () => void;
 }
 
-const CartContext = createContext<CartContextType>({  // Defina um valor padrão aqui
+const CartContext = createContext<CartContextType>({
+	// Defina um valor padrão aqui
 	cart: [],
-	addItemToCart: () => { },
-	deleteItemFromCart: () => { },
-	clearCart: () => { }
+	addItemToCart: () => {},
+	deleteItemFromCart: () => {},
+	clearCart: () => {},
 });
 
 interface CartProviderProps {
@@ -30,10 +37,10 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	const [cart, setCart] = useState<CartItem[]>([]);
 
-	const router = useRouter();
+	const _router = useRouter();
 
 	useEffect(() => {
-		if (typeof window == 'undefined') {
+		if (typeof window == "undefined") {
 			return;
 		}
 
@@ -44,13 +51,13 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 		setCart(
 			localStorage.getItem("cart")
 				? JSON.parse(localStorage.getItem("cart")!)
-				: []
+				: [],
 		);
 	};
 
 	const addItemToCart = (item: CartItem) => {
 		const existingItemIndex = cart.findIndex(
-			(cartItem) => cartItem.product.id === item.product.id
+			(cartItem) => cartItem.product.id === item.product.id,
 		);
 
 		let newCartItems: CartItem[];
@@ -67,7 +74,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	};
 
 	const deleteItemFromCart = (productId: number) => {
-		const newCartItems = cart.filter((cartItem) => cartItem.product.id !== productId);
+		const newCartItems = cart.filter(
+			(cartItem) => cartItem.product.id !== productId,
+		);
 
 		localStorage.setItem("cart", JSON.stringify(newCartItems));
 		setCartToState();
@@ -76,7 +85,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 	const clearCart = () => {
 		localStorage.setItem("cart", JSON.stringify([]));
 		setCartToState();
-	}
+	};
 
 	return (
 		<CartContext.Provider
@@ -84,7 +93,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 				cart,
 				addItemToCart,
 				deleteItemFromCart,
-				clearCart
+				clearCart,
 			}}
 		>
 			{children}

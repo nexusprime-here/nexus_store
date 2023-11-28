@@ -15,21 +15,16 @@ function Layout({ children }: { children: React.ReactNode }) {
 	/**
 	 * A navegação de telas de desktop estão implementadas dentro do Header
 	 */
-	const MobileNav = () => {
-		return (
-			<>
-				<sm.Nav />
-			</>
-		);
-	};
 
 	return (
 		<>
 			<Header />
 
-			<div className="mt-16 h-screen flex-col items-center">{children}</div>
+			<div className="min-h-screen flex-col items-center pb-24 pt-[4.5rem] lg:px-20 lg:pb-0 lg:pt-4">
+				{children}
+			</div>
 
-			<MobileNav />
+			<sm.Nav />
 		</>
 	);
 }

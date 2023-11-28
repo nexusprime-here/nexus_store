@@ -100,6 +100,12 @@ p {
 	color: rgb(var(--font-rgb));
 }
 
+::-webkit-scrollbar-thumb {
+	background-color: red;
+	border-color: rgb(var(--detail-rgb));
+	border-style: solid;
+}
+
 @media (prefers-color-scheme: white) {
 	html {
 		color-scheme: dark;

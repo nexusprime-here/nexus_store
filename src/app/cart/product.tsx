@@ -9,8 +9,10 @@ import formatter from "@lib/formatters";
 import Button from "@components/ui/Button";
 import useCart from "@app/cart/hook";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function CartProducts() {
+	const [loading, setLoading] = useState(false);
 	const { cart, deleteItemFromCart } = useCart();
 	const router = useRouter();
 
@@ -26,15 +28,16 @@ function CartProducts() {
 
 	const totalPrice = cart.reduce(
 		(sum, item) => sum + item.product.price * item.quantity,
-		0
+		0,
 	);
 
 	const handleClick = () => {
 		router.push("/checkout");
+		setLoading(true);
 	};
 
 	return (
-		<div className="mb-8 mt-20">
+		<div className="">
 			<h1 className="text-center text-2xl font-semibold">Seu carrinho</h1>
 
 			{cartProducts.length > 0 ? (
@@ -44,12 +47,13 @@ function CartProducts() {
 							onClick={handleClick}
 							placeholder="Finalizar Compra"
 							className="w-[50%]"
+							loading={loading}
 						/>
 
 						<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
 					</div>
 
-					<ul className="mx-4 mt-5 flex	min-h-[30%] flex-col space-y-2">
+					<ul className="mx-4 mt-5 flex min-h-[30%] flex-col space-y-2">
 						<>
 							<span className="text-center text-xs text-[rgba(var(--font-rgb),0.8)]">
 								Arraste o produto para a direita para excluir

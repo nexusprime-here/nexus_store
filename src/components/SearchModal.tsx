@@ -3,8 +3,7 @@
 import { Product } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { CommandDialog, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/Command";
+import { CommandDialog, CommandInput, CommandItem, CommandList } from "./ui/Command";
 
 const cache: { [k: string]: Product[] } = {};
 let searchTimeout: NodeJS.Timeout | null = null;
@@ -12,7 +11,7 @@ let searchTimeout: NodeJS.Timeout | null = null;
 async function searchApiWithLocalCache(searchParams: string) {
 	const register = async () => {
 		const result = await fetch(`/api/search?${searchParams}`).then(
-			(r) => r.json() as Promise<Product[]>
+			(r) => r.json() as Promise<Product[]>,
 		);
 
 		Object.assign(cache, { [searchParams]: result });

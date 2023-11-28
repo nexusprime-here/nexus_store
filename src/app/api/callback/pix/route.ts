@@ -1,9 +1,7 @@
-import { OrderStatus } from "@lib/constants";
+import { OrderStatus, PaymentMethods } from "@lib/constants";
 import prisma from "@lib/database";
-import axios from "axios";
+import { Webhook } from "@lib/utils";
 import { NextResponse } from "next/server";
-
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1154280449544310924/nCaPFI8OYVEYXNYYlqd8grkdk9J5BnwLAdgC7ZU7zcQFBf1IWIBZ1ugLl_MfmSrNtahp";
 
 export async function POST(req: Request) {
 	const body = await req.json();
@@ -11,7 +9,7 @@ export async function POST(req: Request) {
 	for(const p of body.pix) {
 		const order = await prisma.order.update({
 			where: {
-				transation_id: p.txid,
+				txid: p.txid,
 			},
 			data: {
 				status: OrderStatus.PAID,
@@ -25,21 +23,10 @@ export async function POST(req: Request) {
 		const { 
 			user: {name, ano, sala},
 			products,
-			p_quantity
+			p_quantity: quantity
 		} = order
 	
-		const embed = {
-			title: "Compra Realizada",
-			author: { name },
-			footer: { text: `${ano}º ano ${sala}` },
-			fields: products.map(p => ({
-				name: p.name,
-				value: `${JSON.parse(p_quantity)[p.id]} unidades` 
-			})),
-			color: 0x00FF00
-		}
-	
-		axios.post(WEBHOOK_URL, { embeds: [embed] });
+		Webhook.sendOrder(PaymentMethods.PIX, { ano, quantity, products, sala, name });
 	}
 
 	return NextResponse.json(null, {

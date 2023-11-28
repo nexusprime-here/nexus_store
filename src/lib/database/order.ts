@@ -25,7 +25,7 @@ export async function create(order: {
 					CPF: upsertedUser.CPF
 				},
 			},
-			transation_id: transationId,
+			txid: transationId,
 			products: {
 				connect: productsId.map(p => ({ id: p.id }))
 			},
