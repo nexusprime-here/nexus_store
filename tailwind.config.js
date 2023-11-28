@@ -26,6 +26,8 @@ module.exports = {
 			},
 			colors: {
 				muted: "rgba(255,255,255,0.2)",
+				"foreground": "rgb(var(--foreground-rgb))",
+				"detail": "rgb(var(--detail-rgb))",
 			},
 			fontFamily: {
 				"poiret-one": "'Poiret One',cursive;",

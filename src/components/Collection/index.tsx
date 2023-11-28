@@ -92,11 +92,11 @@ function Collection({
 	return !loading && items.length < 1
 		? <></>
 		: (
-			<div className="h-52 flex-shrink-0">
+			<div className="flex-shrink-0">
 				<Separator name={name} />
 
 				<div 
-					className="flex flex-row overflow-x-auto h-[200px] mx-8 py-[10px] [&::-webkit-scrollbar]:hidden"
+					className="flex flex-row overflow-x-auto mx-8 py-[10px] [&::-webkit-scrollbar]:hidden"
 				>{ loading 
 						? <>
 							<SkeletonItem />

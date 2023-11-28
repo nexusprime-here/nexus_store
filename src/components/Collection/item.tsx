@@ -13,11 +13,11 @@ export const Item: React.FC<{ data: Product }> = ({ data }) => {
 		<Link
 			prefetch={false}
 			href={`/products/${data.id}`}
-			className="w-28 mr-4 relative flex shrink-0 flex-col overflow-hidden"
+			className="md:bg-foreground md:border md:rounded-lg border-detail w-28 md:w-[15vw] lg:w-[12vw] mr-4 relative flex shrink-0 flex-col overflow-hidden"
 		>
-			<div className="w-full aspect-square relative">
+			<div className="mt-3 w-full aspect-square relative">
 				<Image
-					className="rounded-lg bg-white"
+					className="rounded-lg md:rounded-sm bg-white"
 					src={`data:image/jpeg;base64,${data.icon}`}
 					fill
 					alt={`img: ${data.name}`}
