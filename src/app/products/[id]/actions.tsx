@@ -27,7 +27,7 @@ function Actions({ product }: { product: Product }) {
 	};
 
 	return (
-		<div className="flex w-full justify-around">
+		<div className="flex md:flex-col w-full justify-around">
 			<div className="flex flex-row items-center">
 				<Button
 					className="h-7 w-7 border-[1px] border-solid border-white bg-transparent text-white"
@@ -45,7 +45,7 @@ function Actions({ product }: { product: Product }) {
 			<Button
 				loading={btnLoading}
 				onClick={handleBtnClick}
-				className="w-40"
+				className="w-40 md:w-[75%] md:h-14 text-lg"
 				placeholder="Adicionar ao Carrinho"
 			/>
 		</div>

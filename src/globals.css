@@ -100,10 +100,11 @@ p {
 	color: rgb(var(--font-rgb));
 }
 
+::-webkit-scrollbar {
+	@apply bg-foreground w-3
+}
 ::-webkit-scrollbar-thumb {
-	background-color: red;
-	border-color: rgb(var(--detail-rgb));
-	border-style: solid;
+	@apply bg-detail rounded-md
 }
 
 @media (prefers-color-scheme: white) {
