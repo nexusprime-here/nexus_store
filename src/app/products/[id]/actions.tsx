@@ -15,7 +15,7 @@ function Actions({ product }: { product: Product }) {
 
 	const handleBtnClick = () => {
 		setBtnLoading(true);
-		
+
 		addItemToCart({
 			product: {
 				...product,
@@ -27,10 +27,10 @@ function Actions({ product }: { product: Product }) {
 	};
 
 	return (
-		<div className="flex md:flex-col w-full justify-around">
+		<div className="flex w-full justify-around md:flex-col">
 			<div className="flex flex-row items-center">
 				<Button
-					className="h-7 w-7 border-[1px] border-solid border-white bg-transparent text-white"
+					className="text-white h-7 w-7 border-[1px] border-solid border-white bg-transparent"
 					onClick={() => setQuantity((n) => (n == 1 ? n : n - 1))}
 					placeholder="-"
 				/>
@@ -45,7 +45,7 @@ function Actions({ product }: { product: Product }) {
 			<Button
 				loading={btnLoading}
 				onClick={handleBtnClick}
-				className="w-40 md:w-[75%] md:h-14 text-lg"
+				className="w-40 md:h-14 md:w-[75%] md:text-lg"
 				placeholder="Adicionar ao Carrinho"
 			/>
 		</div>

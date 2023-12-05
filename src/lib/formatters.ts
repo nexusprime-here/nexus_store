@@ -22,22 +22,26 @@ const format = {
 					(g3 ? "." + g3 : "") +
 					(g4 ? "-" + g4 : "");
 				return result;
-			}
+			},
 		);
 
 		return value;
 	},
 
-	ano(value: string) {
-		return value[0]?.replace(/[a-zA-ZÀ-ÿ.,;!?'"()\[\]\{\}]/g, "");
+	cep(value: string) {
+		const numericValue = value.replace(/\D/g, "");
+
+		if (numericValue.length <= 5) {
+			return numericValue;
+		} else if (numericValue.length <= 8) {
+			return `${numericValue.slice(0, 5)}-${numericValue.slice(5)}`;
+		} else {
+			return `${numericValue.slice(0, 5)}-${numericValue.slice(5, 8)}`;
+		}
 	},
 
-	fund(value: string) {
-		return value[0]?.replace(/[[a-zA-ZÀ-ÿ.,;!?'"()\[\]\{\}]/g, "");
-	},
-
-	sala(value: string) {
-		return value[0]?.toUpperCase().replace(/[À-ÿ0-9.,;!?'"()\[\]\{\}]/g, "");
+	nResidencia(value: string) {
+		return value?.replace(/[[a-zA-ZÀ-ÿ.,;!?'"()\[\]\{\}]/g, "").slice(0, 5);
 	},
 };
 

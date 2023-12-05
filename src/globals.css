@@ -101,10 +101,10 @@ p {
 }
 
 ::-webkit-scrollbar {
-	@apply bg-foreground w-3
+	@apply md:w-3 md:bg-foreground;
 }
 ::-webkit-scrollbar-thumb {
-	@apply bg-detail rounded-md
+	@apply md:rounded-md md:bg-detail;
 }
 
 @media (prefers-color-scheme: white) {

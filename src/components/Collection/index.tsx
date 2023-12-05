@@ -8,15 +8,15 @@ import { RevalidationTags } from "@lib/constants";
 
 const Separator: React.FC<{ name: string }> = ({ name }) => {
 	return (
-	  <div className="flex flex-row items-center text-[rgba(var(--font-rgb),0.5)] justify-center px-8">
-		<div className="border border-[rgba(var(--font-rgb),0.5)] h-0 flex-grow" />
-		<p className="whitespace-nowrap px-1 text-[.6rem] text-gray-500">{name}</p>
-		<div className="border border-[rgba(var(--font-rgb),0.5)] h-0 flex-grow" />
-	  </div>
+		<div className="flex flex-row items-center justify-center px-8 text-[rgba(var(--font-rgb),0.5)]">
+			<div className="h-0 flex-grow border border-[rgba(var(--font-rgb),0.5)]" />
+			<p className="whitespace-nowrap px-1 text-[.6rem]">{name}</p>
+			<div className="h-0 flex-grow border border-[rgba(var(--font-rgb),0.5)]" />
+		</div>
 	);
-  };
+};
 
-async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal, lazyload }) {
+async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal; lazyload }) {
 	let result: (Product & { collections: Collection[] })[] | null = null;
 
 	const fetchProduct = async () => {
@@ -27,91 +27,81 @@ async function sessionCachedFetch({ signal, lazyload }: { signal: AbortSignal, l
 
 		const result = await request.json();
 
-		sessionStorage.setItem('products', JSON.stringify(result));
+		sessionStorage.setItem("products", JSON.stringify(result));
 
 		return result;
-	}
+	};
 
-	if('sessionStorage' in globalThis) {
-		const productInStr = sessionStorage.getItem('products');
+	if ("sessionStorage" in globalThis) {
+		const productInStr = sessionStorage.getItem("products");
 
-		if(productInStr) {
+		if (productInStr) {
 			result = JSON.parse(productInStr);
 		}
 
 		fetchProduct().then(lazyload);
 	}
 
-	if(!result) {
+	if (!result) {
 		result = await fetchProduct();
 	}
 
 	return result;
 }
 
-function Collection({
-	name,
-	all,
-}: {
-	name: string;
-	all?: boolean;
-}) {
+function Collection({ name, all }: { name: string; all?: boolean }) {
 	const { signal } = new AbortController();
-	
+
 	const [loading, setLoading] = React.useState(true);
 	const [items, _setItems] = React.useState<React.JSX.Element[]>([]);
 
 	const setItems = (products) => {
-		_setItems(
-			products.map((p) => (
-				<Item data={p} key={p.id} />
-			))
-		)
-	}
+		_setItems(products.map((p) => <Item data={p} key={p.id} />));
+	};
 
 	const lazyload = (data) => {
 		setItems(all ? data : filterByCollection(toSnakeCase(name))(data));
-	}
-	
+	};
+
 	React.useEffect(() => {
 		(async () => {
-
 			try {
-				const products = await sessionCachedFetch({ signal, lazyload })
-					.then(all ? null : filterByCollection(toSnakeCase(name)));
+				const products = await sessionCachedFetch({ signal, lazyload }).then(
+					all ? null : filterByCollection(toSnakeCase(name)),
+				);
 
 				setItems(products);
 
 				setLoading(false);
-			} catch(e) {
+			} catch (e) {
 				setLoading(false);
 			}
 		})();
 	}, [all, name]);
 
-	return !loading && items.length < 1
-		? <></>
-		: (
-			<div className="flex-shrink-0">
-				<Separator name={name} />
+	return !loading && items.length < 1 ? (
+		<></>
+	) : (
+		<div className="flex-shrink-0">
+			<Separator name={name} />
 
-				<div 
-					className="flex flex-row overflow-x-auto mx-8 py-[10px] [&::-webkit-scrollbar]:hidden"
-				>{ loading 
-						? <>
-							<SkeletonItem />
-							<SkeletonItem />
-							<SkeletonItem />
-						</>
-						: items
-					}</div>
-				</div>
-		)
+			<div className="mx-8 flex flex-row overflow-x-auto py-[10px] [&::-webkit-scrollbar]:hidden">
+				{loading ? (
+					<>
+						<SkeletonItem />
+						<SkeletonItem />
+						<SkeletonItem />
+					</>
+				) : (
+					items
+				)}
+			</div>
+		</div>
+	);
 }
 
 function Loading() {
-	return <>
-	</>
+	return <></>;
 }
 
 export default Collection;

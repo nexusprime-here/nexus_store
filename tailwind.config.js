@@ -26,16 +26,16 @@ module.exports = {
 			},
 			colors: {
 				muted: "rgba(255,255,255,0.2)",
-				"foreground": "rgb(var(--foreground-rgb))",
-				"detail": "rgb(var(--detail-rgb))",
+				foreground: "rgb(var(--foreground-rgb))",
+				detail: "rgb(var(--detail-rgb))",
 			},
 			fontFamily: {
 				"poiret-one": "'Poiret One',cursive;",
 			},
-		},
-		textColor: {
-			primary: "white",
-			secoundary: "rgba(255,255,255,0.7)",
+			textColor: {
+				primary: "white",
+				secoundary: "rgba(255,255,255,0.7)",
+			},
 		},
 	},
 	plugins: [],
