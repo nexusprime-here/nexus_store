@@ -27,7 +27,7 @@ function Actions({ product }: { product: Product }) {
 	};
 
 	return (
-		<div className="flex w-full justify-around md:flex-col">
+		<div className="flex w-full justify-around space-y-8 md:flex-col">
 			<div className="flex flex-row items-center">
 				<Button
 					className="text-white h-7 w-7 border-[1px] border-solid border-white bg-transparent"
@@ -35,17 +35,13 @@ function Actions({ product }: { product: Product }) {
 					placeholder="-"
 				/>
 				<p className="mx-3 text-lg">{quantity}</p>
-				<Button
-					className="h-7 w-7"
-					onClick={() => setQuantity((n) => (n == 15 ? n : n + 1))}
-					placeholder="+"
-				/>
+				<Button className="h-7 w-7" onClick={() => setQuantity((n) => (n == 15 ? n : n + 1))} placeholder="+" />
 			</div>
 
 			<Button
 				loading={btnLoading}
 				onClick={handleBtnClick}
-				className="w-40 md:h-14 md:w-[75%] md:text-lg"
+				className="w-40 md:h-14 md:w-full md:text-lg"
 				placeholder="Adicionar ao Carrinho"
 			/>
 		</div>
