@@ -15,19 +15,19 @@ export default async function Product({ params }: { params: { id: string } }) {
 	}
 
 	return (
-		<div className="min-h-full flex-grow-0 md:grid md:grid-cols-[65%,auto] md:items-center md:justify-center md:gap-x-5 md:pt-10 lg:mx-10">
-			<div className="flex justify-center">
+		<div className="flex flex-col md:flex-row md:items-center md:justify-between md:gap-x-20 md:pt-10 lg:mx-20">
+			<div className="flex justify-center rounded-md border-detail md:w-[55%] md:border">
 				<div className="relative h-60 w-full border-x-4 border-transparent md:row-span-3 md:h-[30vw] md:w-[30vw] md:border-0">
 					<Image
 						fill={true}
-						className="rounded bg-white object-contain md:bg-transparent"
+						className="rounded-md bg-white object-contain md:rounded-none md:bg-transparent"
 						alt={product.name}
 						src={`data:image/jpeg;base64,${product.icon}`}
 					/>
 				</div>
 			</div>
 
-			<div className="w-full">
+			<div className="md:w-[35%]">
 				<div className="mx-8 mt-5 flex items-center justify-between md:m-0 md:mb-4 md:flex-col md:items-start">
 					<h1 className="font-semibold md:mb-5 md:text-5xl">{product.name}</h1>
 					<h2 className="ml-2 md:ml-0">{format.brl(product.price)}</h2>
