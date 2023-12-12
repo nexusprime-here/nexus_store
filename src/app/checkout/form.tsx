@@ -17,12 +17,12 @@ function Form({ form }: { form: UseFormReturn<FormInput, any, undefined> }) {
 		setActiveAccordions(activeAccordions);
 	};
 
-	const { ano, cpf, name, sala } = form.formState.errors;
+	const { cep, nResidencia, complemento, cpf, name } = form.formState.errors;
 
 	useEffect(() => {
 		const newAccordionState = [...activeAccordions];
 
-		if (ano || sala) {
+		if (cep || nResidencia) {
 			if ("delivery" in newAccordionState) return;
 
 			newAccordionState.push("delivery");
@@ -34,7 +34,7 @@ function Form({ form }: { form: UseFormReturn<FormInput, any, undefined> }) {
 		}
 
 		setActiveAccordions(newAccordionState);
-	}, [ano, cpf, name, sala]);
+	}, [cpf, name, cep, nResidencia]);
 
 	return (
 		<>
