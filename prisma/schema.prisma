@@ -39,9 +39,10 @@ model Order {
 }
 
 model User {
-    name  String
-    CPF   BigInt  @unique
-    sala  String
-    ano   Int
-    order Order[]
+    name        String
+    CPF         BigInt  @unique
+    CEP         BigInt
+    nResidencia Int
+    complemento String?
+    order       Order[]
 }

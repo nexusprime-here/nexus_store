@@ -4,43 +4,38 @@ import { User } from "@prisma/client";
 import { OrderStatus } from "@lib/constants";
 import prisma from "@lib/database";
 
-export async function create(order: {
-	user: User;
-	productsId: { q: number, id: number }[];
-	transationId: string;
-}) {
+export async function create(order: { user: User; productsId: { q: number; id: number }[]; transationId: string }) {
 	const { user, transationId, productsId } = order;
 
 	const upsertedUser = await prisma.user.upsert({
 		create: user,
 		update: {},
 		where: { CPF: user.CPF },
-	})
+	});
 
 	return await prisma.order.create({
 		data: {
 			status: 0,
 			user: {
 				connect: {
-					CPF: upsertedUser.CPF
+					CPF: upsertedUser.CPF,
 				},
 			},
 			txid: transationId,
 			products: {
-				connect: productsId.map(p => ({ id: p.id }))
+				connect: productsId.map((p) => ({ id: p.id })),
 			},
-			p_quantity: JSON.stringify(productsId.reduce((acc, obj) => {
-				Object.assign(acc, {[obj.id]: obj.q});
-				return acc;
-			}, {}))
+			p_quantity: JSON.stringify(
+				productsId.reduce((acc, obj) => {
+					Object.assign(acc, { [obj.id]: obj.q });
+					return acc;
+				}, {}),
+			),
 		},
 	});
 }
 
-export async function findByUser(
-	cpf: number,
-	options: { status: OrderStatus[] }
-) {
+export async function findByUser(cpf: number, options: { status: OrderStatus[] }) {
 	return await prisma.order.findMany({
 		where: {
 			status: {

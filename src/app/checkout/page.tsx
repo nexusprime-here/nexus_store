@@ -29,34 +29,33 @@ export default function Checkout() {
 			const pix = await Pix.create({
 				cpf: data.cpf.replaceAll(".", "").replace("-", ""),
 				nome: data.name,
-				valor: cart.reduce(
-					(sum, item) => sum + item.product.price * item.quantity,
-					0,
-				),
+				valor: cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
 			});
 
 			order.create({
 				user: {
 					name: data.name,
-					ano: parseInt(data.ano),
+					nResidencia: parseInt(data.nResidencia),
 					CPF: BigInt(data.cpf.replaceAll(".", "").replace("-", "")),
-					sala: data.sala,
+					CEP: BigInt(data.cep.replace("-", "")),
+					complemento: data.complemento ?? null,
 				},
 				productsId: cart.map((p) => ({ id: p.product.id, q: p.quantity })),
 				transationId: pix.txid,
 			});
 
 			setPix(pix);
-		} else {
-			const { name, ano, sala } = data;
-
-			Webhook.sendOrder(PaymentMethods.MONEY, {
-				name,
-				ano,
-				sala,
-				products: cart,
-			});
 		}
+		// else {
+		// 	const { name, ano, sala } = data;
+
+		// 	Webhook.sendOrder(PaymentMethods.Money, {
+		// 		name,
+		// 		ano,
+		// 		sala,
+		// 		products: cart,
+		// 	});
+		// }
 
 		clearCart();
 	};
@@ -67,9 +66,8 @@ export default function Checkout() {
 				<div className="mx-[8vh] text-center">
 					<h3 className="mb-4 font-semibold">Este é um ambiente seguro</h3>
 					<p>
-						As suas informações não serão utilizadas após a compra. Você poderá
-						acompanhar status de entrega do seu produto clicando no ícone do
-						WhatsApp.
+						As suas informações não serão utilizadas após a compra. Você poderá acompanhar status de entrega do seu produto
+						clicando no ícone do WhatsApp.
 					</p>
 				</div>
 

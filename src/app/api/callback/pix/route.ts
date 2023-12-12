@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
 	const body = await req.json();
 
-	for(const p of body.pix) {
+	for (const p of body.pix) {
 		const order = await prisma.order.update({
 			where: {
 				txid: p.txid,
@@ -16,17 +16,17 @@ export async function POST(req: Request) {
 			},
 			include: {
 				user: true,
-				products: true
-			}
+				products: true,
+			},
 		});
-	
-		const { 
-			user: {name, ano, sala},
+
+		const {
+			user: { name, CEP, CPF, complemento, nResidencia },
 			products,
-			p_quantity: quantity
-		} = order
-	
-		Webhook.sendOrder(PaymentMethods.PIX, { ano, quantity, products, sala, name });
+			p_quantity: quantity,
+		} = order;
+
+		Webhook.sendOrder(PaymentMethods.PIX, { CEP, quantity, products, complemento, CPF, nResidencia, name });
 	}
 
 	return NextResponse.json(null, {

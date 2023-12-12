@@ -31,10 +31,7 @@ export async function GET(req: Request) {
 	});
 
 	if (!product) {
-		return NextResponse.json(
-			{},
-			{ status: 404, statusText: "Product not found" }
-		);
+		return NextResponse.json({}, { status: 404, statusText: "Product not found" });
 	} else {
 		return NextResponse.json(product);
 	}
@@ -49,9 +46,7 @@ export async function POST(req: Request) {
 		const productData = Product.parse(await req.json());
 
 		const iconResponse = await fetch(productData.iconURL);
-		const icon = Buffer.from(await iconResponse.arrayBuffer()).toString(
-			"base64"
-		);
+		const icon = Buffer.from(await iconResponse.arrayBuffer()).toString("base64");
 
 		const product = await prisma.product.create({
 			data: {
@@ -79,7 +74,7 @@ export async function POST(req: Request) {
 			id: product.id,
 		});
 	} catch (e: any) {
-		return NextResponse.json(typeof e == 'object' ? JSON.parse(e) : e, { status: 400 });
+		return NextResponse.json(typeof e == "object" ? JSON.parse(e) : e, { status: 400 });
 	}
 }
 
