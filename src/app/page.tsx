@@ -7,7 +7,6 @@ export default async function Home() {
 		<>
 			<main className="mx-10 mb-10 font-light">
 				<p>Bem vindo ao Nexus Store!</p>
-				<p>Entregamos doces, salgados e materiais escolares no colégio em horário de aula ou de intervalo.</p>
 				<br />
 				<p>Você pode entrar em contato conosco clicando no ícone de chat no canto superior direito!</p>
 			</main>
