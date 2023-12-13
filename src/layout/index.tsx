@@ -20,9 +20,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<Header />
 
-			<div className="min-h-screen flex-col items-center pb-24 pt-[4.5rem] lg:px-20 lg:pb-0 lg:pt-4">
-				{children}
-			</div>
+			<div className="min-h-screen flex-col items-center pb-24 pt-[4.5rem] md:px-[6vw] lg:pb-0 lg:pt-4">{children}</div>
 
 			<sm.Nav />
 		</>
