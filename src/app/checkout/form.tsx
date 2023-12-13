@@ -5,7 +5,7 @@ import Input from "@components/ui/Input";
 import { UseFormReturn } from "react-hook-form";
 import formatter from "@lib/formatters";
 import type { FormInput } from "./page";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@components/ui/Accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@components/structure/Accordion";
 import { useEffect, useState } from "react";
 
 // TODO: Implementar uma condição, caso o usuário já exista no db, não mostrar o form

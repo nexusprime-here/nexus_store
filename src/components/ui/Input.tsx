@@ -2,8 +2,8 @@
 
 import React from "react";
 import { FieldError } from "react-hook-form";
-import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
-import TouchableIcon from "@components/TouchableIcon";
+import { Popover, PopoverContent, PopoverTrigger } from "../dialogs/Popover";
+import TouchableIcon from "@components/interactions/TouchableIcon";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
 	format?: (...args: any) => any;
@@ -37,7 +37,7 @@ const Input = React.forwardRef<Ref, Props>(({ format, onChange, value, ...props 
 				className="border-[1px] data-[error=true]:border-solid data-[error=true]:border-red-500"
 				{...props}
 			/>
-			{!!props.error && <p className="text-red-500 text-xs">{props.error.message}</p>}
+			{!!props.error && <p className="text-xs text-red-500">{props.error.message}</p>}
 		</div>
 	);
 });

@@ -3,16 +3,14 @@
 import { Product } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { CommandDialog, CommandInput, CommandItem, CommandList } from "./ui/Command";
+import { CommandDialog, CommandInput, CommandItem, CommandList } from "../ui/Command";
 
 const cache: { [k: string]: Product[] } = {};
 let searchTimeout: NodeJS.Timeout | null = null;
 
 async function searchApiWithLocalCache(searchParams: string) {
 	const register = async () => {
-		const result = await fetch(`/api/search?${searchParams}`).then(
-			(r) => r.json() as Promise<Product[]>,
-		);
+		const result = await fetch(`/api/search?${searchParams}`).then((r) => r.json() as Promise<Product[]>);
 
 		Object.assign(cache, { [searchParams]: result });
 
@@ -22,13 +20,7 @@ async function searchApiWithLocalCache(searchParams: string) {
 	return cache[searchParams] ?? (await register());
 }
 
-function Search({
-	active,
-	onChange,
-}: {
-	active: boolean;
-	onChange: (open: boolean) => void;
-}) {
+function Search({ active, onChange }: { active: boolean; onChange: (open: boolean) => void }) {
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<Product[]>([]);
@@ -47,7 +39,7 @@ function Search({
 				const result = await searchApiWithLocalCache(params.toString());
 
 				setLoading(false);
-				console.log({result})
+				console.log({ result });
 
 				setResult(result);
 			} catch {}
@@ -68,24 +60,23 @@ function Search({
 
 	return (
 		<CommandDialog open={active} onOpenChange={onChange}>
-			<CommandInput placeholder="Digite um produto" onValueChange={(q) => setQuery(q)} value={query}/>
+			<CommandInput placeholder="Digite um produto" onValueChange={(q) => setQuery(q)} value={query} />
 			<CommandList>
-				{ loading
-					? 'Carregando'
+				{loading
+					? "Carregando"
 					: result.map((p, i) => (
-						<CommandItem key={i} className="flex">
-							<div className="relative h-16 w-16 m-2 mr-5">
-								<Image
-									src={`data:image/jpeg;base64,${p.icon}`}
-									alt={p.name}
-									fill
-									className="absolute left-0 top-0 h-auto w-full rounded object-cover"
-								/>
-							</div>
-							<h3 className="font-semibold">{p.name}</h3>
-						</CommandItem>
-					))
-				}				
+							<CommandItem key={i} className="flex">
+								<div className="relative m-2 mr-5 h-16 w-16">
+									<Image
+										src={`data:image/jpeg;base64,${p.icon}`}
+										alt={p.name}
+										fill
+										className="absolute left-0 top-0 h-auto w-full rounded object-cover"
+									/>
+								</div>
+								<h3 className="font-semibold">{p.name}</h3>
+							</CommandItem>
+					  ))}
 			</CommandList>
 		</CommandDialog>
 	);

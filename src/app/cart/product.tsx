@@ -1,7 +1,7 @@
 "use client";
 
 import type { Product as ProductLi } from "@prisma/client";
-import SwipeableView from "@components/SwipeableView";
+import SwipeableView from "@components/interactions/SwipeableView";
 import Link from "next/link";
 import SwipeableViews from "react-swipeable-views";
 import Image from "next/image";
@@ -26,10 +26,7 @@ function CartProducts() {
 		/>
 	));
 
-	const totalPrice = cart.reduce(
-		(sum, item) => sum + item.product.price * item.quantity,
-		0,
-	);
+	const totalPrice = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
 	const handleClick = () => {
 		router.push("/checkout");
@@ -43,12 +40,7 @@ function CartProducts() {
 			{cartProducts.length > 0 ? (
 				<>
 					<div className="mx-5 my-5 flex items-center justify-around">
-						<Button
-							onClick={handleClick}
-							placeholder="Finalizar Compra"
-							className="w-[50%]"
-							loading={loading}
-						/>
+						<Button onClick={handleClick} placeholder="Finalizar Compra" className="w-[50%]" loading={loading} />
 
 						<h3 className="text-center">Total: {formatter.brl(totalPrice)}</h3>
 					</div>
@@ -67,11 +59,7 @@ function CartProducts() {
 				<div className="mx-10 mt-5 flex flex-col justify-center text-center">
 					<p className="text-sm">Você ainda não adicionou nada ao carrinho</p>
 
-					<Button
-						className="mt-4 h-8 w-[40%] "
-						link="/"
-						placeholder="Voltar a Loja"
-					/>
+					<Button className="mt-4 h-8 w-[40%] " link="/" placeholder="Voltar a Loja" />
 				</div>
 			)}
 		</div>
@@ -84,12 +72,7 @@ interface Props {
 }
 function ProductLi({ value, onDelete }: Props) {
 	return (
-		<SwipeableView
-			className="box rounded-xl"
-			key={value.id}
-			onDelete={onDelete}
-			onEdit={() => console.log("onEdit")}
-		>
+		<SwipeableView className="box rounded-xl" key={value.id} onDelete={onDelete} onEdit={() => console.log("onEdit")}>
 			<Link
 				className="flex flex-row items-center justify-between space-x-2 p-2 pr-4"
 				prefetch={false}
