@@ -27,10 +27,10 @@ function Actions({ product }: { product: Product }) {
 	};
 
 	return (
-		<div className="flex w-full justify-around space-y-8 md:flex-col">
+		<div className="flex w-full justify-around sm:space-y-8 md:flex-col">
 			<div className="flex flex-row items-center">
 				<Button
-					className="text-white h-7 w-7 border-[1px] border-solid border-white bg-transparent"
+					className="h-7 w-7 border-[1px] border-solid border-white bg-transparent text-white"
 					onClick={() => setQuantity((n) => (n == 1 ? n : n - 1))}
 					placeholder="-"
 				/>
