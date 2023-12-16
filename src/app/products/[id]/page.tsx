@@ -34,7 +34,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 					<h1 className="font-semibold md:mb-5 md:text-5xl">{product.name}</h1>
 					<h2 className="ml-2 md:ml-0">{format.brl(product.price)}</h2>
 				</div>
-				<p className="mx-7 my-5 max-h-40 min-h-[5rem] overflow-hidden break-words font-light md:m-0 md:mb-8 md:text-lg">
+				<p className="mx-7 my-5 min-h-[5rem] overflow-hidden break-words font-light md:m-0 md:mb-8 md:text-lg">
 					{product.description}
 				</p>
 
