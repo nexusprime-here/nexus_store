@@ -3,7 +3,7 @@
 import type { Product } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "@components/utils/Skeleton";
+import { Skeleton } from "@components/structure/Skeleton";
 
 // TODO: Corrigir o erro abaixo. O erro provavelmente origina, por que o Link não deve conter childs
 // Warning: Expected server HTML to contain a matching <a> in <div>.
